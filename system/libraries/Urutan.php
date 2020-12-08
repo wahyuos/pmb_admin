@@ -36,7 +36,7 @@ class CI_Urutan
         // kode PMB
         $kode_pmb = 'PMB';
         // tahun ambil 2 angka dibelakang
-        $tahun_masuk = substr(date('Y'), -2);
+        $tahun_masuk = date('Y');
         // kode prodi
         $kode_prodi = $kode_prodi;
         // kode institusi
@@ -57,7 +57,7 @@ class CI_Urutan
         }
 
         // buat nomor daftar
-        $nomor_daftar = $kode_pmb . $tahun_masuk . $kode_prodi . $kode_institusi . $nomor_urut;
+        $nomor_daftar = $tahun_masuk . $kode_prodi . $kode_institusi . $nomor_urut;
 
         return $nomor_daftar;
     }
