@@ -22,10 +22,29 @@ class Pendaftar extends CI_Controller
 
         $data = [
             'title' => 'Data Pendaftar',
+            'detail' => '',
             'm_pendaftaran' => 'active',
             'dt_pendaftaran' => 'active',
         ];
         template('pendaftar/index', $data);
+    }
+
+    public function lihat()
+    {
+        // raw data
+        $data   = file_get_contents('php://input');
+        // jika ada raw data
+        if ($data) {
+            $endata  = json_decode($data);
+            // id yg akan dikirim
+            $id_akun = htmlspecialchars($endata->id_akun);
+            // kirim ke model 
+            $response = $this->daftar->read($id_akun);
+            // tampilkan hasil yang terima dari respon
+            echo json_encode($response);
+        } else {
+            $this->index();
+        }
     }
 
     public function tambah()
@@ -38,7 +57,7 @@ class Pendaftar extends CI_Controller
         $ref_masuk = $this->ref->get_ref_masuk();
 
         $data = [
-            'title'       => 'Biodata Pendaftar',
+            'title'       => 'Tambah Pendaftar',
             'agama'       => $agama,
             'pekerjaan'   => $pekerjaan,
             'prodi_reg'   => $prodi_reg,
@@ -56,11 +75,14 @@ class Pendaftar extends CI_Controller
         if ($id) {
             // get data pendaftar
             $detail = $this->daftar->read($id);
+            // persyaratan
+            $persyaratan = $this->ref->jnsPersyaratan();
             $data = [
-                'title'       => 'Biodata Pendaftar',
+                'title'       => 'Detail Pendaftar',
                 'detail_pd'   => $detail,
-                'm_pendaftaran' => 'active',
-                'dt_tambah' => 'active',
+                'persyaratan'    => $persyaratan,
+                'm_pendaftaran'  => 'active',
+                'dt_pendaftaran' => 'active',
             ];
             template('pendaftar/detail', $data);
         } else {
@@ -162,28 +184,10 @@ class Pendaftar extends CI_Controller
                             <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $status_diterima . '>
                             <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
                         </div>';
-                $row[] = $field->nm_pd;
+                $row[] = '<a role="button" onclick="lihat(`' . $field->id_akun . '`)">' . $field->nm_pd . '</a>';
                 $row[] = $field->no_daftar;
-                $row[] = $field->jk;
                 $row[] = $field->jenjang . ' ' . $field->nm_prodi;
-                $row[] = $field->sekolah;
                 $row[] = $this->date->tanggal($field->tgl_akun, 's');
-                $row[] = '<div class="dropdown">
-                        <a href="#" data-toggle="dropdown" data-display="static" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-                                <circle cx="12" cy="12" r="1"></circle>
-                                <circle cx="19" cy="12" r="1"></circle>
-                                <circle cx="5" cy="12" r="1"></circle>
-                            </svg>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="' . site_url('pendaftar/detail/') . $field->id_akun . '">Detail</a>
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-warning" href="#">Buang</a>
-                            <a class="dropdown-item text-danger" href="#">Hapus</a>
-                        </div>
-                    </div>';
 
                 $data[] = $row;
             }

@@ -16,6 +16,11 @@ class M_ref extends CI_Model
         return ($cek_data == 0) ? true : false;
     }
 
+    public function jnsPersyaratan()
+    {
+        return $this->db->order_by('id_jns_persyaratan', 'asc')->get('pmb_jns_persyaratan')->result();
+    }
+
     public function get_prodi($jns_prodi)
     {
         $this->db->select('a.id_prodi, b.jenjang, b.nm_prodi, a.kode_prodi, a.jenis_prodi')

@@ -361,8 +361,8 @@ class M_pendaftar extends CI_Model
     private function _get_datatables_query()
     {
         $table = "( SELECT * FROM v_data_pendaftar ) as new_tb";
-        $column_order = array('status_diterima', 'nm_pd', 'no_daftar', null, null, 'sekolah', 'tgl_akun', null);
-        $column_search = array('nm_pd', 'no_daftar', 'jenjang', 'nm_prodi', 'sekolah');
+        $column_order = array('status_diterima', 'nm_pd', 'no_daftar', null, 'tgl_akun');
+        $column_search = array('nm_pd', 'no_daftar', 'jenjang', 'nm_prodi');
         $orders = array('tgl_akun' => 'DESC');
 
         $this->db->from($table);
