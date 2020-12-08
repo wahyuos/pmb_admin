@@ -36,6 +36,12 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
+                <div class="d-none d-sm-inline-block ml-3">
+                    <div class="input-group input-group-navbar">
+                        <label class="h4 m-0"><?= $title ?></label>
+                    </div>
+                </div>
+
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
@@ -44,7 +50,7 @@
                             </a>
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                                <img src="<?= base_url("assets/img/avatar.jpg") ?>" class="avatar img-fluid rounded-circle mr-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span>
+                                <img src="<?= base_url("assets/img/logo.png") ?>" class="avatar img-fluid rounded-circle mr-1" alt="<?= $this->session->nama_user; ?>" /> <span class="text-dark"><?= $this->session->nama_user; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>
@@ -62,7 +68,7 @@
             <main class="content">
                 <div class="container-fluid p-0">
 
-                    <h1 class="h3 mb-3"><?= $title ?></h1>
+                    <!-- <h1 class="h3 mb-3"><?= $title ?></h1> -->
 
                     <?= $_content ?>
 
