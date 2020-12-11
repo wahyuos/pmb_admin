@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-md-12 col-xl-10">
+    <div class="col-md-12 col-xl-12">
         <div class="card">
             <div class="card-body">
                 <form id="f_tambah_pendaftar" autocomplete="off">
@@ -18,13 +18,13 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="nik">NIK (Nomor Induk Kependudukan) <span class="text-danger">*</span></label>
-                            <input type="text" onfocus="(this.type='number')" class="form-control" id="nik" name="nik" required>
+                            <input type="text" pattern="\d*" minlength="16" maxlength="16" class="form-control" id="nik" name="nik" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="tmpt_lahir">Tempat Lahir <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="tmpt_lahir" name="tmpt_lahir">
+                            <input type="text" class="form-control" id="tmpt_lahir" name="tmpt_lahir" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="tgl_lahir">Tanggal Lahir <span class="text-danger">*</span></label>
@@ -66,11 +66,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="no_hp_ortu">Nomor HP Orang Tua <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="no_hp_ortu" name="no_hp_ortu" placeholder="08xxxxxxxxxx" onfocus="(this.type='number')" required>
+                            <input type="text" pattern="\d*" minlength="8" maxlength="13" class="form-control" id="no_hp_ortu" name="no_hp_ortu" placeholder="08xxxxxxxxxx" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="no_hp">Nomor HP Peserta <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="08xxxxxxxxxx" onfocus="(this.type='number')" required>
+                            <input type="text" pattern="\d*" minlength="8" maxlength="13" class="form-control" id="no_hp" name="no_hp" placeholder="08xxxxxxxxxx" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email Peserta</label>
@@ -125,19 +125,19 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="nm_prov">Propinsi</label>
+                            <label for="nm_prov">Propinsi <span class="text-danger">*</span></label>
                             <input type="hidden" name="id_prov" id="id_prov">
                             <input type="text" name="nm_prov" id="nm_prov" class="form-control" placeholder="Cari nama provinsi" required>
-                            <div id="list_provinsi" style="position: absolute;z-index:1000;width:100%"></div>
+                            <div id="list_provinsi" style="position: absolute;z-index:1000"></div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="nm_kab">Kabupaten/Kota</label>
+                            <label for="nm_kab">Kabupaten/Kota <span class="text-danger">*</span></label>
                             <input type="hidden" name="id_kab" id="id_kab">
                             <input type="text" name="nm_kab" id="nm_kab" class="form-control" placeholder="Cari nama kabupaten/kota" required>
                             <div id="list_kabupaten" style="position: absolute;z-index:1000"></div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="nm_wil">Kecamatan</label>
+                            <label for="nm_wil">Kecamatan <span class="text-danger">*</span></label>
                             <input type="hidden" name="id_wil" id="id_wil">
                             <input type="text" name="nm_wil" id="nm_wil" class="form-control" placeholder="Cari nama kecamatan" required>
                             <div id="list_kecamatan" style="position: absolute;z-index:1000"></div>
@@ -145,29 +145,29 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="desa">Desa/Kelurahan</label>
+                            <label for="desa">Desa/Kelurahan <span class="text-danger">*</span></label>
                             <input type="text" name="ds_kel" id="desa" class="form-control" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="dusun">Dusun/Kampung</label>
+                            <label for="dusun">Dusun/Kampung <span class="text-danger">*</span></label>
                             <input type="text" name="nm_dsn" id="dusun" class="form-control" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="kode_pos">Kode POS</label>
-                            <input type="text" onfocus="(this.type='number')" name="kode_pos" id="kode_pos" class="form-control" required>
+                            <label for="kode_pos">Kode POS <span class="text-danger">*</span></label>
+                            <input type="text" pattern="\d*" minlength="5" maxlength="5" name="kode_pos" id="kode_pos" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <div class="form-group">
-                                <label for="rt">RT</label>
-                                <input type="text" onfocus="(this.type='number')" name="rt" id="rt" class="form-control" required>
+                                <label for="rt">RT <span class="text-danger">*</span></label>
+                                <input type="text" pattern="\d*" name="rt" id="rt" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group col-md-2">
                             <div class="form-group">
-                                <label for="rw">RW</label>
-                                <input type="text" onfocus="(this.type='number')" name="rw" id="rw" class="form-control" required>
+                                <label for="rw">RW <span class="text-danger">*</span></label>
+                                <input type="text" pattern="\d*" name="rw" id="rw" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group col-md-8">
@@ -225,11 +225,11 @@
                             <label for="">Pilih Jenis Kelas <span class="text-danger">*</span></label>
                             <div class="custom-controls-stacked">
                                 <label class="custom-control custom-radio">
-                                    <input name="custom-radio-3" type="radio" class="custom-control-input" onclick="prodiReg()">
+                                    <input name="custom-radio-3" type="radio" class="custom-control-input" onclick="prodiReg()" required>
                                     <span class="custom-control-label">Kelas Regular</span>
                                 </label>
                                 <label class="custom-control custom-radio">
-                                    <input name="custom-radio-3" type="radio" class="custom-control-input" onclick="prodiKar()">
+                                    <input name="custom-radio-3" type="radio" class="custom-control-input" onclick="prodiKar()" required>
                                     <span class="custom-control-label">Kelas Karyawan</span>
                                 </label>
                             </div>
@@ -242,7 +242,7 @@
                                         <?php if ($prodi_reg) :
                                             foreach ($prodi_reg as $list) : ?>
                                                 <label class="custom-control custom-radio">
-                                                    <input type="radio" name="id_prodi" value="<?= $list->id_prodi ?>" class="custom-control-input">
+                                                    <input type="radio" name="id_prodi" value="<?= $list->id_prodi ?>" class="custom-control-input" required>
                                                     <span class="custom-control-label"><?= $list->jenjang . ' ' . $list->nm_prodi ?></span>
                                                 </label>
                                         <?php endforeach;
@@ -258,7 +258,7 @@
                                         <?php if ($prodi_kar) :
                                             foreach ($prodi_kar as $list) : ?>
                                                 <label class="custom-control custom-radio">
-                                                    <input type="radio" name="id_prodi" value="<?= $list->id_prodi ?>" class="custom-control-input">
+                                                    <input type="radio" name="id_prodi" value="<?= $list->id_prodi ?>" class="custom-control-input" required>
                                                     <span class="custom-control-label"><?= $list->jenjang . ' ' . $list->nm_prodi ?></span>
                                                 </label>
                                         <?php endforeach;
