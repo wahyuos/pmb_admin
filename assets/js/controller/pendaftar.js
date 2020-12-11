@@ -1,27 +1,5 @@
-// fungsi untuk notifikasi
-function notif(pesan, tipe) {
-    const message = pesan;
-    const type = tipe;
-    const duration = 3000;
-    const ripple = true;
-    const dismissible = true;
-    const positionX = 'center';
-    const positionY = 'top';
-    window.notyf.open({
-        type,
-        message,
-        duration,
-        ripple,
-        dismissible,
-        position: {
-            x: positionX,
-            y: positionY
-        }
-    });
-}
-
 // Datatables
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     $("#dt-pendaftar").DataTable({
         responsive: true,
         processing: true,
@@ -32,13 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
             type: "POST",
         },
         columnDefs: [{
-                targets: [3],
-                orderable: false,
-            },
-            {
-                targets: [0],
-                className: "text-center",
-            },
+            targets: [],
+            orderable: false,
+        },
+        {
+            targets: [0],
+            className: "text-center",
+        },
         ],
         // scrollY: 280,
         scrollCollapse: true,
@@ -93,14 +71,14 @@ async function status_diterima(id) {
     }
 }
 
-// simpan biodata
-const myForm = document.getElementById('f_tambah_pendaftar');
+// simpan pendaftaran
+const f_tambah_pendaftar = document.getElementById('f_tambah_pendaftar');
 // cek apakah form ada?
-if(myForm){
+if (f_tambah_pendaftar) {
     // lakukan proses simpan saat submit
-    myForm.addEventListener('submit', function(event) {
+    f_tambah_pendaftar.addEventListener('submit', function (event) {
         event.preventDefault();
-        const value = new FormData(myForm);
+        const value = new FormData(f_tambah_pendaftar);
         sendData(value);
     });
 
@@ -119,7 +97,7 @@ if(myForm){
             // jika status true
             if (json.status) {
                 // reset form
-                myForm.reset();
+                f_tambah_pendaftar.reset();
                 // tampil notif
                 notif(json.message, json.type);
                 // aktifkan tombol
@@ -145,20 +123,116 @@ if(myForm){
             btnSubmit.innerHTML = "SIMPAN";
         }
     }
+}
 
-    /**
-     * ===================================================================================
-     * FUNGSI UNTUK MENCARI DAN MENAMPILKAN PROPINSI
-     * ===================================================================================
-     */
-    const list_prov = document.getElementById('list_provinsi');
-    const id_prov = document.getElementById('id_prov');
-    const nm_prov = document.getElementById('nm_prov');
+// fungsi untuk melihat data peserta dari baris tabel
+async function lihat(id) {
+    let data = {
+        'id_akun': id
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    try {
+        const response = await fetch(site_url + 'pendaftar/lihat', options);
+        const json = await response.json();
+        // console.log(json);
+        // tampilkan card
+        document.getElementById('card').style.display = 'inline';
+        // tampilkan atribut peserta
+        document.getElementById('nm_pd').textContent = json.nm_pd;
+        document.getElementById('sekolah_asal').textContent = json.sekolah;
+        document.getElementById('no_hp').textContent = json.no_hp;
+        document.getElementById('no_hp_ortu').textContent = json.no_hp_ortu;
+        // status diterima
+        if (json.status_diterima == '1') {
+            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-success">Diterima</span>';
+        } else {
+            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-secondary">Pending</span>';
+        }
+        // link untuk detail
+        document.getElementById('btn_detail').href = site_url + 'pendaftar/detail/' + json.id_pd;
+        // link untuk edit
+        document.getElementById('btn_edit').href = site_url + 'pendaftar/edit/' + json.id_pd;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// aksi form edit pendaftar
+const f_edit = document.getElementById('f_edit');
+// cek apakah form ada?
+if (f_edit) {
+    // lakukan proses simpan saat submit
+    f_edit.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const value = new FormData(f_edit);
+        sendData(value);
+    });
+
+    async function sendData(value) {
+        const id_akun = document.getElementById('id_akun').value;
+        const method = document.getElementById('method').value;
+        const btnSubmit = document.getElementById('submit');
+        const options = {
+            method: 'POST',
+            body: value
+        };
+        try {
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = "menyimpan...";
+            const response = await fetch(site_url + 'pendaftar/' + method + '/' + id_akun, options);
+            const json = await response.json();
+            // console.log(json);
+            // jika status true
+            if (json.status) {
+                // tampil notif
+                notif(json.message, json.type);
+                // text button
+                btnSubmit.textContent = "sedang mengalihkan...";
+                // reload
+                setTimeout(function () {
+                    location.href = site_url + 'pendaftar/detail/' + id_akun;
+                }, 1000);
+            } else {
+                // tampil notif
+                notif(json.message, json.type);
+                // aktifkan tombol
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = "SIMPAN";
+            }
+        } catch (error) {
+            console.log(error);
+            // tampil notif
+            notif(error, 'error');
+            // aktifkan tombol
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = "SIMPAN";
+        }
+    }
+}
+
+
+/**
+ * ===================================================================================
+ * FUNGSI UNTUK MENCARI DAN MENAMPILKAN PROPINSI
+ * ===================================================================================
+ */
+const list_prov = document.getElementById('list_provinsi');
+const id_prov = document.getElementById('id_prov');
+const nm_prov = document.getElementById('nm_prov');
+// cek apakah ada inputan provinsi
+if (list_prov) {
     // disable input kab/kota
     document.getElementById('nm_kab').disabled = true;
     document.getElementById('nm_wil').disabled = true;
     // proses mencari data provinsi pada saat mulai mengetik
-    nm_prov.onkeyup = function() {
+    nm_prov.onkeyup = function () {
         // data yang akan dikirim dalam bentuk json
         const keyword = {
             'keyword': nm_prov.value,
@@ -167,12 +241,12 @@ if(myForm){
         }
         // proses mengirim data dengan POST
         fetch(site_url + 'pendaftar/cek_wilayah', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(keyword)
-            })
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(keyword)
+        })
             // ambil respon dalam bentuk json
             .then(res => res.text())
             // simpan data dalam variabel teks
@@ -208,17 +282,20 @@ if(myForm){
         document.getElementById('nm_kab').disabled = false;
         document.getElementById('nm_kab').focus();
     }
+}
 
-    /**
-     * ===================================================================================
-     * FUNGSI UNTUK MENCARI DAN MENAMPILKAN KABUPATEN ATAU KOTA
-     * ===================================================================================
-     */
-    const list_kab_kota = document.getElementById('list_kabupaten');
-    const id_kab_kota = document.getElementById('id_kab');
-    const nm_kab_kota = document.getElementById('nm_kab');
+/**
+ * ===================================================================================
+ * FUNGSI UNTUK MENCARI DAN MENAMPILKAN KABUPATEN ATAU KOTA
+ * ===================================================================================
+ */
+const list_kab_kota = document.getElementById('list_kabupaten');
+const id_kab_kota = document.getElementById('id_kab');
+const nm_kab_kota = document.getElementById('nm_kab');
+// cek apakah ada inputan kabupaten
+if (list_kab_kota) {
     // proses mencari data kabupaten/kota pada saat mulai mengetik
-    nm_kab_kota.onkeyup = function() {
+    nm_kab_kota.onkeyup = function () {
         // data yang akan dikirim dalam bentuk json
         const keyword = {
             'keyword': nm_kab_kota.value,
@@ -227,12 +304,12 @@ if(myForm){
         }
         // proses mengirim data dengan POST
         fetch(site_url + 'pendaftar/cek_wilayah', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(keyword)
-            })
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(keyword)
+        })
             // ambil respon dalam bentuk json
             .then(res => res.text())
             // simpan data dalam variabel teks
@@ -268,17 +345,20 @@ if(myForm){
         document.getElementById('nm_wil').disabled = false;
         document.getElementById('nm_wil').focus();
     }
+}
 
-    /**
-     * ===================================================================================
-     * FUNGSI UNTUK MENCARI DAN MENAMPILKAN KECAMATAN
-     * ===================================================================================
-     */
-    const list_kec = document.getElementById('list_kecamatan');
-    const id_kec = document.getElementById('id_wil');
-    const nm_kec = document.getElementById('nm_wil');
+/**
+ * ===================================================================================
+ * FUNGSI UNTUK MENCARI DAN MENAMPILKAN KECAMATAN
+ * ===================================================================================
+ */
+const list_kec = document.getElementById('list_kecamatan');
+const id_kec = document.getElementById('id_wil');
+const nm_kec = document.getElementById('nm_wil');
+// cek apakah ada inputan kecamatan
+if (list_kec) {
     // proses mencari data kecamatan pada saat mulai mengetik
-    nm_kec.onkeyup = function() {
+    nm_kec.onkeyup = function () {
         // data yang akan dikirim dalam bentuk json
         const keyword = {
             'keyword': nm_kec.value,
@@ -287,12 +367,12 @@ if(myForm){
         }
         // proses mengirim data dengan POST
         fetch(site_url + 'pendaftar/cek_wilayah', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(keyword)
-            })
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(keyword)
+        })
             // ambil respon dalam bentuk json
             .then(res => res.text())
             // simpan data dalam variabel teks
@@ -326,40 +406,24 @@ if(myForm){
     }
 }
 
-// fungsi untuk melihat data peserta dari baris tabel
-async function lihat(id) {
-    let data = {
-        'id_akun': id
-    };
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
-    try {
-        const response = await fetch(site_url + 'pendaftar/lihat', options);
-        const json = await response.json();
-        // console.log(json);
-        // tampilkan card
-        document.getElementById('card').style.display = 'inline';
-        // tampilkan atribut peserta
-        document.getElementById('nm_pd').textContent = json.nm_pd;
-        document.getElementById('sekolah_asal').textContent = json.sekolah;
-        document.getElementById('no_hp').textContent = json.no_hp;
-        document.getElementById('no_hp_ortu').textContent = json.no_hp_ortu;
-        // status diterima
-        if(json.status_diterima == '1'){
-            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-success">Diterima</span>';
-        }else{
-            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-secondary">Pending</span>';
+// fungsi untuk notifikasi
+function notif(pesan, tipe) {
+    const message = pesan;
+    const type = tipe;
+    const duration = 3000;
+    const ripple = true;
+    const dismissible = true;
+    const positionX = 'center';
+    const positionY = 'top';
+    window.notyf.open({
+        type,
+        message,
+        duration,
+        ripple,
+        dismissible,
+        position: {
+            x: positionX,
+            y: positionY
         }
-        // link untuk detail
-        document.getElementById('btn_detail').href = site_url + 'pendaftar/detail/' + json.id_pd;
-
-    } catch (error) {
-        console.log(error);
-    }
+    });
 }
-

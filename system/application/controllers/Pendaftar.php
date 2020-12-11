@@ -17,18 +17,18 @@ class Pendaftar extends CI_Controller
         $this->load->library('urutan');
     }
 
+    // halaman index, menampilkan datatabel
     public function index()
     {
-
         $data = [
             'title' => 'Data Pendaftar',
-            'detail' => '',
             'm_pendaftaran' => 'active',
             'dt_pendaftaran' => 'active',
         ];
         template('pendaftar/index', $data);
     }
 
+    // menampilkan data peserta saat klik nama peserta pada tabel
     public function lihat()
     {
         // raw data
@@ -47,6 +47,7 @@ class Pendaftar extends CI_Controller
         }
     }
 
+    // halaman form tambah pendaftaran
     public function tambah()
     {
         // data yang perlu disiapkan
@@ -69,6 +70,7 @@ class Pendaftar extends CI_Controller
         template('pendaftar/tambah', $data);
     }
 
+    // halaman detail lengkap pendaftar
     public function detail($id = null)
     {
         // cek id
@@ -86,10 +88,11 @@ class Pendaftar extends CI_Controller
             ];
             template('pendaftar/detail', $data);
         } else {
-            $this->tambah();
+            $this->index();
         }
     }
 
+    // proses menyimpan data dari form pendaftaran
     public function simpan_pendaftaran()
     {
         $post = $this->input->post(null, true);
@@ -151,6 +154,261 @@ class Pendaftar extends CI_Controller
         }
     }
 
+    // halaman form edit biodata
+    public function edit_biodata($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update biodata
+            if ($post) {
+                // set value untuk biodata
+                $value = [
+                    'id_akun'    => htmlspecialchars($post['id_akun']),
+                    'nm_pd'      => htmlspecialchars($post['nm_pd']),
+                    'nik'        => htmlspecialchars($post['nik']),
+                    'tmpt_lahir' => htmlspecialchars($post['tmpt_lahir']),
+                    'tgl_lahir'  => htmlspecialchars($post['tgl_lahir']),
+                    'id_agama'   => htmlspecialchars($post['id_agama']),
+                    'jk'         => htmlspecialchars($post['jk'])
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_biodata($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data biodata
+                $biodata = $this->daftar->get_biodata($id);
+                // data yang perlu disiapkan
+                $agama = $this->ref->get_agama();
+
+                $data = [
+                    'title'     => 'Edit Biodata',
+                    'agama'     => $agama,
+                    'biodata'   => $biodata,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_biodata', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // halaman form edit kontak
+    public function edit_kontak($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update kontak
+            if ($post) {
+                // set value untuk kontak
+                $value = [
+                    'id_akun'    => htmlspecialchars($post['id_akun']),
+                    'no_hp'      => htmlspecialchars($post['no_hp']),
+                    'no_hp_ortu' => htmlspecialchars($post['no_hp_ortu']),
+                    'email'      => htmlspecialchars($post['email']),
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_kontak($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data kontak
+                $kontak = $this->daftar->get_kontak($id);
+
+                $data = [
+                    'title'  => 'Edit Kontak',
+                    'kontak' => $kontak,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_kontak', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // halaman form edit alamat
+    public function edit_alamat($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update alamat
+            if ($post) {
+                // set value untuk alamat
+                $value = [
+                    'id_akun'  => htmlspecialchars($post['id_akun']),
+                    'jln'      => htmlspecialchars($post['jln']),
+                    'rt'       => htmlspecialchars($post['rt']),
+                    'rw'       => htmlspecialchars($post['rw']),
+                    'nm_dsn'   => htmlspecialchars($post['nm_dsn']),
+                    'ds_kel'   => htmlspecialchars($post['ds_kel']),
+                    'kode_pos' => htmlspecialchars($post['kode_pos']),
+                    'id_prov'  => htmlspecialchars($post['id_prov']),
+                    'id_kab'   => htmlspecialchars($post['id_kab']),
+                    'id_wil'   => htmlspecialchars($post['id_wil']),
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_alamat($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data alamat
+                $alamat = $this->daftar->get_alamat($id);
+
+                $data = [
+                    'title'  => 'Edit alamat',
+                    'alamat' => $alamat,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_alamat', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // halaman form edit ortu
+    public function edit_ortu($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update ortu
+            if ($post) {
+                // set value untuk ortu
+                $value = [
+                    'id_akun'  => htmlspecialchars($post['id_akun']),
+                    'nm_ayah'  => htmlspecialchars($post['nm_ayah']),
+                    'id_pekerjaan_ayah' => htmlspecialchars($post['id_pekerjaan_ayah']),
+                    'nm_ibu'     => htmlspecialchars($post['nm_ibu']),
+                    'id_pekerjaan_ibu' => htmlspecialchars($post['id_pekerjaan_ibu']),
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_ortu($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data ortu
+                $ortu = $this->daftar->get_ortu($id);
+                // data yang dibutuhkan
+                $pekerjaan = $this->ref->get_pekerjaan();
+
+                $data = [
+                    'title'  => 'Edit Orang Tua',
+                    'ortu' => $ortu,
+                    'pekerjaan' => $pekerjaan,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_ortu', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // halaman form edit sekolah asal
+    public function edit_sekolah_asal($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update sekolah asal
+            if ($post) {
+                // set value untuk sekolah asal
+                $value = [
+                    'id_akun' => htmlspecialchars($post['id_akun']),
+                    'jenjang' => htmlspecialchars($post['jenjang']),
+                    'sekolah' => htmlspecialchars($post['sekolah']),
+                    'alamat_sekolah' => htmlspecialchars($post['alamat_sekolah']),
+                    'id_ref_masuk'   => htmlspecialchars($post['id_ref_masuk'])
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_sekolah_asal($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data sekolah asal
+                $sekolah_asal = $this->daftar->get_sekolah_asal($id);
+                // data yang dibutuhkan
+                $ref_masuk = $this->ref->get_ref_masuk();
+
+                $data = [
+                    'title'  => 'Edit Sekolah Asal',
+                    'sekolah_asal' => $sekolah_asal,
+                    'ref_masuk' => $ref_masuk,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_sekolah_asal', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // halaman form edit prodi
+    public function edit_prodi($id = null)
+    {
+        // cek id
+        if ($id) {
+            // cek post dari form
+            $post = $this->input->post(null, true);
+            // jika ada post dari form, lakukan proses update prodi
+            if ($post) {
+                // set value untuk prodi
+                $value = [
+                    'id_akun'  => htmlspecialchars($post['id_akun']),
+                    'id_prodi' => htmlspecialchars($post['id_prodi']),
+                ];
+                // kirim ke model
+                $response = $this->daftar->edit_prodi($value);
+                echo json_encode($response);
+            }
+            // jika tidak ada post dari form tampilkan form edit
+            else {
+                // get data prodi
+                $prodi = $this->daftar->get_prodi($id);
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
+                // data yang dibutuhkan
+                $prodi_reg   = $this->ref->get_prodi('Reguler');
+                $prodi_kar   = $this->ref->get_prodi('Karyawan');
+
+                $data = [
+                    'title'  => 'Edit Program Studi',
+                    'prodi' => $prodi,
+                    'prodi_reg' => $prodi_reg,
+                    'prodi_kar' => $prodi_kar,
+                    'detail_pd' => $detail,
+                    'm_pendaftaran' => 'active',
+                    'dt_tambah' => 'active',
+                ];
+                template('pendaftar/edit_prodi', $data);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    // tombol switch untuk merubah status pendaftaran (diterima)
     public function status_diterima()
     {
         // raw data
@@ -169,10 +427,12 @@ class Pendaftar extends CI_Controller
         }
     }
 
+    // method untuk menampilkan semua data pendaftar ke dalam datatable
     public function get_data()
     {
         $post = $this->input->post(null, true);
         if ($post) {
+            // ambil data dari model
             $list = $this->daftar->get_datatables();
             $data = array();
             $no   = $post['start'];
@@ -186,7 +446,7 @@ class Pendaftar extends CI_Controller
                         </div>';
                 $row[] = '<a role="button" onclick="lihat(`' . $field->id_akun . '`)">' . $field->nm_pd . '</a>';
                 $row[] = $field->no_daftar;
-                $row[] = $field->jenjang . ' ' . $field->nm_prodi;
+                $row[] = $field->nama_prodi;
                 $row[] = $this->date->tanggal($field->tgl_akun, 's');
 
                 $data[] = $row;
