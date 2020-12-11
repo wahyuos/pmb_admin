@@ -12,17 +12,17 @@
                     // jika foto ada
                     if ($pas_foto) :
                     ?>
-                        <img src="data:<?= $pas_foto->type_doc ?>;base64,<?= $pas_foto->blob_doc ?>" alt="<?= $detail_pd->nm_pd ?>l" class="img-fluid rounded-circle mb-5" width="128" height="128" />
+                        <img src="data:<?= $pas_foto->type_doc ?>;base64,<?= $pas_foto->blob_doc ?>" alt="<?= $detail_pd->nm_pd ?>l" class="mx-auto rounded-circle d-block mb-4" style="object-fit: cover;" width="128" height="128" />
                     <?php else : ?>
                         <img src="<?= site_url('assets/img/logo.png') ?>" alt="<?= $detail_pd->nm_pd ?>" class="img-fluid rounded-circle mb-5" width="128" height="128" />
                     <?php endif; ?>
 
                     <h5 class="card-title mb-0"><?= $detail_pd->nm_pd ?></h5>
                     <div class="text-muted mb-2"><?= $detail_pd->no_daftar ?></div>
-                    <div class="text-muted mb-2"><?= $detail_pd->jenjang . ' ' . $detail_pd->nm_prodi ?></div>
-                    <div>
-                        <a class="btn btn-primary btn-sm" href="#">Edit</a>
-                    </div>
+                    <div class="text-muted mb-2"><?= $detail_pd->jenjang_prodi . ' ' . $detail_pd->nm_prodi ?></div>
+                    <!-- <div>
+                        <a class="btn btn-primary btn-sm" href="<?= site_url('pendaftar/edit/') . $detail_pd->id_pd ?>">Edit</a>
+                    </div> -->
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
@@ -41,18 +41,39 @@
                                 </li>
                         <?php endforeach;
                         endif; ?>
-                        <hr class="m-1">
                     </ul>
                 </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <a href="#" id="btn_hapus" class="text-danger" data-toggle="modal" data-target="#modal_hapus">Hapus Pendaftar</a>
+                </div>
             </div>
+            <!-- BEGIN modal -->
+            <div class="modal fade" data-backdrop="static" id="modal_hapus" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center m-3">
+                            <h5 class="mb-5">Anda yakin data <span class="text-danger"><?= $detail_pd->nm_pd ?></span> akan dihapus?</h5>
+                            <button type="button" onclick="hapus(`<?= $detail_pd->id_pd ?>`)" class="btn btn-danger" data-dismiss="modal">Ya, hapus</button>
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END modal -->
         </div>
 
         <div class="col-md-7 col-xl-8">
             <div class="card">
                 <div class="card-body h-100">
                     <!-- Biodata -->
-                    <div class="mb-2 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Biodata</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_biodata/' . $detail_pd->id_pd) ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Nama Lengkap</label>
@@ -84,15 +105,24 @@
                             <p class="text-dark m-0"><?= ($detail_pd->jk == 'L') ? 'Laki-laki' : 'Perempuan' ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body h-100">
                     <!-- Kontak -->
-                    <div class="mb-2 mt-4 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Kontak</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_kontak/' . $detail_pd->id_pd)  ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
-                        <label class="col-form-label col-sm-4">Alamat email pendaftar</label>
+                        <label class="col-form-label col-sm-4">Nomor telepon orang tua</label>
                         <div class="col-sm-8 col-form-label">
-                            <p class="text-dark m-0"><?= ($detail_pd->email) ? $detail_pd->email : 'Tidak diisi' ?></p>
+                            <p class="text-dark m-0"><?= $detail_pd->no_hp_ortu ?></p>
                         </div>
                     </div>
                     <div class="form-group row mb-0">
@@ -102,15 +132,24 @@
                         </div>
                     </div>
                     <div class="form-group row mb-0">
-                        <label class="col-form-label col-sm-4">Nomor telp orang tua</label>
+                        <label class="col-form-label col-sm-4">Alamat email pendaftar</label>
                         <div class="col-sm-8 col-form-label">
-                            <p class="text-dark m-0"><?= $detail_pd->no_hp_ortu ?></p>
+                            <p class="text-dark m-0"><?= ($detail_pd->email) ? $detail_pd->email : 'Tidak diisi' ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body h-100">
                     <!-- Alamat -->
-                    <div class="mb-2 mt-4 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Alamat</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_alamat/' . $detail_pd->id_pd)  ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Jalan</label>
@@ -138,10 +177,19 @@
                             <p class="text-dark m-0"><?= $detail_pd->kode_pos ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body h-100">
                     <!-- Orang Tua -->
-                    <div class="mb-2 mt-4 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Orang Tua</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_ortu/' . $detail_pd->id_pd)  ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <?php
                     // ambil pekerjaan ibu
@@ -173,10 +221,19 @@
                             <p class="text-dark m-0"><?= $pekerjaan_ayah->nm_pekerjaan ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body h-100">
                     <!-- Sekolah Asal -->
-                    <div class="mb-2 mt-4 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Sekolah / Kampus Asal</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_sekolah_asal/' . $detail_pd->id_pd)  ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Nama Sekolah / Kampus</label>
@@ -196,15 +253,24 @@
                             <p class="text-dark m-0"><?= $detail_pd->jenis_masuk ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body h-100">
                     <!-- Prodi Pilihan -->
-                    <div class="mb-2 mt-4 border-bottom">
+                    <div class="mb-2 border-bottom d-flex justify-content-between">
                         <h5 class="card-title mb-3">Program Studi Pilihan</h5>
+                        <div>
+                            <a class="small float-right" href="<?= site_url('pendaftar/edit_prodi/' . $detail_pd->id_pd)  ?>">
+                                <span data-feather="edit-2" class="feather-sm"></span> Edit
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Jenjang</label>
                         <div class="col-sm-8 col-form-label">
-                            <p class="text-dark m-0"><?= $detail_pd->jenjang ?></p>
+                            <p class="text-dark m-0"><?= $detail_pd->jenjang_prodi ?></p>
                         </div>
                     </div>
                     <div class="form-group row mb-0">
@@ -219,6 +285,23 @@
                             <p class="text-dark m-0"><?= $detail_pd->jenis_prodi ?></p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <div class="container d-flex flex-column">
+        <div class="row h-100">
+            <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                <div class="d-table-cell align-middle">
+
+                    <div class="text-center">
+                        <h1 class="display-1 font-weight-bold">404</h1>
+                        <p class="h1">Page not found.</p>
+                        <p class="h2 font-weight-normal mt-3 mb-4">Halaman yang kamu cari tidak ada disini.</p>
+                        <a href="<?= site_url('pendaftar') ?>" class="btn btn-primary btn-lg">Kembali</a>
+                    </div>
+
                 </div>
             </div>
         </div>
