@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="dt-pendaftar" class="table table-hover table-sm" style="width:100%">
+                <table id="dt-pendaftar" class="table table-hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -82,7 +82,7 @@
 
                 <div class="btn-group mb-3 btn-block" role="group" aria-label="Default button group">
                     <a role="button" href="#" id="btn_detail" class="btn btn-primary">Detail</a>
-                    <a type="button" class="btn btn-primary">Edit</a>
+                    <a type="button" href="#" id="btn_hapus" class="btn btn-danger">Hapus</a>
                 </div>
             </div>
         </div>
