@@ -104,7 +104,7 @@ class Pendaftar extends CI_Controller
                 'password_akun' => htmlspecialchars($post['no_hp']),
                 'hp_akun'       => htmlspecialchars($post['no_hp']),
                 'tgl_akun'      => date("Y-m-d H:i:s"),
-                'thn_akademik'  => $this->ref->tahun_akademik_aktif()->tahun_akademik,
+                'tahun_akademik' => $this->ref->tahun_akademik_aktif()->tahun_akademik,
 
                 // set value untuk biodata
                 'nm_pd'      => htmlspecialchars($post['nm_pd']),
@@ -148,6 +148,26 @@ class Pendaftar extends CI_Controller
             ];
 
             $response = $this->daftar->create($value);
+            echo json_encode($response);
+        } else {
+            $this->index();
+        }
+    }
+
+    public function hapus_pendaftaran()
+    {
+        // raw data
+        $data   = file_get_contents('php://input');
+        // jika ada raw data
+        // lakukan proses pengecekan
+        if ($data) {
+            // encode data
+            $post  = json_decode($data);
+            $value = [
+                'id_akun' => htmlspecialchars($post->id_akun)
+            ];
+            // kirim ke model simpan
+            $response = $this->daftar->delete($value);
             echo json_encode($response);
         } else {
             $this->index();
@@ -437,17 +457,27 @@ class Pendaftar extends CI_Controller
             $data = array();
             $no   = $post['start'];
             foreach ($list as $field) {
-                $status_diterima = ($field->status_diterima == '1') ? 'checked' : '';
+                $switch_checked = ($field->status_diterima == '1') ? 'checked' : '';
+                $status_diterima = ($field->status_diterima == '1') ? '<span class="badge badge-success">Diterima</span>' : '<span class="badge badge-secondary">Pending</span>';
                 $no++;
                 $row = array();
-                $row[] = '<div class="custom-control custom-switch">
-                            <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $status_diterima . '>
-                            <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
-                        </div>';
+                $row[] = '<a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger" title="HAPUS"><i class="fas fa-times"></i></a>' . modal_danger($field->id_akun, $field->nm_pd);
                 $row[] = '<a role="button" onclick="lihat(`' . $field->id_akun . '`)">' . $field->nm_pd . '</a>';
                 $row[] = $field->no_daftar;
                 $row[] = $field->nama_prodi;
                 $row[] = $this->date->tanggal($field->tgl_akun, 's');
+
+                // cek level pengguna
+                if ($this->session->level == 'guru') {
+                    // jika level guru, hanya melihat status diterima
+                    $row[] = $status_diterima;
+                } else {
+                    // jika level admin, maka tampilkan tombol switch
+                    $row[] = '<div class="custom-control custom-switch" title="STATUS">
+                            <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
+                            <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
+                        </div>';
+                }
 
                 $data[] = $row;
             }

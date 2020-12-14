@@ -9,6 +9,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_pendaftar extends CI_Model
 {
 
+    // ambil data lengkap si pendaftar dari view pada database berdasarkan ID
+    public function read($id = null)
+    {
+        return $this->db->get_where('v_data_pd', ['id_pd' => $id])->row();
+    }
+
     // proses menyimpan data pendaftar
     public function create($data)
     {
@@ -19,7 +25,8 @@ class M_pendaftar extends CI_Model
             'password_akun'  => set_password($data['password_akun']),
             'hp_akun'        => $data['hp_akun'],
             'tgl_akun'       => $data['tgl_akun'],
-            'tahun_akademik' => $data['thn_akademik'],
+            'tahun_akademik' => $data['tahun_akademik'],
+            'id_user'        => $this->session->id_user,
             'soft_del'       => 0
         ];
 
@@ -274,11 +281,43 @@ class M_pendaftar extends CI_Model
         return $response;
     }
 
-    // ambil data lengkap si pendaftar dari view pada database berdasarkan ID
-    public function read($id = null)
+    // hapus data pendaftar
+    public function delete($id)
     {
-        return $this->db->get_where('v_data_pd', ['id_pd' => $id])->row();
+        // jika ada id nya
+        if ($id) {
+            // hapus data dengan cara soft delete ubah ke 1
+            $hapus = $this->db->update('pmb_akunmaba', ['soft_del' => '1'], ['id_akun' => $id['id_akun']]);
+            if ($hapus) {
+                // buat respon berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Data berhasil dihapus',
+                    'title'   => 'Berhasil',
+                    'type'    => 'success'
+                ];
+            } else {
+                // buat respon gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Data gagal dihapus',
+                    'title'   => 'Gagal',
+                    'type'    => 'error'
+                ];
+            }
+        } else {
+            // buat respon gagal
+            $response = [
+                'status'  => false,
+                'message' => 'Tidak ditemukan ID dari data yang akan dihapus',
+                'title'   => 'Gagal',
+                'type'    => 'error'
+            ];
+        }
+
+        return $response;
     }
+
 
     /**
      * ============================================================
@@ -657,8 +696,14 @@ class M_pendaftar extends CI_Model
      */
     private function _get_datatables_query()
     {
-        $table = "( SELECT * FROM v_data_pendaftar ) as new_tb";
-        $column_order = array('status_diterima', 'nm_pd', 'no_daftar', 'nama_prodi', 'tgl_akun');
+        // cek level user
+        $level_user = $this->session->level;
+        $by_guru = '';
+        if ($level_user == 'guru') {
+            $by_guru = 'WHERE id_user = "' .  $this->session->id_user . '"';
+        }
+        $table = "( SELECT * FROM v_data_pendaftar " . $by_guru . " ) as new_tb";
+        $column_order = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'tgl_akun', 'status_diterima');
         $column_search = array('nm_pd', 'no_daftar', 'jenjang', 'nama_prodi');
         $orders = array('tgl_akun' => 'DESC');
 

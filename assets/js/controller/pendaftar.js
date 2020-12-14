@@ -1,3 +1,14 @@
+/**
+ * JS Pendaftaran
+ * 
+ * Untuk mengelola (CRUD) data pendaftaran
+ * 
+ * @package		CodeIgniter
+ * @subpackage	Controller
+ * @category	JavaScript
+ * @author Wahyu Kamaludin
+ */
+
 // Datatables
 document.addEventListener("DOMContentLoaded", function () {
     $("#dt-pendaftar").DataTable({
@@ -10,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "POST",
         },
         columnDefs: [{
-            targets: [],
+            targets: [0],
             orderable: false,
         },
         {
-            targets: [0],
+            targets: [0, 5],
             className: "text-center",
         },
         ],
@@ -156,8 +167,6 @@ async function lihat(id) {
         }
         // link untuk detail
         document.getElementById('btn_detail').href = site_url + 'pendaftar/detail/' + json.id_pd;
-        // link untuk edit
-        document.getElementById('btn_edit').href = site_url + 'pendaftar/edit/' + json.id_pd;
 
     } catch (error) {
         console.log(error);
@@ -214,6 +223,51 @@ if (f_edit) {
             btnSubmit.disabled = false;
             btnSubmit.innerHTML = "SIMPAN";
         }
+    }
+}
+
+// tombol hapus
+async function hapus(id) {
+    // data dalam bentuk json
+    const data = {
+        'id_akun': id,
+    };
+
+    // kirim data
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    try {
+        const response = await fetch(site_url + "pendaftar/hapus_pendaftaran/", options);
+        const json = await response.json();
+        console.log(json);
+        // jika status true
+        if (json.status) {
+            // tampil notif
+            notif(json.message, json.type);
+            const dt = document.getElementById('dt-pendaftar');
+            if (dt) {
+                // reload tabel
+                $('#dt-pendaftar').DataTable().ajax.reload();
+            } else {
+                // reload
+                setTimeout(function () {
+                    location.href = site_url + 'pendaftar';
+                }, 1000);
+            }
+        } else {
+            // tampil notif
+            notif(json.message, json.type);
+        }
+    } catch (error) {
+        console.log(error);
+        // tampil notif
+        notif(error, 'error');
     }
 }
 
