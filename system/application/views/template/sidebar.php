@@ -32,6 +32,31 @@
                 </ul>
             </li>
 
+            <?php
+            // untuk user dengan level super atau admin
+            if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
+                <li class="sidebar-header">
+                    Referensi
+                </li>
+                <li class="sidebar-item <?= (isset($m_jadwal)) ? $m_jadwal : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('ref_jadwal') ?>">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Jadwal Pendaftaran</span>
+                    </a>
+                </li>
+            <?php
+            endif;
+            // hanya untuk user dengan level super
+            if ($this->session->level == 'super') : ?>
+                <li class="sidebar-header">
+                    Manajemen User
+                </li>
+                <li class="sidebar-item <?= (isset($m_user)) ? $m_user : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('pengguna') ?>">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Pengguna</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <li class="sidebar-header">
                 Aksi
             </li>
