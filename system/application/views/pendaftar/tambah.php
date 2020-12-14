@@ -196,7 +196,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="sekolah">Nama sekolah/kampus asal <span class="text-danger">*</span></label>
-                            <input type="text" name="sekolah" id="sekolah" class="form-control" placeholder="Apa nama sekolah/kampus kamu" required>
+                            <input type="text" name="sekolah" id="sekolah" class="form-control" placeholder="Nama sekolah/kampus" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -204,7 +204,7 @@
                         <textarea name="alamat_sekolah" class="form-control" style="resize: none;" id="alamat_sekolah" cols="3" rows="2" required></textarea>
                     </div>
                     <div class="form-group mb-5">
-                        <label for="id_ref_masuk">Darimana / dari siapa kamu tahu STIKes Muhammadiyah Ciamis <span class="text-danger">*</span></label>
+                        <label for="id_ref_masuk">Darimana / dari siapa tahu STIKes Muhammadiyah Ciamis <span class="text-danger">*</span></label>
                         <select class="form-control" name="id_ref_masuk" id="id_ref_masuk" required>
                             <option selected disabled value="">Silahkan pilih</option>
                             <?php if ($ref_masuk) :
