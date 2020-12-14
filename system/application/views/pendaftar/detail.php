@@ -45,22 +45,11 @@
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <a href="#" id="btn_hapus" class="text-danger" data-toggle="modal" data-target="#modal_hapus">Hapus Pendaftar</a>
+                    <a href="#" id="btn_hapus" class="text-danger" data-toggle="modal" data-target="#modal_<?= $detail_pd->id_pd ?>">Hapus Pendaftar</a>
                 </div>
             </div>
-            <!-- BEGIN modal -->
-            <div class="modal fade" data-backdrop="static" id="modal_hapus" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body text-center m-3">
-                            <h5 class="mb-5">Anda yakin data <span class="text-danger"><?= $detail_pd->nm_pd ?></span> akan dihapus?</h5>
-                            <button type="button" onclick="hapus(`<?= $detail_pd->id_pd ?>`)" class="btn btn-danger" data-dismiss="modal">Ya, hapus</button>
-                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END modal -->
+            <!-- modal hapus -->
+            <?= modal_danger($detail_pd->id_pd, $detail_pd->nm_pd) ?>
         </div>
 
         <div class="col-md-7 col-xl-8">
