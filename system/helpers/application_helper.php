@@ -129,3 +129,34 @@ if (!function_exists('set_password')) {
         return password_hash($pass, PASSWORD_DEFAULT);
     }
 }
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('modal_danger')) {
+    /**
+     * Modal
+     *
+     * Menampilkan modal
+     * @param id ID data
+     * @param name Nama data
+     * @return	string  tampilkan modal
+     */
+    function modal_danger($id, $name)
+    {
+        $modal = '<!-- BEGIN modal -->
+        <div class="modal fade" data-backdrop="static" id="modal_' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body m-3 text-center">
+                        <h4 class="mb-5">Anda yakin data <span class="text-danger">' . $name . '</span> akan dihapus?</h4>
+                        <button type="button" onclick="hapus(`' . $id . '`)" class="btn btn-danger" data-dismiss="modal">Ya, hapus</button>
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END modal -->';
+
+        return $modal;
+    }
+}
