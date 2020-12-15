@@ -209,6 +209,8 @@ class Pendaftar extends CI_Controller
             else {
                 // get data biodata
                 $biodata = $this->daftar->get_biodata($id);
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
                 // data yang perlu disiapkan
                 $agama = $this->ref->get_agama();
 
@@ -216,8 +218,9 @@ class Pendaftar extends CI_Controller
                     'title'     => 'Edit Biodata',
                     'agama'     => $agama,
                     'biodata'   => $biodata,
+                    'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_biodata', $data);
             }
@@ -250,12 +253,15 @@ class Pendaftar extends CI_Controller
             else {
                 // get data kontak
                 $kontak = $this->daftar->get_kontak($id);
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
 
                 $data = [
                     'title'  => 'Edit Kontak',
                     'kontak' => $kontak,
+                    'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_kontak', $data);
             }
@@ -294,12 +300,15 @@ class Pendaftar extends CI_Controller
             else {
                 // get data alamat
                 $alamat = $this->daftar->get_alamat($id);
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
 
                 $data = [
                     'title'  => 'Edit alamat',
                     'alamat' => $alamat,
+                    'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_alamat', $data);
             }
@@ -335,13 +344,16 @@ class Pendaftar extends CI_Controller
                 $ortu = $this->daftar->get_ortu($id);
                 // data yang dibutuhkan
                 $pekerjaan = $this->ref->get_pekerjaan();
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
 
                 $data = [
                     'title'  => 'Edit Orang Tua',
                     'ortu' => $ortu,
                     'pekerjaan' => $pekerjaan,
+                    'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_ortu', $data);
             }
@@ -377,13 +389,16 @@ class Pendaftar extends CI_Controller
                 $sekolah_asal = $this->daftar->get_sekolah_asal($id);
                 // data yang dibutuhkan
                 $ref_masuk = $this->ref->get_ref_masuk();
+                // get data pendaftar
+                $detail = $this->daftar->read($id);
 
                 $data = [
                     'title'  => 'Edit Sekolah Asal',
                     'sekolah_asal' => $sekolah_asal,
                     'ref_masuk' => $ref_masuk,
+                    'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_sekolah_asal', $data);
             }
@@ -427,7 +442,7 @@ class Pendaftar extends CI_Controller
                     'prodi_kar' => $prodi_kar,
                     'detail_pd' => $detail,
                     'm_pendaftaran' => 'active',
-                    'dt_tambah' => 'active',
+                    'dt_pendaftaran' => 'active',
                 ];
                 template('pendaftar/edit_prodi', $data);
             }

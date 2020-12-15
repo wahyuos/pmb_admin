@@ -1,6 +1,33 @@
 <?php if ($sekolah_asal) : ?>
     <div class="row">
-        <div class="col-md-12 col-xl-12">
+        <div class="col-md-5 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0 text-center">TA <?= $detail_pd->tahun_akademik ?></h5>
+                </div>
+                <div class="card-body text-center">
+                    <?php
+                    // ambil foto
+                    $pas_foto = $this->db->get_where('pmb_persyaratan', ['id_akun' => $detail_pd->id_pd, 'id_jns_persyaratan' => '3'])->row();
+                    // jika foto ada
+                    if ($pas_foto) :
+                    ?>
+                        <img src="data:<?= $pas_foto->type_doc ?>;base64,<?= $pas_foto->blob_doc ?>" alt="<?= $detail_pd->nm_pd ?>l" class="mx-auto rounded-circle d-block mb-4" style="object-fit: cover;" width="128" height="128" />
+                    <?php else : ?>
+                        <img src="<?= site_url('assets/img/logo.png') ?>" alt="<?= $detail_pd->nm_pd ?>" class="img-fluid rounded-circle mb-5" width="128" height="128" />
+                    <?php endif; ?>
+
+                    <h5 class="card-title mb-0"><?= $detail_pd->nm_pd ?></h5>
+                    <div class="text-muted mb-2"><?= $detail_pd->no_daftar ?></div>
+                    <div class="text-muted mb-2"><?= $detail_pd->jenjang_prodi . ' ' . $detail_pd->nm_prodi ?></div>
+                    <!-- <div>
+                        <a class="btn btn-primary btn-sm" href="<?= site_url('pendaftar/edit/') . $detail_pd->id_pd ?>">Edit</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 col-xl-8">
             <div class="card">
                 <div class="card-body">
                     <form id="f_edit" autocomplete="off">
