@@ -11,7 +11,7 @@ class Login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('cek_login') == true) redirect(base_url('home'));
+        if ($this->session->is_login == true) redirect(base_url('home'));
         $this->load->model('M_login', 'login');
     }
 
