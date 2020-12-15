@@ -8,6 +8,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_pendaftar extends CI_Model
 {
+    // mengetahui jalur dan gelombang daftar sesuai tanggal daftar
+    public function getGelombang($tgl_daftar)
+    {
+        return $this->db->get_where('ref_jadwal', ['periode_awal <= ' => $tgl_daftar, 'periode_akhir >= ' => $tgl_daftar])->row();
+    }
 
     // ambil data lengkap si pendaftar dari view pada database berdasarkan ID
     public function read($id = null)
@@ -706,7 +711,7 @@ class M_pendaftar extends CI_Model
         // filter by tahun akademik
         $ta = tahun_akademik();
         $table = "( SELECT * FROM v_data_pendaftar WHERE tahun_akademik = '$ta' " . $by_guru . " ) as new_tb";
-        $column_order = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'tgl_akun', 'status_diterima');
+        $column_order = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'tgl_daftar', 'status_diterima');
         $column_search = array('nm_pd', 'no_daftar', 'jenjang', 'nama_prodi');
         $orders = array('tgl_akun' => 'DESC');
 

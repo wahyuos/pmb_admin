@@ -77,11 +77,19 @@ class Pendaftar extends CI_Controller
         if ($id) {
             // get data pendaftar
             $detail = $this->daftar->read($id);
+            // cek apakah data pendaftar ditemukan
+            if ($detail) {
+                // get jalur dan gelombang pendaftaran
+                $gelombang = $this->daftar->getGelombang($detail->tgl_daftar);
+            } else {
+                $gelombang = null;
+            }
             // persyaratan
             $persyaratan = $this->ref->jnsPersyaratan();
             $data = [
                 'title'       => 'Detail Pendaftar',
                 'detail_pd'   => $detail,
+                'gelombang'   => $gelombang,
                 'persyaratan'    => $persyaratan,
                 'm_pendaftaran'  => 'active',
                 'dt_pendaftaran' => 'active',
