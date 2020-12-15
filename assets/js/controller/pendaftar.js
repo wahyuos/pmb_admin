@@ -111,10 +111,8 @@ if (f_tambah_pendaftar) {
                 f_tambah_pendaftar.reset();
                 // tampil notif
                 notif(json.message, json.type);
-                // aktifkan tombol
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = "SIMPAN";
                 // reload
+                btnSubmit.textContent = "sedang mengalihkan...";
                 setTimeout(function () {
                     location.href = site_url + 'pendaftar';
                 }, 2000);
@@ -123,7 +121,7 @@ if (f_tambah_pendaftar) {
                 notif(json.message, json.type);
                 // aktifkan tombol
                 btnSubmit.disabled = false;
-                btnSubmit.innerHTML = "SIMPAN";
+                btnSubmit.textContent = "SIMPAN";
             }
         } catch (error) {
             console.log(error);
@@ -131,7 +129,7 @@ if (f_tambah_pendaftar) {
             notif(error, 'error');
             // aktifkan tombol
             btnSubmit.disabled = false;
-            btnSubmit.innerHTML = "SIMPAN";
+            btnSubmit.textContent = "SIMPAN";
         }
     }
 }
