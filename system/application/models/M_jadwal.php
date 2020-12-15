@@ -134,7 +134,7 @@ class M_jadwal extends CI_Model
         // filter by tahun akademik
         $ta = tahun_akademik();
         $table = "( SELECT * FROM ref_jadwal WHERE tahun_akademik = '$ta' AND soft_del = '0' ) as new_tb";
-        $column_order = array('nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tahun_akademik', null);
+        $column_order = array(null, 'nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', null);
         $column_search = array('nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tahun_akademik');
         $orders = array('periode_awal' => 'ASC');
 
