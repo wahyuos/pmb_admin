@@ -26,6 +26,14 @@
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
+                    <h5 class="h6 card-title">Jalur Pendaftaran</h5>
+                    <?php
+                    if ($gelombang) {
+                        echo $gelombang->jalur . ' - ' . $gelombang->nama_gelombang;
+                    } ?>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
                     <h5 class="h6 card-title">Persyaratan</h5>
                     <ul class="list-unstyled mb-0">
                         <?php if ($persyaratan) :
@@ -35,7 +43,7 @@
                         ?>
                                 <li class="mb-1">
                                     <?= $check ?><?= $list->jns_persyaratan ?>
-                                    <a class="small float-right">
+                                    <a class="small float-right" href="<?= site_url('persyaratan/' . $list->link . '/' . $detail_pd->id_pd . '/' . $list->id_jns_persyaratan) ?>">
                                         <span data-feather="edit-2" class="feather-sm"></span>
                                     </a>
                                 </li>
@@ -278,6 +286,7 @@
             </div>
         </div>
     </div>
+
 <?php else : ?>
     <div class="container d-flex flex-column">
         <div class="row h-100">
