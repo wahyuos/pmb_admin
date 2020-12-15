@@ -20,8 +20,8 @@
                                 <label class="custom-control-label" for="level_admin">Admin </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="level_guru" name="level" value="guru" class="custom-control-input" required>
-                                <label class="custom-control-label" for="level_guru">Guru </label>
+                                <input type="radio" id="level_mitra" name="level" value="mitra" class="custom-control-input" required>
+                                <label class="custom-control-label" for="level_mitra">Mitra </label>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-sm-12">
                         <h5 class="card-title">Data Pengguna</h5>
-                        <h6 class="card-subtitle text-muted">Pengguna dengan level admin dan guru BP.</h6>
+                        <h6 class="card-subtitle text-muted">Pengguna dengan level admin dan mitra BP.</h6>
                     </div>
                     <div class="col-lg-4 col-sm-12 text-right">
                         <a role="button" data-toggle="modal" data-target="#modal_import" class="btn btn-primary"><i class="fa fa-file-excel mr-2"></i> Import Pengguna</a>

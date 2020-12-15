@@ -476,8 +476,8 @@ class Pendaftar extends CI_Controller
                 $row[] = $this->date->tanggal($field->tgl_akun, 's');
 
                 // cek level pengguna
-                if ($this->session->level == 'guru') {
-                    // jika level guru, hanya melihat status diterima
+                if ($this->session->level == 'mitra') {
+                    // jika level mitra, hanya melihat status diterima
                     $row[] = $status_diterima;
                 } else {
                     // jika level admin, maka tampilkan tombol switch

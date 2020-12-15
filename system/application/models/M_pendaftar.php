@@ -703,14 +703,14 @@ class M_pendaftar extends CI_Model
     {
         // cek level user
         $level_user = $this->session->level;
-        $by_guru = '';
-        if ($level_user == 'guru') {
-            $by_guru = ' AND id_user = "' .  $this->session->id_user . '"';
+        $by_mitra = '';
+        if ($level_user == 'mitra') {
+            $by_mitra = ' AND id_user = "' .  $this->session->id_user . '"';
         }
 
         // filter by tahun akademik
         $ta = tahun_akademik();
-        $table = "( SELECT * FROM v_data_pendaftar WHERE tahun_akademik = '$ta' " . $by_guru . " ) as new_tb";
+        $table = "( SELECT * FROM v_data_pendaftar WHERE tahun_akademik = '$ta' " . $by_mitra . " ) as new_tb";
         $column_order = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'tgl_daftar', 'status_diterima');
         $column_search = array('nm_pd', 'no_daftar', 'jenjang', 'nama_prodi');
         $orders = array('tgl_akun' => 'DESC');
