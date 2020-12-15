@@ -17,16 +17,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- preload -->
-    <link rel="preload" href="<?= base_url("assets/css/light.css") ?>" as="style">
+    <link rel="preload" href="<?= base_url("assets/css/" . theme()->css . ".css") ?>" as="style">
     <link rel="preload" href="<?= base_url("assets/fonts/fa-solid-900.woff2") ?>" as="font" type="font/woff2" crossorigin>
     <script>
         var site_url = '<?= site_url() ?>';
     </script>
 
-    <link href="<?= base_url("assets/css/light.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("assets/css/" . theme()->css . ".css") ?>" rel="stylesheet">
 </head>
 
-<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+<body data-theme="<?= theme()->theme ?>" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
     <div class="wrapper">
 
         <?= $_sidebar ?>
@@ -98,6 +98,62 @@
     $file = 'assets/js/controller/' . $this->router->fetch_class() . '.js';
     if (file_exists($file)) echo '<script src="' . base_url($file) . '"></script>';
     ?>
+
+    <script>
+        async function ubah_theme(theme, css) {
+            let data = {
+                'theme': theme,
+                'css': css
+            };
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            try {
+                const response = await fetch(site_url + 'theme/ubah', options);
+                const json = await response.json();
+                // console.log(json);
+                if (json.status) {
+                    // reload
+                    location.reload();
+                    // tampil notif
+                    notif(json.message, json.type);
+                } else {
+                    // tampil notif
+                    notif(json.message, json.type);
+                }
+            } catch (error) {
+                console.log(error);
+                // tampil notif
+                notif(error, 'error');
+            }
+        }
+
+        // fungsi untuk notifikasi
+        function notif(pesan, tipe) {
+            const message = pesan;
+            const type = tipe;
+            const duration = 5000;
+            const ripple = true;
+            const dismissible = true;
+            const positionX = 'center';
+            const positionY = 'top';
+            window.notyf.open({
+                type,
+                message,
+                duration,
+                ripple,
+                dismissible,
+                position: {
+                    x: positionX,
+                    y: positionY
+                }
+            });
+        }
+    </script>
 
 </body>
 

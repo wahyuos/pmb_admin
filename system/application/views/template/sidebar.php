@@ -31,15 +31,21 @@
                     <li class="sidebar-item <?= (isset($dt_pendaftaran)) ? $dt_pendaftaran : '' ?>"><a class="sidebar-link" href="<?= base_url('pendaftar') ?>">Data Pendaftar</a></li>
                 </ul>
             </li>
-            <li class="sidebar-item <?= (isset($m_info)) ? $m_info : '' ?>">
-                <a class="sidebar-link" href="<?= base_url('informasi') ?>">
-                    <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
-                </a>
-            </li>
 
             <?php
             // untuk user dengan level super atau admin
             if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
+                <li class="sidebar-item <?= (isset($m_info)) ? $m_info : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('informasi') ?>">
+                        <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('biaya') ?>">
+                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-header">
                     Konfigurasi
                 </li>
@@ -76,5 +82,31 @@
                 </a>
             </li>
         </ul>
+        <div class="sidebar-cta">
+            <div class="sidebar-cta-content">
+                <strong class="d-inline-block mb-2">Warna Tema</strong>
+                <div class="mb-3 text-sm">
+                    Pilih salah satu warna
+                </div>
+                <div class="custom-controls-stacked">
+                    <label class="custom-control custom-radio">
+                        <input name="custom-radio-3" type="radio" id="theme_light" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'light') ? 'checked' : '' ?> onchange="ubah_theme(`light`,`light`)">
+                        <span class="custom-control-label" for="theme_light">Light</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input name="custom-radio-3" type="radio" id="theme_colored" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'colored') ? 'checked' : '' ?> onchange="ubah_theme(`colored`,`light`)">
+                        <span class="custom-control-label" for="theme_colored">Blue</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input name="custom-radio-3" type="radio" id="theme_default" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'default') ? 'checked' : '' ?> onchange="ubah_theme(`default`,`light`)">
+                        <span class="custom-control-label" for="theme_default">Semi Dark</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input name="custom-radio-3" type="radio" id="theme_dark" name="theme" value="dark" class="custom-control-input" <?= (theme()->theme == 'dark') ? 'checked' : '' ?> onchange="ubah_theme(`dark`,`dark`)">
+                        <span class="custom-control-label" for="theme_dark">Dark</span>
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
