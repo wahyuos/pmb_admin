@@ -16,6 +16,73 @@ class M_ref extends CI_Model
         return ($cek_data == 0) ? true : false;
     }
 
+    public function ganti_tahun_akademik($tahun)
+    {
+        // ubah status 1 jadi 0
+        $ubah_status = $this->db->update('pmb_tahun_aktif', ['status' => '0']);
+        if ($ubah_status) {
+            // periksa apakah tahun sudah ada
+            $cek = $this->db->get_where('pmb_tahun_aktif', ['tahun' => $tahun])->num_rows();
+            if ($cek > 0) {
+                // jika sudah ada
+                // aktifkan status jadi 1 berdasarkan tahun yang diterima
+                $aktifkan = $this->db->update('pmb_tahun_aktif', ['status' => '1'], ['tahun' => $tahun]);
+                if ($aktifkan) {
+                    $response = [
+                        'status'  => true,
+                        'message' => "Tahun akademik berhasil diganti",
+                        'title'   => 'Berhasil!',
+                        'type'    => 'success'
+                    ];
+                } else {
+                    $response = [
+                        'status'  => false,
+                        'message' => "Tahun akademik gagal diganti",
+                        'title'   => 'Berhasil!',
+                        'type'    => 'success'
+                    ];
+                }
+            } else {
+                // jika belum ada data, tambahkan
+                $value = [
+                    'tahun' => $tahun,
+                    'tahun_akademik' => $tahun . '/' . ($tahun + 1),
+                    'status' => '1'
+                ];
+                $simpan = $this->db->insert('pmb_tahun_aktif', $value);
+                if ($simpan) {
+                    $response = [
+                        'status'  => true,
+                        'message' => "Tahun akademik berhasil disimpan",
+                        'title'   => 'Berhasil!',
+                        'type'    => 'success'
+                    ];
+                } else {
+                    $response = [
+                        'status'  => false,
+                        'message' => "Tahun akademik gagal disimpan",
+                        'title'   => 'Berhasil!',
+                        'type'    => 'success'
+                    ];
+                }
+            }
+        } else {
+            $response = [
+                'status'  => false,
+                'message' => "Gagal dinonaktifkan",
+                'title'   => 'Berhasil!',
+                'type'    => 'success'
+            ];
+        }
+
+        return $response;
+    }
+
+    public function tahun_akademik_aktif()
+    {
+        return $this->db->get_where('pmb_tahun_aktif', "status = '1'")->row();
+    }
+
     public function jnsPersyaratan()
     {
         return $this->db->order_by('id_jns_persyaratan', 'asc')->get('pmb_jns_persyaratan')->result();
@@ -29,11 +96,6 @@ class M_ref extends CI_Model
             ->order_by('a.id_prodi', 'asc')
             ->where(['jenis_prodi' => $jns_prodi]);
         return $this->db->get()->result();
-    }
-
-    public function tahun_akademik_aktif()
-    {
-        return $this->db->get_where('pmb_tahun_aktif', "status = '1'")->row();
     }
 
     public function get_agama()
