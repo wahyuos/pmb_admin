@@ -18,10 +18,9 @@ class Ref_jadwal extends CI_Controller
 
     public function index()
     {
-        $thn_akademik = $this->ref->tahun_akademik_aktif()->tahun_akademik;
         $data = [
             'title' => 'Jadwal Pendaftaran',
-            'tahun_akademik' => $thn_akademik,
+            'tahun_akademik' => tahun_akademik(),
             'm_jadwal' => 'active',
         ];
         template('jadwal/index', $data);
