@@ -132,6 +132,23 @@ if (!function_exists('set_password')) {
 
 // ------------------------------------------------------------------------
 
+if (!function_exists('tahun_akademik')) {
+    /**
+     * Tahun Akademik
+     *
+     * Mengambil tahun akademik yang sedang aktif.
+     * @return	string  Return tahun akademik
+     */
+    function tahun_akademik()
+    {
+        // ambil data tahun yang aktif
+        $ta = get_instance()->db->get_where('pmb_tahun_aktif', ['status' => '1'])->row();
+        return $ta->tahun_akademik;
+    }
+}
+
+// ------------------------------------------------------------------------
+
 if (!function_exists('modal_danger')) {
     /**
      * Modal
