@@ -38,6 +38,22 @@ if (!function_exists('aplikasi')) {
 
 // ------------------------------------------------------------------------
 
+if (!function_exists('theme')) {
+    /**
+     * Theme aplikasi
+     *
+     * Warna tema yang ingin digunakan.
+     * @return	mixed Return data dari database, jika data kosong maka return nilai default
+     */
+    function theme($default = false)
+    {
+        $theme = get_instance()->db->get('ref_theme')->row();
+        return ($theme) ? $theme : $default;
+    }
+}
+
+// ------------------------------------------------------------------------
+
 if (!function_exists('uuid_v4')) {
     /**
      * UUID versi 4
