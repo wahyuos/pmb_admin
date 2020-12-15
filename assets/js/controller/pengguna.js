@@ -113,6 +113,7 @@ function edit(id) {
             document.getElementById("nama_user").focus();
             document.getElementById("password").required = false;
             document.getElementById("batal").style.display = 'inline';
+            document.getElementById("info_pass").style.display = 'inline';
         });
 }
 

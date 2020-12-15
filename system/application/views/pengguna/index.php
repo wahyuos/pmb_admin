@@ -32,6 +32,7 @@
                     <div class="form-group">
                         <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" id="password" class="form-control" required>
+                        <small id="info_pass" style="display: none;">Kosongkan jika password tidak akan diganti</small>
                     </div>
 
                     <hr>
@@ -90,15 +91,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Pilih File</label>
+                                <label>Pilih File (.xls atau .xlsx)</label>
                                 <input type="file" name="file" onchange="showType(event)" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" required />
                             </div>
                             <label id="alert" class="text-danger"></label>
                         </div>
                     </div>
                     <hr>
-                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">BATAL</button>
                     <button type="submit" id="import" class="btn btn-primary">IMPORT</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">BATAL</button>
                 </form>
             </div>
         </div>
@@ -138,25 +139,28 @@
     });
 
     async function importData(value) {
-        // const options = {
-        //     method: 'POST',
-        //     body: value
-        // };
+        const options = {
+            method: 'POST',
+            body: value
+        };
         try {
             btnImport.disabled = true;
             btnImport.textContent = "memproses...";
-            const response = await fetch(site_url + 'pengguna/import_pengguna', {
-                method: 'POST',
-                body: value
-            });
+            const response = await fetch(site_url + 'pengguna/import_pengguna', options);
             const json = await response.json();
             console.log(json);
             if (json.status == true) {
-                $('#modal_import').hide();
+                $('#modal_import').modal('hide');
+                // reload tabel
+                $('#dt-pengguna').DataTable().ajax.reload();
                 // tampil notif
                 notif(json.message, json.type);
+                // reset form
+                f_file.reset();
+                btnImport.disabled = false;
+                btnImport.textContent = "IMPORT";
             } else {
-                alert.innerHTML = json.title + json.message;
+                alert.innerHTML = json.message;
                 btnImport.disabled = false;
                 btnImport.textContent = "IMPORT";
             }

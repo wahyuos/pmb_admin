@@ -135,17 +135,20 @@ class Pengguna extends CI_Controller
                     'title'   => 'Kesalahan',
                 ];
             } else {
-                $upload  = $this->upload->data();
-                $path    = file_get_contents($upload['full_path']);
-                $object = PHPExcel_IOFactory::load($path);
+                $this->load->library('excel');
+                $upload = $this->upload->data();
+                // load file excel yang sudah diupload
+                $object = PHPExcel_IOFactory::load($upload['full_path']);
                 foreach ($object->getWorksheetIterator() as $worksheet) {
                     $highestRow = $worksheet->getHighestRow();
                     for ($row = 2; $row <= $highestRow; $row++) {
+                        // ambil nilai pada cell
                         $nama_user = htmlspecialchars($worksheet->getCellByColumnAndRow(0, $row)->getValue());
                         $username  = htmlspecialchars($worksheet->getCellByColumnAndRow(1, $row)->getValue());
                         $password  = htmlspecialchars($worksheet->getCellByColumnAndRow(2, $row)->getValue());
                         $level     = htmlspecialchars($worksheet->getCellByColumnAndRow(3, $row)->getValue());
 
+                        // cek data pengguna berdasarkan username
                         $cari = $this->db->get_where('adm_user', ['username' => $username, 'soft_del' => '0'])->row_array();
                         if (!$cari) {
                             $data[] = array(
@@ -160,8 +163,10 @@ class Pengguna extends CI_Controller
                     }
                 }
                 if (isset($data)) {
+                    // simpan data ke database
                     $response = $this->pengguna->importPengguna($data);
                 } else {
+                    // info gagal
                     $response = [
                         'status'  => false,
                         'message' => 'Gagal mengimport data pengguna!',
@@ -169,10 +174,11 @@ class Pengguna extends CI_Controller
                         'type'    => 'error'
                     ];
                 }
+                // hapus file excel yang sudah diupload
                 unlink($upload['full_path']);
             }
         } else {
-            // buat respon
+            // buat respon tidak ada post
             $response = [
                 'status'  => false,
                 'message' => 'Tidak ada data',
