@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistem Informasi Rekam Medis">
+    <meta name="description" content="Sistem Informasi PMB">
     <meta name="author" content="Wahyu Kamaludin">
 
     <title><?= $title ?></title>
 
-    <link rel="canonical" href="<?= base_url() ?>" />
+    <link rel="canonical" href="<?= current_url() ?>" />
     <link rel="shortcut icon" href="<?= base_url("assets/img/favicon.ico") ?>">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,6 +18,7 @@
 
     <!-- preload -->
     <link rel="preload" href="<?= base_url("assets/css/light.css") ?>" as="style">
+    <link rel="preload" href="<?= base_url("assets/fonts/fa-solid-900.woff2") ?>" as="font" type="font/woff2" crossorigin>
     <script>
         var site_url = '<?= site_url() ?>';
     </script>
@@ -50,7 +51,7 @@
                             </a>
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                                <img src="<?= base_url("assets/img/logo.png") ?>" class="avatar img-fluid rounded-circle mr-1" alt="<?= $this->session->nama_user; ?>" /> <span class="text-dark"><?= $this->session->nama_user; ?></span>
+                                <img src="<?= base_url("assets/img/logo.png") ?>" class="avatar img-fluid rounded-circle mr-1" width="100" height="100" alt="<?= $this->session->nama_user; ?>" /> <span class="text-dark"><?= $this->session->nama_user; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>
@@ -79,24 +80,11 @@
                 <div class="container-fluid">
                     <div class="row text-muted">
                         <div class="col-6 text-left">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="#">Support</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="#">Help Center</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="#">Privacy</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="#">Terms of Service</a>
-                                </li>
-                            </ul>
+                            <?= aplikasi()->kampus ?>
                         </div>
                         <div class="col-6 text-right">
                             <p class="mb-0">
-                                &copy; 2020 - <a href="index.html" class="text-muted">AppStack</a>
+                                &copy; 2020 - <a href="index.html" class="text-muted"><?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a>
                             </p>
                         </div>
                     </div>
