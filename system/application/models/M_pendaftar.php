@@ -650,8 +650,8 @@ class M_pendaftar extends CI_Model
                         $response = [
                             'status'  => false,
                             'message' => 'Gagal merubah status peserta',
-                            'title'   => 'Sukses!',
-                            'type'    => 'success'
+                            'title'   => 'Gagal!',
+                            'type'    => 'danger'
                         ];
                     }
                 } else {
@@ -669,8 +669,8 @@ class M_pendaftar extends CI_Model
                         $response = [
                             'status'  => false,
                             'message' => 'Gagal membatalkan status diterima peserta',
-                            'title'   => 'Sukses!',
-                            'type'    => 'success'
+                            'title'   => 'Gagal!',
+                            'type'    => 'danger'
                         ];
                     }
                 }
