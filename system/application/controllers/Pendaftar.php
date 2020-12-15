@@ -104,7 +104,7 @@ class Pendaftar extends CI_Controller
                 'password_akun' => htmlspecialchars($post['no_hp']),
                 'hp_akun'       => htmlspecialchars($post['no_hp']),
                 'tgl_akun'      => date("Y-m-d H:i:s"),
-                'tahun_akademik' => $this->ref->tahun_akademik_aktif()->tahun_akademik,
+                'tahun_akademik' => tahun_akademik(),
 
                 // set value untuk biodata
                 'nm_pd'      => htmlspecialchars($post['nm_pd']),
