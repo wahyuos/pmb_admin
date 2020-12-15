@@ -150,25 +150,3 @@ async function hapus(id,) {
         notif(error, 'error');
     }
 }
-
-// fungsi untuk notifikasi
-function notif(pesan, tipe) {
-    const message = pesan;
-    const type = tipe;
-    const duration = 5000;
-    const ripple = true;
-    const dismissible = true;
-    const positionX = 'center';
-    const positionY = 'top';
-    window.notyf.open({
-        type,
-        message,
-        duration,
-        ripple,
-        dismissible,
-        position: {
-            x: positionX,
-            y: positionY
-        }
-    });
-}

@@ -65,7 +65,7 @@ async function status_diterima(id) {
     try {
         const response = await fetch(site_url + 'pendaftar/status_diterima', options);
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         if (json.status) {
             // reload tabel
             $('#dt-pendaftar').DataTable().ajax.reload();
@@ -104,7 +104,7 @@ if (f_tambah_pendaftar) {
             btnSubmit.textContent = "menyimpan...";
             const response = await fetch(site_url + 'pendaftar/simpan_pendaftaran', options);
             const json = await response.json();
-            console.log(json);
+            // console.log(json);
             // jika status true
             if (json.status) {
                 // reset form
@@ -243,7 +243,7 @@ async function hapus(id) {
     try {
         const response = await fetch(site_url + "pendaftar/hapus_pendaftaran/", options);
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // jika status true
         if (json.status) {
             // tampil notif
@@ -456,26 +456,4 @@ if (list_kec) {
         // tampilkan nama kecamatan dalam value input nm_prov agar tetap terlihat nama kecamatan yang dipilih
         nm_kec.value = kec.trim();
     }
-}
-
-// fungsi untuk notifikasi
-function notif(pesan, tipe) {
-    const message = pesan;
-    const type = tipe;
-    const duration = 3000;
-    const ripple = true;
-    const dismissible = true;
-    const positionX = 'center';
-    const positionY = 'top';
-    window.notyf.open({
-        type,
-        message,
-        duration,
-        ripple,
-        dismissible,
-        position: {
-            x: positionX,
-            y: positionY
-        }
-    });
 }
