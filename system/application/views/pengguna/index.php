@@ -91,8 +91,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Pilih File (.xls atau .xlsx)</label>
-                                <input type="file" name="file" onchange="showType(event)" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" required />
+                                <label class="form-label w-100">Pilih File (.xls atau .xlsx)</label>
+                                <input type="file" name="file" onchange="showType(event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" required>
                             </div>
                             <label id="alert" class="text-danger"></label>
                         </div>
@@ -160,6 +160,8 @@
                 btnImport.disabled = false;
                 btnImport.textContent = "IMPORT";
             } else {
+                // tampil notif
+                notif(json.message, json.type);
                 alert.innerHTML = json.message;
                 btnImport.disabled = false;
                 btnImport.textContent = "IMPORT";
@@ -167,6 +169,8 @@
         } catch (error) {
             // console.log(error);
             alert.innerHTML = error;
+            // tampil notif
+            notif(error, 'error');
             btnImport.disabled = false;
             btnImport.textContent = "IMPORT";
         }
