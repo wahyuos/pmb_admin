@@ -47,7 +47,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-7 col-sm-12">
+                    <div class="col-lg-7 col-sm-12 mb-3">
                         <h5 class="card-title">Data Pengguna</h5>
                         <h6 class="card-subtitle text-muted">Pengguna dengan level admin dan mitra BP.</h6>
                     </div>
