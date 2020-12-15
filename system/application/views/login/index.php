@@ -17,15 +17,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- preload -->
-    <link rel="preload" href="<?= base_url("assets/css/light.css") ?>" as="style">
+    <link rel="preload" href="<?= base_url("assets/css/" . theme()->css . ".css") ?>" as="style">
+    <link rel="preload" href="<?= base_url("assets/fonts/fa-solid-900.woff2") ?>" as="font" type="font/woff2" crossorigin>
     <script>
         var site_url = '<?= site_url() ?>';
     </script>
 
-    <link href="<?= base_url("assets/css/light.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("assets/css/" . theme()->css . ".css") ?>" rel="stylesheet">
 </head>
 
-<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+<body data-theme="<?= theme()->theme ?>" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
 
     <div class="col-sm-8 col-md-6 col-lg-4 mx-auto d-table h-100">
         <div class="d-table-cell align-middle">
@@ -38,16 +39,18 @@
                             <p class="lead">
                                 Sign in to your account to continue
                             </p>
-                            <?= $this->session->id_user; ?>
+                            <div class="text-center">
+                                <img src="<?= base_url("assets/img/logo.png") ?>" alt="<?= aplikasi()->singkatan ?>" class="img-fluid rounded-circle" width="132" height="132">
+                            </div>
                         </div>
 
                         <form class="authentication-form" id="f_login" autocomplete="off">
                             <div class="form-group">
-                                <label class="form-control-label">Username</label>
+                                <label class="form-control-label" for="username">Username</label>
                                 <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Masukkan Username" autofocus required>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Password</label>
+                                <label class="form-control-label" for="password">Password</label>
                                 <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Masukkan Password" required>
                             </div>
                             <div class="form-group mb-4">
