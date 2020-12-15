@@ -148,7 +148,7 @@
             btnImport.textContent = "memproses...";
             const response = await fetch(site_url + 'pengguna/import_pengguna', options);
             const json = await response.json();
-            console.log(json);
+            // console.log(json);
             if (json.status == true) {
                 $('#modal_import').modal('hide');
                 // reload tabel
