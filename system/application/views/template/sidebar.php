@@ -15,7 +15,7 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Pages
+                Menu Utama
             </li>
             <li class="sidebar-item <?= (isset($m_home)) ? $m_home : '' ?>">
                 <a class="sidebar-link" href="<?= base_url('home') ?>">
@@ -31,16 +31,26 @@
                     <li class="sidebar-item <?= (isset($dt_pendaftaran)) ? $dt_pendaftaran : '' ?>"><a class="sidebar-link" href="<?= base_url('pendaftar') ?>">Data Pendaftar</a></li>
                 </ul>
             </li>
+            <li class="sidebar-item <?= (isset($m_info)) ? $m_info : '' ?>">
+                <a class="sidebar-link" href="<?= base_url('informasi') ?>">
+                    <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
+                </a>
+            </li>
 
             <?php
             // untuk user dengan level super atau admin
             if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
                 <li class="sidebar-header">
-                    Referensi
+                    Konfigurasi
                 </li>
                 <li class="sidebar-item <?= (isset($m_jadwal)) ? $m_jadwal : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('ref_jadwal') ?>">
                         <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Jadwal Pendaftaran</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_ta)) ? $m_ta : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('ref_tahun_akademik') ?>">
+                        <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Tahun Akademik</span>
                     </a>
                 </li>
             <?php
