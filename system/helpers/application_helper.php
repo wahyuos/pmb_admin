@@ -158,7 +158,7 @@ if (!function_exists('modal_danger')) {
      * @param name Nama data
      * @return	string  tampilkan modal
      */
-    function modal_danger($id, $name)
+    function modal_danger($id = null, $name = null)
     {
         $modal = '<!-- BEGIN modal -->
         <div class="modal fade" data-backdrop="static" id="modal_' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
