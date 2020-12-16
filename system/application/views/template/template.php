@@ -111,8 +111,6 @@
                 if (json.status) {
                     // reload
                     location.reload();
-                    // tampil notif
-                    notif(json.message, json.type);
                 } else {
                     // tampil notif
                     notif(json.message, json.type);
