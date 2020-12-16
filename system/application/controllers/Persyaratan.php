@@ -103,7 +103,7 @@ class Persyaratan extends CI_Controller
                     'status'  => false,
                     'message' => $this->upload->display_errors(),
                     'title'   => 'Gagal!',
-                    'type'    => 'text-danger'
+                    'type'    => 'danger'
                 ];
             } else {
                 $image_data  = $this->upload->data();
@@ -130,7 +130,7 @@ class Persyaratan extends CI_Controller
                 'status'  => false,
                 'message' => 'Tidak ada data',
                 'title'   => 'Gagal!',
-                'type'    => 'text-danger'
+                'type'    => 'danger'
             ];
         }
 

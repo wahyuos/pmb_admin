@@ -9,7 +9,7 @@
                 <form id="f_doc_ijazah" enctype="multipart/form-data" autocomplete="off">
                     <input id="id_akun" name="id_akun" type="hidden" value="<?= $this->uri->segment(3) ?>">
                     <input id="id_jns_persyaratan" name="id_jns_persyaratan" type="hidden" value="<?= $this->uri->segment(4) ?>">
-                    <div class="form-group">
+                    <div class="form-group overflow-hidden">
                         <label class="form-label w-100">Pilih gambar</label>
                         <input type="file" onchange="loadFile(event)" name="file_persyaratan" accept="image/x-png,image/jpg,image/jpeg" id="file_ijazah">
                         <div id="alert" class="text-danger mt-3"></div>

@@ -6,7 +6,6 @@ class M_persyaratan extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function cek_data($table, $id, $id_jns_persyaratan)
