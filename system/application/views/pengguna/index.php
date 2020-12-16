@@ -52,8 +52,8 @@
                     </div>
                     <div class="col-lg-7 col-sm-12 text-right">
                         <div class="btn-group mb-3" role="group" aria-label="Default button group">
-                            <a role="button" data-toggle="modal" data-target="#modal_import" class="btn btn-primary"><i class="fa fa-cloud mr-2"></i> Import Pengguna</a>
-                            <a href="<?= base_url('assets/docs/template_import_pengguna.xlsx') ?>" class="btn btn-success"><i class="fa fa-file-excel mr-2"></i> Download Format</a>
+                            <a role="button" data-toggle="modal" data-target="#modal_import" class="btn btn-primary btn-sm"><i class="fa fa-cloud mr-2"></i> Import Pengguna</a>
+                            <a href="<?= base_url('assets/docs/template_import_pengguna.xlsx') ?>" class="btn btn-success btn-sm"><i class="fa fa-file-excel mr-2"></i> Download Format</a>
                         </div>
                     </div>
                 </div>
