@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Model pengguna
  * 
- * Superadmin, Admin, Guru BP
+ * Khusus admin
  * 
  * @author     Wahyu Kamaludin
  * @category   Models
@@ -18,60 +18,57 @@ class M_pengguna extends CI_Model
         return $this->db->get_where('adm_user', ['id_user' => $id])->row();
     }
 
-    // simpan data pengguna dari fitur import
-    public function importPengguna($data)
-    {
-        // hitung banyak data
-        $jumlah = count($data);
-        // simpan semua data sekaligus
-        $simpan = $this->db->insert_batch('adm_user', $data);
-        if ($simpan) {
-            $response = [
-                'status'  => true,
-                'message' => $jumlah . " pengguna berhasil disimpan",
-                'title'   => 'Berhasil!',
-                'type'    => 'success'
-            ];
-        } else {
-            $response = [
-                'status'  => false,
-                'message' => "Gagal menyimpan data",
-                'title'   => 'Gagal!',
-                'type'    => 'error'
-            ];
-        }
-
-        return $response;
-    }
-
     // simpan ke database
     public function simpanPengguna($data)
     {
-        // set data untuk disimpan
+        // set data untuk disimpan ke akun
         $value = [
             'id_user'   => uuid_v4(),
             'username'  => $data['username'],
             'password'  => set_password($data['password']),
             'nama_user' => $data['nama_user'],
-            'level'     => $data['level'],
+            'level'     => 'admin',
             'created_at' => date("Y-m-d H:i:s")
         ];
-        // simpan ke tabel
-        $simpan = $this->db->insert('adm_user', $value);
+
+        // set data untuk ke admin
+        $val_admin = [
+            'id_admin'   => uuid_v4(),
+            'nama_admin' => $data['nama_user'],
+            'id_user'    => $value['id_user'],
+            'instansi'   => 'Mucis',
+        ];
+
+        // simpan ke tabel user
+        $simpan_user = $this->db->insert('adm_user', $value);
         // cek status simpan
-        if ($simpan) {
-            // buat respon berhasil
-            $response = [
-                'status'  => true,
-                'message' => 'Data berhasil disimpan',
-                'title'   => 'Berhasil!',
-                'type'    => 'success'
-            ];
+        if ($simpan_user) {
+
+            // simpan ke tabel admin
+            $simpan_admin = $this->db->insert('pmb_admin', $val_admin);
+            // cek status simpan
+            if ($simpan_admin) {
+                // buat respon berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Data berhasil disimpan',
+                    'title'   => 'Berhasil!',
+                    'type'    => 'success'
+                ];
+            } else {
+                // buat respon gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Gagal menyimpan data',
+                    'title'   => 'Gagal!',
+                    'type'    => 'error'
+                ];
+            }
         } else {
             // buat respon gagal
             $response = [
                 'status'  => false,
-                'message' => 'Gagal menyimpan data',
+                'message' => 'Gagal menyimpan akun',
                 'title'   => 'Gagal!',
                 'type'    => 'error'
             ];
@@ -89,7 +86,6 @@ class M_pengguna extends CI_Model
             $value = [
                 'username'  => $data['username'],
                 'nama_user' => $data['nama_user'],
-                'level'     => $data['level'],
                 'updated_at' => date("Y-m-d H:i:s")
             ];
         }
@@ -100,26 +96,45 @@ class M_pengguna extends CI_Model
                 'username'  => $data['username'],
                 'password'  => set_password($data['password']),
                 'nama_user' => $data['nama_user'],
-                'level'     => $data['level'],
                 'updated_at' => date("Y-m-d H:i:s")
             ];
         }
-        // update tabel
-        $update = $this->db->update('adm_user', $value, ['id_user' => $data['id_user']]);
+
+        // set data untuk ke admin
+        $val_admin = [
+            'nama_admin' => $data['nama_user'],
+        ];
+
+        // update tabel akun
+        $update_akun = $this->db->update('adm_user', $value, ['id_user' => $data['id_user']]);
         // cek status update
-        if ($update) {
-            // buat respon berhasil
-            $response = [
-                'status'  => true,
-                'message' => 'Data berhasil diubah',
-                'title'   => 'Berhasil!',
-                'type'    => 'success'
-            ];
+        if ($update_akun) {
+
+            // update tabel admin
+            $update_admin = $this->db->update('pmb_admin', $val_admin, ['id_user' => $data['id_user']]);
+            // cek status update
+            if ($update_admin) {
+                // buat respon berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Data berhasil diubah',
+                    'title'   => 'Berhasil!',
+                    'type'    => 'success'
+                ];
+            } else {
+                // buat respon gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Gagal merubah akun',
+                    'title'   => 'Gagal!',
+                    'type'    => 'error'
+                ];
+            }
         } else {
             // buat respon gagal
             $response = [
                 'status'  => false,
-                'message' => 'Gagal merubah data',
+                'message' => 'Gagal merubah akun',
                 'title'   => 'Gagal!',
                 'type'    => 'error'
             ];
@@ -172,10 +187,10 @@ class M_pengguna extends CI_Model
      */
     private function _get_datatables_query()
     {
-        $table = "( SELECT * FROM adm_user WHERE level <> 'super' AND soft_del = '0' ) as new_tb";
-        $column_order = array(null, 'nama_user', 'username', 'level');
-        $column_search = array('nama_user', 'username', 'level');
-        $orders = array('level' => 'ASC', 'nama_user' => 'ASC');
+        $table = "( SELECT b.* FROM pmb_admin a LEFT JOIN adm_user b ON a.id_user = b.id_user WHERE b.level = 'admin' AND b.soft_del = '0' ) as new_tb";
+        $column_order = array(null, 'nama_user', 'username');
+        $column_search = array('nama_user', 'username');
+        $orders = array('nama_user' => 'ASC');
 
         $this->db->from($table);
 

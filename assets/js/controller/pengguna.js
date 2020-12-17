@@ -1,5 +1,5 @@
 /**
- * JS Data Pengguna (admin dan Guru BP)
+ * JS Data Pengguna (hanya admin)
  * 
  * Untuk mengelola (CRUD) data pengguna
  * 
@@ -109,7 +109,6 @@ function edit(id) {
             document.getElementById("id_user").value = data.id_user;
             document.getElementById("nama_user").value = data.nama_user;
             document.getElementById("username").value = data.username;
-            document.getElementById("level_" + data.level).checked = true;
             document.getElementById("nama_user").focus();
             document.getElementById("password").required = false;
             document.getElementById("batal").style.display = 'inline';

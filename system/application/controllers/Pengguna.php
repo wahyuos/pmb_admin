@@ -12,7 +12,7 @@ class Pengguna extends CI_Controller
     {
         parent::__construct();
         if ($this->session->is_login == false) redirect(base_url('login'));
-        if ($this->session->level != 'super') redirect(base_url('home'));
+        if ($this->session->level == 'mitra') redirect(base_url('home'));
 
         $this->load->model('M_pengguna', 'pengguna');
     }
@@ -36,7 +36,6 @@ class Pengguna extends CI_Controller
                 'nama_user' => htmlspecialchars($post['nama_user']),
                 'username'  => htmlspecialchars($post['username']),
                 'password'  => htmlspecialchars($post['password']),
-                'level'     => htmlspecialchars($post['level']),
             ];
             // cek id
             if (empty($value['id_user'])) {
@@ -98,7 +97,6 @@ class Pengguna extends CI_Controller
                         </div>' . modal_danger($field->id_user, $field->nama_user);
                 $row[] = $field->nama_user;
                 $row[] = $field->username;
-                $row[] = strtoupper($field->level);
 
                 $data[] = $row;
             }
@@ -114,79 +112,5 @@ class Pengguna extends CI_Controller
         } else {
             $this->index();
         }
-    }
-
-    public function import_pengguna()
-    {
-        // post data
-        $post    = $this->input->post(null, true);
-        if ($post) {
-            $config['upload_path'] = './assets/temp/';
-            $config['allowed_types'] = 'xls|xlsx';
-            $config['overwrite'] = TRUE;
-            $config['max_size'] = 200;
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('file')) {
-                $response = [
-                    'status'  => false,
-                    'type'    => 'error',
-                    'message' => $this->upload->display_errors(),
-                    'title'   => 'Kesalahan',
-                ];
-            } else {
-                $this->load->library('excel');
-                $upload = $this->upload->data();
-                // load file excel yang sudah diupload
-                $object = PHPExcel_IOFactory::load($upload['full_path']);
-                foreach ($object->getWorksheetIterator() as $worksheet) {
-                    $highestRow = $worksheet->getHighestRow();
-                    for ($row = 2; $row <= $highestRow; $row++) {
-                        // ambil nilai pada cell
-                        $nama_user = htmlspecialchars($worksheet->getCellByColumnAndRow(0, $row)->getValue());
-                        $username  = htmlspecialchars($worksheet->getCellByColumnAndRow(1, $row)->getValue());
-                        $password  = htmlspecialchars($worksheet->getCellByColumnAndRow(2, $row)->getValue());
-                        $level     = htmlspecialchars($worksheet->getCellByColumnAndRow(3, $row)->getValue());
-
-                        // cek data pengguna berdasarkan username
-                        $cari = $this->db->get_where('adm_user', ['username' => $username, 'soft_del' => '0'])->row_array();
-                        if (!$cari) {
-                            $data[] = array(
-                                'id_user' => uuid_v4(),
-                                'nama_user' => $nama_user,
-                                'username' => $username,
-                                'password' => set_password($password),
-                                'level' => $level,
-                                'created_at' => date('Y-m-d H:i:s')
-                            );
-                        }
-                    }
-                }
-                if (isset($data)) {
-                    // simpan data ke database
-                    $response = $this->pengguna->importPengguna($data);
-                } else {
-                    // info gagal
-                    $response = [
-                        'status'  => false,
-                        'message' => 'Gagal mengimport data pengguna!',
-                        'title'   => 'Gagal!',
-                        'type'    => 'error'
-                    ];
-                }
-                // hapus file excel yang sudah diupload
-                unlink($upload['full_path']);
-            }
-        } else {
-            // buat respon tidak ada post
-            $response = [
-                'status'  => false,
-                'message' => 'Tidak ada data',
-                'title'   => 'Gagal!',
-                'type'    => 'text-danger'
-            ];
-        }
-
-        echo json_encode($response);
     }
 }

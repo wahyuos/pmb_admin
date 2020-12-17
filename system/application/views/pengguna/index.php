@@ -2,28 +2,15 @@
     <div class="col-12 col-xl-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Form Jadwal</h5>
-                <h6 class="card-subtitle text-muted">Masukkan jadwal pendaftaran untuk tiap jalur.</h6>
+                <h5 class="card-title">Form Admin</h5>
+                <h6 class="card-subtitle text-muted">Kelola akun admin.</h6>
             </div>
             <div class="card-body">
                 <form id="f_pengguna" autocomplete="off">
                     <input type="hidden" name="id_user" id="id_user" value="">
                     <div class="form-group">
-                        <label class="form-label" for="nama_user">Nama Pengguna <span class="text-danger">*</span></label>
+                        <label class="form-label" for="nama_user">Nama Admin <span class="text-danger">*</span></label>
                         <input type="text" name="nama_user" id="nama_user" class="form-control" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="jalur">Level Pengguna <span class="text-danger">*</span></label>
-                        <div class="form-group border p-1 pl-2 m-0 rounded">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="level_admin" name="level" value="admin" class="custom-control-input" required>
-                                <label class="custom-control-label" for="level_admin">Admin </label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="level_mitra" name="level" value="mitra" class="custom-control-input" required>
-                                <label class="custom-control-label" for="level_mitra">Mitra </label>
-                            </div>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="username">Username <span class="text-danger">*</span></label>
@@ -46,26 +33,15 @@
     <div class="col-12 col-xl-8">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-lg-5 col-sm-12 mb-3">
-                        <h5 class="card-title">Data Pengguna</h5>
-                    </div>
-                    <div class="col-lg-7 col-sm-12 text-right">
-                        <div class="btn-group mb-3" role="group" aria-label="Default button group">
-                            <a role="button" data-toggle="modal" data-target="#modal_import" class="btn btn-primary btn-sm"><i class="fa fa-cloud mr-2"></i> Import Pengguna</a>
-                            <a href="<?= base_url('assets/docs/template_import_pengguna.xlsx') ?>" class="btn btn-success btn-sm"><i class="fa fa-file-excel mr-2"></i> Download Format</a>
-                        </div>
-                    </div>
-                </div>
+                <h5 class="card-title">Data Admin</h5>
             </div>
             <div class="card-body">
                 <table id="dt-pengguna" class="table table-hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nama Pengguna</th>
+                            <th>Nama Admin</th>
                             <th>Username</th>
-                            <th>Level</th>
                         </tr>
                     </thead>
                     <tbody>
