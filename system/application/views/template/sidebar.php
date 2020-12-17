@@ -76,6 +76,12 @@
             <li class="sidebar-header">
                 Aksi
             </li>
+            <li class="sidebar-item <?= (isset($m_panduan)) ? $m_panduan : '' ?>">
+                <a class="sidebar-link" href="<?= base_url('panduan') ?>">
+                    <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Panduan</span>
+                </a>
+            </li>
+
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= base_url('logout') ?>">
                     <i class="align-middle" data-feather="power"></i> <span class="align-middle">Logout</span>
