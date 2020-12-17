@@ -35,13 +35,13 @@
                 <div class="card-body">
                     <div class="m-sm-4">
                         <div class="text-center mb-5">
-                            <h1 class="h2"><?= aplikasi()->singkatan ?></h1>
-                            <p class="lead">
-                                Sign in to your account to continue
-                            </p>
+                            <!-- <h1 class="h2"><?= aplikasi()->singkatan ?></h1> -->
                             <div class="text-center">
                                 <img src="<?= base_url("assets/img/logo.png") ?>" alt="<?= aplikasi()->singkatan ?>" class="img-fluid rounded-circle" width="132" height="132">
                             </div>
+                            <p class="lead">
+                                Sign in to your account to continue
+                            </p>
                         </div>
 
                         <form class="authentication-form" id="f_login" autocomplete="off">
