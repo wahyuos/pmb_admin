@@ -485,11 +485,11 @@ class M_pendaftar extends CI_Model
      */
     public function get_ortu($id)
     {
-        $this->db->select('*')
-            ->from('pmb_orang_tua a')
-            ->join('ref_penghasilan b', 'a.id_penghasilan_ayah = b.id_penghasilan', 'LEFT')
-            ->where(['id_akun' => $id]);
-        return $this->db->get()->row();
+        // $this->db->select('*')
+        //     ->from('pmb_orang_tua a')
+        //     ->join('ref_penghasilan b', 'a.id_penghasilan_ayah = b.id_penghasilan', 'LEFT')
+        //     ->where(['id_akun' => $id]);
+        return $this->db->get_where('pmb_orang_tua', ['id_akun' => $id])->row();
     }
 
     public function edit_ortu($data)
