@@ -12,6 +12,7 @@ class Biaya extends CI_Controller
     {
         parent::__construct();
         if ($this->session->is_login == false) redirect(base_url('login'));
+        if ($this->session->level == 'mitra') redirect(base_url('home'));
         $this->load->model('M_biaya', 'biaya');
     }
 
@@ -42,7 +43,7 @@ class Biaya extends CI_Controller
         if ($post) {
             $config['upload_path']   = './assets/docs';
             $config['allowed_types'] = 'pdf';
-            $config['max_size']      = 200;
+            $config['max_size']      = 1024;
             // $config['max_width']            = 512;
             // $config['max_height']           = 512;
             $this->load->library('upload', $config);

@@ -12,6 +12,7 @@ class Ref_tahun_akademik extends CI_Controller
     {
         parent::__construct();
         if ($this->session->is_login == false) redirect(base_url('login'));
+        if ($this->session->level == 'mitra') redirect(base_url('home'));
         $this->load->model('M_ref', 'ref');
     }
 
