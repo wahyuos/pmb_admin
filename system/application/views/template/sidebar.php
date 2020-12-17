@@ -89,20 +89,20 @@
                     Pilih salah satu warna
                 </div>
                 <div class="custom-controls-stacked">
-                    <label class="custom-control custom-radio">
-                        <input name="custom-radio-3" type="radio" id="theme_light" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'light') ? 'checked' : '' ?> onchange="ubah_theme(`light`,`light`)">
+                    <label class="custom-control custom-radio" onclick="ubah_theme(`light`,`light`)">
+                        <input name="custom-radio-3" type="radio" id="theme_light" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'light') ? 'checked' : '' ?>>
                         <span class="custom-control-label" for="theme_light">Light</span>
                     </label>
-                    <label class="custom-control custom-radio">
-                        <input name="custom-radio-3" type="radio" id="theme_colored" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'colored') ? 'checked' : '' ?> onchange="ubah_theme(`colored`,`light`)">
+                    <label class="custom-control custom-radio" onclick="ubah_theme(`colored`,`light`)">
+                        <input name="custom-radio-3" type="radio" id="theme_colored" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'colored') ? 'checked' : '' ?>>
                         <span class="custom-control-label" for="theme_colored">Blue</span>
                     </label>
-                    <label class="custom-control custom-radio">
-                        <input name="custom-radio-3" type="radio" id="theme_default" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'default') ? 'checked' : '' ?> onchange="ubah_theme(`default`,`light`)">
+                    <label class="custom-control custom-radio" onclick="ubah_theme(`default`,`light`)">
+                        <input name="custom-radio-3" type="radio" id="theme_default" name="theme" value="light" class="custom-control-input" <?= (theme()->theme == 'default') ? 'checked' : '' ?>>
                         <span class="custom-control-label" for="theme_default">Semi Dark</span>
                     </label>
-                    <label class="custom-control custom-radio">
-                        <input name="custom-radio-3" type="radio" id="theme_dark" name="theme" value="dark" class="custom-control-input" <?= (theme()->theme == 'dark') ? 'checked' : '' ?> onchange="ubah_theme(`dark`,`dark`)">
+                    <label class="custom-control custom-radio" onclick="ubah_theme(`dark`,`dark`)">
+                        <input name="custom-radio-3" type="radio" id="theme_dark" name="theme" value="dark" class="custom-control-input" <?= (theme()->theme == 'dark') ? 'checked' : '' ?>>
                         <span class="custom-control-label" for="theme_dark">Dark</span>
                     </label>
                 </div>

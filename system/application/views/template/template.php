@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistem Informasi PMB">
+    <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=5, width=device-width, shrink-to-fit=no">
+    <meta name="description" content="PMB STIKes Muhammadiyah Ciamis.">
     <meta name="author" content="Wahyu Kamaludin">
+    <meta name="google" value="notranslate">
 
     <title><?= $title ?></title>
 
@@ -111,8 +112,6 @@
                 if (json.status) {
                     // reload
                     location.reload();
-                    // tampil notif
-                    notif(json.message, json.type);
                 } else {
                     // tampil notif
                     notif(json.message, json.type);
