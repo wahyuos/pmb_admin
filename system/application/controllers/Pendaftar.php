@@ -490,16 +490,21 @@ class Pendaftar extends CI_Controller
                 $row[] = $field->nama_prodi;
                 $row[] = $this->date->tanggal($field->tgl_akun, 's');
 
-                // cek level pengguna
-                if ($this->session->level == 'mitra') {
-                    // jika level mitra, hanya melihat status diterima
-                    $row[] = $status_diterima;
+                // jika sudah ada nomor daftar, tampilkan kolom status
+                if (empty($field->no_daftar)) {
+                    $row[] = '';
                 } else {
-                    // jika level admin, maka tampilkan tombol switch
-                    $row[] = '<div class="custom-control custom-switch" title="STATUS">
+                    // cek level pengguna
+                    if ($this->session->level == 'mitra') {
+                        // jika level mitra, hanya melihat status diterima
+                        $row[] = $status_diterima;
+                    } else {
+                        // jika level admin, maka tampilkan tombol switch
+                        $row[] = '<div class="custom-control custom-switch" title="STATUS">
                             <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
                             <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
                         </div>';
+                    }
                 }
 
                 $data[] = $row;
