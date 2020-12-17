@@ -62,13 +62,18 @@
             <?php
             endif;
             // hanya untuk user dengan level super
-            if ($this->session->level == 'super') : ?>
+            if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
                 <li class="sidebar-header">
                     Manajemen User
                 </li>
                 <li class="sidebar-item <?= (isset($m_user)) ? $m_user : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('pengguna') ?>">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Pengguna</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_mitra)) ? $m_mitra : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('mitra') ?>">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Mitra</span>
                     </a>
                 </li>
             <?php endif; ?>
