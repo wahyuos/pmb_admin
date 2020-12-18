@@ -32,7 +32,6 @@ class M_pendaftar extends CI_Model
             'tgl_akun'       => $data['tgl_akun'],
             'tahun_akademik' => $data['tahun_akademik'],
             'id_user'        => $this->session->id_user,
-            'soft_del'       => 0
         ];
 
         // value insert verifikasi akun (bypass admin)
