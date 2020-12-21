@@ -50,6 +50,9 @@ class Pendaftar extends CI_Controller
     // halaman form tambah pendaftaran
     public function tambah()
     {
+        // cek pendaftaran dibuka atau belum
+        // if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) {
+
         // data yang perlu disiapkan
         $agama = $this->ref->get_agama();
         $pekerjaan = $this->ref->get_pekerjaan();
@@ -68,6 +71,9 @@ class Pendaftar extends CI_Controller
             'dt_tambah' => 'active',
         ];
         template('pendaftar/tambah', $data);
+        // } else {
+        //     $this->index();
+        // }
     }
 
     // halaman detail lengkap pendaftar
@@ -103,6 +109,8 @@ class Pendaftar extends CI_Controller
     // proses menyimpan data dari form pendaftaran
     public function simpan_pendaftaran()
     {
+        // cek pendaftaran dibuka atau belum
+        // if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) {
         $post = $this->input->post(null, true);
         if ($post) {
             $value = [
@@ -160,6 +168,9 @@ class Pendaftar extends CI_Controller
         } else {
             $this->index();
         }
+        // } else {
+        //     $this->index();
+        // }
     }
 
     public function hapus_pendaftaran()

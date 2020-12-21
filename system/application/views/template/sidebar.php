@@ -27,7 +27,13 @@
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pendaftaran</span>
                 </a>
                 <ul id="pendaftar" class="sidebar-dropdown list-unstyled collapse <?= (isset($m_pendaftaran)) ? 'show' : '' ?>" data-parent="#sidebar">
+                    <?php
+                    // pengecekan pendaftaran dibuka atau belum
+                    // if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) : 
+                    ?>
                     <li class="sidebar-item <?= (isset($dt_tambah)) ? $dt_tambah : '' ?>"><a class="sidebar-link" href="<?= base_url('pendaftar/tambah') ?>">Tambah Pendaftar</a></li>
+                    <?php //endif; 
+                    ?>
                     <li class="sidebar-item <?= (isset($dt_pendaftaran)) ? $dt_pendaftaran : '' ?>"><a class="sidebar-link" href="<?= base_url('pendaftar') ?>">Data Pendaftar</a></li>
                 </ul>
             </li>
@@ -66,11 +72,13 @@
                 <li class="sidebar-header">
                     Manajemen User
                 </li>
-                <li class="sidebar-item <?= (isset($m_user)) ? $m_user : '' ?>">
-                    <a class="sidebar-link" href="<?= base_url('pengguna') ?>">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Pengguna</span>
-                    </a>
-                </li>
+                <?php if ($this->session->level == 'super') : ?>
+                    <li class="sidebar-item <?= (isset($m_user)) ? $m_user : '' ?>">
+                        <a class="sidebar-link" href="<?= base_url('pengguna') ?>">
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Pengguna</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="sidebar-item <?= (isset($m_mitra)) ? $m_mitra : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('mitra') ?>">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Mitra</span>
