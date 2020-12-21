@@ -23,6 +23,8 @@ class M_pendaftar extends CI_Model
     // proses menyimpan data pendaftar
     public function create($data)
     {
+        // jalur pendaftaran
+        $jalur_pendaftaran = $this->getGelombang(date('Y-m-d'));
         // value insert akun
         $val_akun = [
             'id_akun'        => $data['id_akun'],
@@ -30,6 +32,7 @@ class M_pendaftar extends CI_Model
             'password_akun'  => set_password($data['password_akun']),
             'hp_akun'        => $data['hp_akun'],
             'tgl_akun'       => $data['tgl_akun'],
+            'id_jadwal'      => $jalur_pendaftaran->id_jadwal,
             'tahun_akademik' => $data['tahun_akademik'],
             'id_user'        => $this->session->id_user,
         ];
