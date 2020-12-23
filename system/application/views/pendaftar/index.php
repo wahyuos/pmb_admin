@@ -7,11 +7,9 @@
                         <h5 class="card-title">Data Pendaftar</h5>
                         <h6 class="card-subtitle text-muted">Mengelola data pendaftaran calon mahasiswa baru.<br>Klik pada nama untuk melihat detail.</h6>
                     </div>
-                    <!-- <?php if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) : ?> -->
                     <div class="col-lg-4 col-sm-12 text-right">
                         <a href="<?= site_url('pendaftar/tambah') ?>" class="btn btn-success"><i class="align-middle" data-feather="plus"></i> Daftar Baru</a>
                     </div>
-                    <!-- <?php endif; ?> -->
                 </div>
             </div>
             <div class="card-body">

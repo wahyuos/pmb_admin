@@ -50,9 +50,6 @@ class Pendaftar extends CI_Controller
     // halaman form tambah pendaftaran
     public function tambah()
     {
-        // cek pendaftaran dibuka atau belum
-        // if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) {
-
         // data yang perlu disiapkan
         $agama = $this->ref->get_agama();
         $pekerjaan = $this->ref->get_pekerjaan();
@@ -71,9 +68,6 @@ class Pendaftar extends CI_Controller
             'dt_tambah' => 'active',
         ];
         template('pendaftar/tambah', $data);
-        // } else {
-        //     $this->index();
-        // }
     }
 
     // halaman detail lengkap pendaftar
@@ -110,67 +104,67 @@ class Pendaftar extends CI_Controller
     public function simpan_pendaftaran()
     {
         // cek pendaftaran dibuka atau belum
-        // if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) {
-        $post = $this->input->post(null, true);
-        if ($post) {
-            $value = [
-                // set value untuk akun
-                'id_akun'       => htmlspecialchars($post['id_akun']),
-                'nama_akun'     => htmlspecialchars($post['nm_pd']),
-                'password_akun' => htmlspecialchars($post['no_hp']),
-                'hp_akun'       => htmlspecialchars($post['no_hp']),
-                'tgl_akun'      => date("Y-m-d H:i:s"),
-                'tahun_akademik' => tahun_akademik(),
+        if ($this->cek_pendaftaran->status(date('Y-m-d'))['status']) {
+            $post = $this->input->post(null, true);
+            if ($post) {
+                $value = [
+                    // set value untuk akun
+                    'id_akun'       => htmlspecialchars($post['id_akun']),
+                    'nama_akun'     => htmlspecialchars($post['nm_pd']),
+                    'password_akun' => htmlspecialchars($post['no_hp']),
+                    'hp_akun'       => htmlspecialchars($post['no_hp']),
+                    'tgl_akun'      => date("Y-m-d H:i:s"),
+                    'tahun_akademik' => tahun_akademik(),
 
-                // set value untuk biodata
-                'nm_pd'      => htmlspecialchars($post['nm_pd']),
-                'nik'        => htmlspecialchars($post['nik']),
-                'tmpt_lahir' => htmlspecialchars($post['tmpt_lahir']),
-                'tgl_lahir'  => htmlspecialchars($post['tgl_lahir']),
-                'id_agama'   => htmlspecialchars($post['id_agama']),
-                'jk'         => htmlspecialchars($post['jk']),
+                    // set value untuk biodata
+                    'nm_pd'      => htmlspecialchars($post['nm_pd']),
+                    'nik'        => htmlspecialchars($post['nik']),
+                    'tmpt_lahir' => htmlspecialchars($post['tmpt_lahir']),
+                    'tgl_lahir'  => htmlspecialchars($post['tgl_lahir']),
+                    'id_agama'   => htmlspecialchars($post['id_agama']),
+                    'jk'         => htmlspecialchars($post['jk']),
 
-                // set value untuk kontak
-                'no_hp'      => htmlspecialchars($post['no_hp']),
-                'no_hp_ortu' => htmlspecialchars($post['no_hp_ortu']),
-                'email'      => htmlspecialchars($post['email']),
+                    // set value untuk kontak
+                    'no_hp'      => htmlspecialchars($post['no_hp']),
+                    'no_hp_ortu' => htmlspecialchars($post['no_hp_ortu']),
+                    'email'      => htmlspecialchars($post['email']),
 
-                // set val untuk orang tua
-                'nm_ayah'           => htmlspecialchars($post['nm_ayah']),
-                'id_pekerjaan_ayah' => htmlspecialchars($post['id_pekerjaan_ayah']),
-                'nm_ibu'            => htmlspecialchars($post['nm_ibu']),
-                'id_pekerjaan_ibu'  => htmlspecialchars($post['id_pekerjaan_ibu']),
+                    // set val untuk orang tua
+                    'nm_ayah'           => htmlspecialchars($post['nm_ayah']),
+                    'id_pekerjaan_ayah' => htmlspecialchars($post['id_pekerjaan_ayah']),
+                    'nm_ibu'            => htmlspecialchars($post['nm_ibu']),
+                    'id_pekerjaan_ibu'  => htmlspecialchars($post['id_pekerjaan_ibu']),
 
-                // set val untuk alamat
-                'jln' => htmlspecialchars($post['jln']),
-                'rt'  => htmlspecialchars($post['rt']),
-                'rw'  => htmlspecialchars($post['rw']),
-                'nm_dsn'   => htmlspecialchars($post['nm_dsn']),
-                'ds_kel'   => htmlspecialchars($post['ds_kel']),
-                'kode_pos' => htmlspecialchars($post['kode_pos']),
-                'id_prov'  => htmlspecialchars($post['id_prov']),
-                'id_kab'   => htmlspecialchars($post['id_kab']),
-                'id_wil'   => htmlspecialchars($post['id_wil']),
-                'kewarganegaraan' => htmlspecialchars($post['kewarganegaraan']),
+                    // set val untuk alamat
+                    'jln' => htmlspecialchars($post['jln']),
+                    'rt'  => htmlspecialchars($post['rt']),
+                    'rw'  => htmlspecialchars($post['rw']),
+                    'nm_dsn'   => htmlspecialchars($post['nm_dsn']),
+                    'ds_kel'   => htmlspecialchars($post['ds_kel']),
+                    'kode_pos' => htmlspecialchars($post['kode_pos']),
+                    'id_prov'  => htmlspecialchars($post['id_prov']),
+                    'id_kab'   => htmlspecialchars($post['id_kab']),
+                    'id_wil'   => htmlspecialchars($post['id_wil']),
+                    'kewarganegaraan' => htmlspecialchars($post['kewarganegaraan']),
 
-                // set val untuk prodi pilihan
-                'id_prodi' => htmlspecialchars($post['id_prodi']),
+                    // set val untuk prodi pilihan
+                    'id_prodi' => htmlspecialchars($post['id_prodi']),
 
-                // set val untuk sekolah asal
-                'jenjang' => htmlspecialchars($post['jenjang']),
-                'sekolah' => htmlspecialchars($post['sekolah']),
-                'alamat_sekolah' => htmlspecialchars($post['alamat_sekolah']),
-                'id_ref_masuk'   => htmlspecialchars($post['id_ref_masuk'])
-            ];
+                    // set val untuk sekolah asal
+                    'jenjang' => htmlspecialchars($post['jenjang']),
+                    'sekolah' => htmlspecialchars($post['sekolah']),
+                    'alamat_sekolah' => htmlspecialchars($post['alamat_sekolah']),
+                    'id_ref_masuk'   => htmlspecialchars($post['id_ref_masuk'])
+                ];
 
-            $response = $this->daftar->create($value);
-            echo json_encode($response);
+                $response = $this->daftar->create($value);
+                echo json_encode($response);
+            } else {
+                $this->index();
+            }
         } else {
             $this->index();
         }
-        // } else {
-        //     $this->index();
-        // }
     }
 
     public function hapus_pendaftaran()
