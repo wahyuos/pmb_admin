@@ -26,6 +26,11 @@ class Home extends CI_Controller
         $total_pendaftar_pmdk_by_gelombang = $this->grafik->total_pendaftar_pmdk_by_gelombang(tahun_akademik());
         $list_gelombang_umum = $this->grafik->list_gelombang_umum(tahun_akademik());
         $total_pendaftar_umum_by_gelombang = $this->grafik->total_pendaftar_umum_by_gelombang(tahun_akademik());
+        $list_peminat_prodi = $this->grafik->list_peminat_prodi();
+        $list_program_studi = $this->grafik->list_program_studi();
+        $total_peminat_program_studi = $this->grafik->total_peminat_program_studi();
+        $warna_program_studi = $this->grafik->warna_program_studi();
+        $list_referensi_masuk = $this->grafik->list_referensi_masuk();
 
         $data = [
             'title' => 'Halaman Utama',
@@ -39,6 +44,11 @@ class Home extends CI_Controller
             'total_pendaftar_pmdk_by_gelombang' => $total_pendaftar_pmdk_by_gelombang,
             'list_gelombang_umum' => $list_gelombang_umum,
             'total_pendaftar_umum_by_gelombang' => $total_pendaftar_umum_by_gelombang,
+            'list_peminat_prodi' => $list_peminat_prodi,
+            'list_program_studi' => $list_program_studi,
+            'total_peminat_program_studi' => $total_peminat_program_studi,
+            'warna_program_studi' => $warna_program_studi,
+            'list_referensi_masuk' => $list_referensi_masuk,
         ];
         template('home/index', $data);
     }

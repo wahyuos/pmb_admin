@@ -130,4 +130,72 @@ class M_grafik extends CI_Model
         // hasil [20, 23, ....]
         return json_encode($total);
     }
+
+    // daftar prodi serta jumlah peminat
+    public function list_peminat_prodi()
+    {
+        $prodi = $this->db->select('c.jenjang, c.nm_prodi, b.jenis_prodi, c.warna, count(a.id_prodi_pilihan) as jml')
+            ->from('pmb_prodi_pilihan a')
+            ->join('ref_jns_prodi b', 'a.id_prodi = b.id_prodi', 'LEFT')
+            ->join('ref_prodi c', 'b.kode_prodi = c.kode_prodi', 'LEFT')
+            ->group_by('a.id_prodi')
+            ->order_by('a.id_prodi', 'ASC')
+            ->get()->result();
+
+        return $prodi;
+    }
+
+    // list program studi
+    public function list_program_studi()
+    {
+        $prodi = $this->list_peminat_prodi();
+
+        // ambil value nya, simpan dalam json
+        $list = [];
+        foreach ($prodi as $field) {
+            $list[] = $field->jenjang . ' ' . $field->nm_prodi . ' (' . $field->jenis_prodi . ')';
+        }
+        // hasil ["D3 Analis (Reguler)", "S1 Keperawatan (Karyawan)", ....]
+        return json_encode($list);
+    }
+
+    // total peminat setiap prodi
+    public function total_peminat_program_studi()
+    {
+        $prodi = $this->list_peminat_prodi();
+
+        // ambil value nya, simpan dalam json
+        $list = [];
+        foreach ($prodi as $field) {
+            $list[] = (int) $field->jml;
+        }
+        // hasil ["D3 Analis (Reguler)", "S1 Keperawatan (Karyawan)", ....]
+        return json_encode($list);
+    }
+
+    // warna setiap prodi
+    public function warna_program_studi()
+    {
+        $prodi = $this->list_peminat_prodi();
+
+        // ambil value nya, simpan dalam json
+        $list = [];
+        foreach ($prodi as $field) {
+            $list[] = $field->warna;
+        }
+        // hasil ["D3 Analis (Reguler)", "S1 Keperawatan (Karyawan)", ....]
+        return json_encode($list);
+    }
+
+    // daftar referensi masuk 
+    public function list_referensi_masuk()
+    {
+        $referensi = $this->db->select('b.jenis_masuk, count(a.id_ref_masuk) as jml')
+            ->from('pmb_sekolah_asal a')
+            ->join('pmb_ref_masuk b', 'a.id_ref_masuk = b.id_ref_masuk', 'LEFT')
+            ->group_by('b.id_ref_masuk')
+            ->get()->result();
+
+        return $referensi;
+    }
 }

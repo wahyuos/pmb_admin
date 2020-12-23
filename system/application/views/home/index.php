@@ -59,7 +59,7 @@
             <div class="card-body py-4">
                 <div class="media">
                     <div class="media-body">
-                        <h3 class="mb-2"><?= ($total_pendaftar_pmdk) ? $total_pendaftar_pmdk : '0' ?></h3>
+                        <h3 class="mb-2"><?= ($total_pendaftar_umum) ? $total_pendaftar_umum : '0' ?></h3>
                         <p class="mb-0">Pendaftar Umum</p>
                     </div>
                     <div class="d-inline-block ml-3">
@@ -112,6 +112,69 @@
                     <canvas id="chartjs-umum" style="display: block; width: 479px; height: 350px;" width="479" height="350" class="chartjs-render-monitor"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-6 col-xxl d-flex">
+        <div class="card flex-fill w-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Peminat Program Studi</h5>
+            </div>
+            <div class="card-body d-flex">
+                <div class="align-self-center w-100">
+                    <div class="py-3">
+                        <div class="chart chart-xs">
+                            <canvas id="chartjs-peminat-prodi"></canvas>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Program Studi</th>
+                                <th class="text-right">Peminat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($list_peminat_prodi as $prodi) :
+                            ?>
+                                <tr>
+                                    <td><i class="fas fa-square-full" style="color: <?= $prodi->warna ?>"></i> <?= $prodi->jenjang . ' ' . $prodi->nm_prodi ?></td>
+                                    <td class="text-right"><?= $prodi->jml ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xxl d-flex">
+        <div class="card flex-fill w-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Referensi Masuk </h5>
+            </div>
+            <table class="table table-striped my-0">
+                <thead>
+                    <tr>
+                        <th>Referensi Masuk</th>
+                        <th class="text-right">Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($list_referensi_masuk as $referensi) :
+                    ?>
+                        <tr>
+                            <td> <?= $referensi->jenis_masuk ?></td>
+                            <td class="text-right"><?= $referensi->jml ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -205,32 +268,15 @@
                 }
             }
         });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        $("#datetimepicker-dashboard").datetimepicker({
-            inline: true,
-            sideBySide: false,
-            format: "L"
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-dashboard-pie"), {
+
+        // Pie chart peminat prodi
+        new Chart(document.getElementById("chartjs-peminat-prodi"), {
             type: "pie",
             data: {
-                labels: ["Direct", "Affiliate", "E-mail", "Other"],
+                labels: <?= $list_program_studi ?>,
                 datasets: [{
-                    data: [2602, 1253, 541, 1465],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.warning,
-                        window.theme.danger,
-                        "#E8EAED"
-                    ],
+                    data: <?= $total_peminat_program_studi ?>,
+                    backgroundColor: <?= $warna_program_studi ?>,
                     borderWidth: 5,
                     borderColor: window.theme.white
                 }]
@@ -243,16 +289,6 @@
                     display: false
                 }
             }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        $("#datatables-dashboard-projects").DataTable({
-            pageLength: 6,
-            lengthChange: false,
-            bFilter: false,
-            autoWidth: false
         });
     });
 </script>
