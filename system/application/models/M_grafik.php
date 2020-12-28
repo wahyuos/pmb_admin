@@ -134,12 +134,14 @@ class M_grafik extends CI_Model
     // daftar prodi serta jumlah peminat
     public function list_peminat_prodi()
     {
-        $prodi = $this->db->select('c.jenjang, c.nm_prodi, b.jenis_prodi, c.warna, count(a.id_prodi_pilihan) as jml')
-            ->from('pmb_prodi_pilihan a')
-            ->join('ref_jns_prodi b', 'a.id_prodi = b.id_prodi', 'LEFT')
-            ->join('ref_prodi c', 'b.kode_prodi = c.kode_prodi', 'LEFT')
-            ->group_by('a.id_prodi')
-            ->order_by('a.id_prodi', 'ASC')
+        $prodi = $this->db->select('d.jenjang, d.nm_prodi, c.jenis_prodi, d.warna, count(b.id_prodi_pilihan) as jml')
+            ->from('pmb_akunmaba a')
+            ->join('pmb_prodi_pilihan b', 'a.id_akun = b.id_akun', 'LEFT')
+            ->join('ref_jns_prodi c', 'b.id_prodi = c.id_prodi', 'LEFT')
+            ->join('ref_prodi d', 'c.kode_prodi = d.kode_prodi', 'LEFT')
+            ->where(['a.soft_del' => '0'])
+            ->group_by('b.id_prodi')
+            ->order_by('b.id_prodi', 'ASC')
             ->get()->result();
 
         return $prodi;
@@ -190,10 +192,12 @@ class M_grafik extends CI_Model
     // daftar referensi masuk 
     public function list_referensi_masuk()
     {
-        $referensi = $this->db->select('b.jenis_masuk, count(a.id_ref_masuk) as jml')
-            ->from('pmb_sekolah_asal a')
-            ->join('pmb_ref_masuk b', 'a.id_ref_masuk = b.id_ref_masuk', 'LEFT')
-            ->group_by('b.id_ref_masuk')
+        $referensi = $this->db->select('c.jenis_masuk, count(b.id_ref_masuk) as jml')
+            ->from('pmb_akunmaba a')
+            ->join('pmb_sekolah_asal b', 'a.id_akun = b.id_akun', 'LEFT')
+            ->join('pmb_ref_masuk c', 'b.id_ref_masuk = c.id_ref_masuk', 'LEFT')
+            ->where(['a.soft_del' => '0'])
+            ->group_by('c.id_ref_masuk')
             ->get()->result();
 
         return $referensi;
