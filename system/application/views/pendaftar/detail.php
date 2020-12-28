@@ -49,9 +49,9 @@
                 <hr class="my-0" />
                 <div class="card-body">
 
-                    <a href="#" class="text-primary"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kwitansi Pendaftaran</a><br>
+                    <!-- <a href="#" class="text-primary"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kwitansi Pendaftaran</a><br> -->
 
-                    <a href="#" class="text-primary"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kartu Pendaftaran</a><br>
+                    <a href="<?= site_url('kartu_pendaftaran/detail/' . $detail_pd->id_pd) ?>" class="text-primary" target="_kartu"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kartu Pendaftaran</a><br>
 
                     <a href="#" id="btn_hapus" class="text-danger" data-toggle="modal" data-target="#modal_<?= $detail_pd->id_pd ?>"><span data-feather="x" class="feather-sm mr-2"></span> Hapus Pendaftar</a>
                 </div>
