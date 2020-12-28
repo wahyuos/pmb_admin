@@ -14,6 +14,12 @@ class M_pendaftar extends CI_Model
         return $this->db->get_where('ref_jadwal', ['periode_awal <= ' => $tgl_daftar, 'periode_akhir >= ' => $tgl_daftar])->row();
     }
 
+    // mengetahui jadwal tes 
+    public function getJadwalTes($id_jadwal)
+    {
+        return $this->db->get_where('ref_jadwal_tes', ['id_jadwal' => $id_jadwal])->row();
+    }
+
     // ambil data lengkap si pendaftar dari view pada database berdasarkan ID
     public function read($id = null)
     {
