@@ -19,17 +19,23 @@ class CI_Cek_pendaftaran
     {
         $keterangan = get_instance()->db->get_where('ref_jadwal', ['periode_awal <= ' => $tgl_daftar, 'periode_akhir >= ' => $tgl_daftar])->row();
         // jika null
-        if (empty($keterangan)) {
-            // pendaftaran belum dibuka
+        if ($keterangan) {
+            if ($keterangan->soft_del == '0') {
+                // jika sudah dibuka
+                $response = [
+                    'status' => true,
+                    'keterangan' => 'Pendaftaran sudah dibuka.',
+                ];
+            } else {
+                $response = [
+                    'status' => false,
+                    'keterangan' => 'Pendaftaran belum dibuka.',
+                ];
+            }
+        } else {
             $response = [
                 'status' => false,
                 'keterangan' => 'Pendaftaran belum dibuka.',
-            ];
-        } else {
-            // jika sudah dibuka
-            $response = [
-                'status' => true,
-                'keterangan' => 'Pendaftaran sudah dibuka.',
             ];
         }
 
