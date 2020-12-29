@@ -25,7 +25,7 @@ class CI_Date
 
     public function bulan($tanggal)
     {
-        $bulan    = [1 => 'Januari', ' Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'];
+        $bulan    = [1 => 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'];
         // pisahkan untuk mengambil angka bulan
         $pecahkan = explode('-', $tanggal);
         // kembalikan nama bulan dalam bentuk string
