@@ -54,7 +54,7 @@ class M_grafik extends CI_Model
     // daftar gelombang pendaftaran jalur pmdk berdasarkan tahun akademik aktif
     public function list_gelombang_pmdk($tahun_akademik)
     {
-        $jalur_pmdk = $this->db->order_by('nama_gelombang', 'ASC')->get_where('v_data_pendaftar', ['jalur' => 'PMDK', 'tahun_akademik' => $tahun_akademik])->result();
+        $jalur_pmdk = $this->db->order_by('nama_gelombang', 'ASC')->group_by('nama_gelombang')->get_where('v_data_pendaftar', ['jalur' => 'PMDK', 'tahun_akademik' => $tahun_akademik])->result();
 
         // ambil value nya, simpan dalam json
         $list = [];
@@ -68,7 +68,7 @@ class M_grafik extends CI_Model
     // daftar gelombang pendaftaran jalur umum berdasarkan tahun akademik aktif
     public function list_gelombang_umum($tahun_akademik)
     {
-        $jalur_umum = $this->db->order_by('nama_gelombang', 'ASC')->get_where('v_data_pendaftar', ['jalur' => 'UMUM', 'tahun_akademik' => $tahun_akademik])->result();
+        $jalur_umum = $this->db->order_by('nama_gelombang', 'ASC')->group_by('nama_gelombang')->get_where('v_data_pendaftar', ['jalur' => 'UMUM', 'tahun_akademik' => $tahun_akademik])->result();
 
         // ambil value nya, simpan dalam json
         $list = [];
@@ -183,10 +183,9 @@ class M_grafik extends CI_Model
     public function list_referensi_masuk()
     {
         $referensi = $this->db->select('c.jenis_masuk, count(b.id_ref_masuk) as jml')
-            ->from('pmb_akunmaba a')
+            ->from('v_data_pendaftar a')
             ->join('pmb_sekolah_asal b', 'a.id_akun = b.id_akun', 'LEFT')
             ->join('pmb_ref_masuk c', 'b.id_ref_masuk = c.id_ref_masuk', 'LEFT')
-            ->where(['a.soft_del' => '0'])
             ->group_by('c.id_ref_masuk')
             ->get()->result();
 
