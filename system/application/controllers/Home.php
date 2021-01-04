@@ -15,8 +15,21 @@ class Home extends CI_Controller
         $this->load->model('M_grafik', 'grafik');
     }
 
+    public function tes($id)
+    {
+        $bukti = $this->db->get_where('pmb_buktibayar', ['id_akun' => $id, 'soft_del' => '0'])->row();
+        $data = [
+            'title' => 'Halaman Utama',
+            'm_home' => 'active',
+            'bukti' => $bukti
+        ];
+        template('home/bukti', $data);
+    }
+
     public function index()
     {
+        // berdasarkan user
+        $total_pendaftar_by_user = $this->grafik->total_pendaftar_by_user(tahun_akademik(), $this->session->id_user);
         // data kalkulasi pendaftar
         $total_pendaftar = $this->grafik->total_pendaftar(tahun_akademik());
         $total_daftar_hari_ini = $this->grafik->total_daftar_hari_ini();
@@ -35,6 +48,8 @@ class Home extends CI_Controller
         $data = [
             'title' => 'Halaman Utama',
             'm_home' => 'active',
+            // berdasarkan user
+            'total_pendaftar_by_user' => $total_pendaftar_by_user,
             // kalkulasi
             'total_pendaftar' => $total_pendaftar,
             'total_daftar_hari_ini' => $total_daftar_hari_ini,
