@@ -41,6 +41,11 @@
             <?php
             // untuk user dengan level super atau admin
             if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
+                <li class="sidebar-item <?= (isset($m_bukti)) ? $m_bukti : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('bukti_bayar') ?>">
+                        <i class="align-middle" data-feather="pocket"></i> <span class="align-middle">Bukti Bayar</span>
+                    </a>
+                </li>
                 <li class="sidebar-item <?= (isset($m_info)) ? $m_info : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('informasi') ?>">
                         <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
