@@ -1,0 +1,1 @@
+<img class="rounded-md" src="data:<?= $bukti->file_type ?>;base64,<?= $bukti->file_blob ?>" width="100%" height="auto">
