@@ -160,11 +160,13 @@
                             <?php
                             // ambil nama provinsi
                             $nm_prov = $this->db->get_where('ref_wilayah', ['id_wil' => $detail_pd->id_prov])->row();
+                            $prov = ($nm_prov) ? trim($nm_prov->nm_wil) : '';
                             // ambil nama kabupaten
                             $nm_kab  = $this->db->get_where('ref_wilayah', ['id_wil' => $detail_pd->id_kab])->row();
+                            $kab = ($nm_kab) ? trim($nm_kab->nm_wil) : '';
                             ?>
 
-                            <p class="text-dark m-0"><?= $detail_pd->nm_dsn . ' RT ' . $detail_pd->rt . ' RW ' . $detail_pd->rw . ' Desa/Kel ' . $detail_pd->ds_kel . '<br>' . trim($detail_pd->nm_wil) . ' - ' . trim($nm_kab->nm_wil) . ' - ' . trim($nm_prov->nm_wil) ?>
+                            <p class="text-dark m-0"><?= $detail_pd->nm_dsn . ' RT ' . $detail_pd->rt . ' RW ' . $detail_pd->rw . ' Desa/Kel ' . $detail_pd->ds_kel . '<br>' . trim($detail_pd->nm_wil) . ' - ' . $kab . ' - ' . $prov ?>
                             </p>
                         </div>
                     </div>
@@ -191,8 +193,10 @@
                     <?php
                     // ambil pekerjaan ibu
                     $pekerjaan_ibu = $this->db->get_where('ref_pekerjaan', ['id_pekerjaan' => $detail_pd->id_pekerjaan_ibu])->row();
+                    $pekerjaan_i = ($pekerjaan_ibu) ? $pekerjaan_ibu->nm_pekerjaan : '';
                     // ambil pekerjaan ayah
                     $pekerjaan_ayah = $this->db->get_where('ref_pekerjaan', ['id_pekerjaan' => $detail_pd->id_pekerjaan_ayah])->row();
+                    $pekerjaan_a = ($pekerjaan_ayah) ? $pekerjaan_ayah->nm_pekerjaan : '';
                     ?>
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Nama Ibu Kandung</label>
@@ -203,7 +207,7 @@
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Pekerjaan Ibu</label>
                         <div class="col-sm-8 col-form-label">
-                            <p class="text-dark m-0"><?= $pekerjaan_ibu->nm_pekerjaan ?></p>
+                            <p class="text-dark m-0"><?= $pekerjaan_i ?></p>
                         </div>
                     </div>
                     <div class="form-group row mb-0">
@@ -215,7 +219,7 @@
                     <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Pekerjaan Ayah</label>
                         <div class="col-sm-8 col-form-label">
-                            <p class="text-dark m-0"><?= $pekerjaan_ayah->nm_pekerjaan ?></p>
+                            <p class="text-dark m-0"><?= $pekerjaan_a ?></p>
                         </div>
                     </div>
                 </div>
