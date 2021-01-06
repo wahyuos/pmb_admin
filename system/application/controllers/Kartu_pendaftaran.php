@@ -13,7 +13,7 @@ class Kartu_pendaftaran extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->is_login == false) redirect(base_url('login'));
+        // if ($this->session->is_login == false) redirect(base_url('login'));
         $this->load->model('M_pendaftar', 'daftar');
         $this->load->model('M_ref', 'ref');
         $this->load->library('urutan');
@@ -24,7 +24,7 @@ class Kartu_pendaftaran extends CI_Controller
     }
 
     // halaman detail lengkap pendaftar
-    public function detail($id = null)
+    public function detail($id = null, $type = 'I')
     {
         // cek id
         if ($id) {
@@ -56,7 +56,7 @@ class Kartu_pendaftaran extends CI_Controller
             $mpdf->SetAuthor(aplikasi()->singkatan);
             $mpdf->SetCreator(aplikasi()->kampus);
             $mpdf->WriteHTML($kartu);
-            $mpdf->Output($data['title'] . ' ' . aplikasi()->singkatan . '.pdf', 'I');
+            $mpdf->Output(aplikasi()->singkatan . ' - ' . $detail->nm_pd . '.pdf', $type);
         } else {
             $this->index();
         }
