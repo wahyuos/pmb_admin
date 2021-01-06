@@ -72,6 +72,8 @@ async function sendData(value) {
         if (json.status) {
             // reset form
             f_informasi.reset();
+            $('.ql-editor').empty();
+            document.getElementById("text_isi_informasi").value = null;
             document.getElementById('id_informasi').value = null;
             document.getElementById("judul_informasi").focus();
             document.getElementById("batal").style.display = 'none';
@@ -108,7 +110,8 @@ function edit(id) {
             const data = response;
             document.getElementById("id_informasi").value = data.id_informasi;
             document.getElementById("judul_informasi").value = data.judul_informasi;
-            document.getElementById("isi_informasi").value = data.isi_informasi;
+            document.getElementById("text_isi_informasi").value = data.isi_informasi;
+            $('.ql-editor').html(data.isi_informasi);
             document.getElementById("judul_informasi").focus();
             document.getElementById("batal").style.display = 'inline';
         });

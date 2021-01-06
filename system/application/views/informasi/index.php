@@ -69,12 +69,19 @@
         if (!window.Quill) {
             return $("#isi_informasi,#quill-toolbar").remove();
         }
-        var editor = new Quill("#isi_informasi", {
+        var quill = new Quill("#isi_informasi", {
             modules: {
                 toolbar: "#quill-toolbar"
             },
             placeholder: "Type something",
             theme: "snow"
         });
+        var text = document.getElementById('isi_informasi');
+        text.onkeyup = function() {
+            let text_info = $('.ql-editor').html();
+            // let text_info = document.getElementsByClassName('ql-editor').innerHTML;
+            let isi = document.getElementById('text_isi_informasi').value = text_info;
+            return false;
+        };
     });
 </script>
