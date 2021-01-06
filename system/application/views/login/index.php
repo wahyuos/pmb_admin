@@ -11,7 +11,7 @@
     <title><?= $title ?></title>
 
     <link rel="canonical" href="<?= base_url() ?>" />
-    <link rel="shortcut icon" href="<?= base_url("assets/img/favicon.ico") ?>">
+    <link rel="shortcut icon" href="<?= base_url("assets/img/logo.png") ?>">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
