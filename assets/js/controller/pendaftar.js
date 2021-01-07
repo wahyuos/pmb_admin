@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "POST",
         },
         columnDefs: [{
-            targets: [0],
+            targets: [0, 3],
             orderable: false,
         },
         {
-            targets: [0, 5],
+            targets: [0, 6],
             className: "text-center",
         },
         ],
@@ -131,43 +131,6 @@ if (f_tambah_pendaftar) {
             btnSubmit.disabled = false;
             btnSubmit.textContent = "SIMPAN";
         }
-    }
-}
-
-// fungsi untuk melihat data peserta dari baris tabel
-async function lihat(id) {
-    let data = {
-        'id_akun': id
-    };
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
-    try {
-        const response = await fetch(site_url + 'pendaftar/lihat', options);
-        const json = await response.json();
-        // console.log(json);
-        // tampilkan card
-        document.getElementById('card').style.display = 'inline';
-        // tampilkan atribut peserta
-        document.getElementById('nm_pd').textContent = json.nm_pd;
-        document.getElementById('sekolah_asal').textContent = json.sekolah;
-        document.getElementById('no_hp').textContent = json.no_hp;
-        document.getElementById('no_hp_ortu').textContent = json.no_hp_ortu;
-        // status diterima
-        if (json.status_diterima == '1') {
-            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-success">Diterima</span>';
-        } else {
-            document.getElementById('status_diterima').innerHTML = '<span class="badge badge-secondary">Pending</span>';
-        }
-        // link untuk detail
-        document.getElementById('btn_detail').href = site_url + 'pendaftar/detail/' + json.id_pd;
-
-    } catch (error) {
-        console.log(error);
     }
 }
 

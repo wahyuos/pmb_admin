@@ -489,23 +489,40 @@ class Pendaftar extends CI_Controller
                 $status_diterima = ($field->status_diterima == '1') ? '<span class="badge badge-success">Diterima</span>' : '<span class="badge badge-secondary">Pending</span>';
                 $no++;
                 $row = array();
-                $row[] = '<a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger" title="HAPUS"><i class="fas fa-times"></i></a>' . modal_danger($field->id_akun, $field->nm_pd);
-                $row[] = '<a role="button" onclick="lihat(`' . $field->id_akun . '`)">' . $field->nm_pd . '</a>';
-                $row[] = $field->no_daftar;
-                $row[] = $field->nama_prodi;
-                $row[] = $this->date->tanggal($field->tgl_akun, 's');
+                /**1*/ $row[] = '<a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger" title="HAPUS"><i class="fas fa-times"></i></a>' . modal_danger($field->id_akun, $field->nm_pd);
+                /**2*/ $row[] = '<a href="' . site_url('pendaftar/detail/' . $field->id_akun) . '">' . $field->nm_pd . '</a><br>' . $field->jalur . ' : ' . $field->no_daftar;
+                /**3*/ $row[] = $field->nama_prodi;
+                /**4*/ $row[] = $field->hp_akun;
+
+                // cek level user
+                $level_user = $this->session->level;
+                if ($level_user == 'mitra') {
+                    /**5*/ $row[] = $field->nama_gelombang;
+                    /**6*/ $row[] = $this->date->tanggal($field->tgl_akun, 's');
+                } else {
+                    // cek level dari id_user
+                    if ($field->level == 'admin' || $field->level == 'super') {
+                        $nm_user = 'Admin BAAK';
+                    } elseif ($field->level == 'mitra') {
+                        $nm_user = $field->nama_user;
+                    } else {
+                        $nm_user = 'Mandiri';
+                    }
+                    /**5*/ $row[] = $field->sekolah;
+                    /**6*/ $row[] = $nm_user;
+                }
 
                 // jika sudah ada nomor daftar, tampilkan kolom status
                 if (empty($field->no_daftar)) {
-                    $row[] = '';
+                    /**7*/ $row[] = '';
                 } else {
                     // cek level pengguna
                     if ($this->session->level == 'mitra') {
                         // jika level mitra, hanya melihat status diterima
-                        $row[] = $status_diterima;
+                        /**7*/ $row[] = $status_diterima;
                     } else {
                         // jika level admin, maka tampilkan tombol switch
-                        $row[] = '<div class="custom-control custom-switch" title="STATUS">
+                        /**7*/ $row[] = '<div class="custom-control custom-switch" title="STATUS">
                             <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
                             <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
                         </div>';
