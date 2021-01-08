@@ -36,7 +36,7 @@ class M_grafik extends CI_Model
     public function total_daftar_hari_ini()
     {
         $hari_ini = date('Y-m-d');
-        return $this->db->get_where('v_data_pendaftar', ['tgl_akun' => $hari_ini])->num_rows();
+        return $this->db->get_where('v_data_pendaftar', ['tgl_daftar' => $hari_ini])->num_rows();
     }
 
     // total pendaftar jalur pmdk
