@@ -91,7 +91,7 @@ class M_bukti_bayar extends CI_Model
      */
     private function _get_datatables_query()
     {
-        $table = "( SELECT a.id_buktibayar, b.id_akun, b.nama_akun, a.tgl_upload, DATE(a.tgl_upload) as tgl, a.verifikasi, a.skip FROM pmb_buktibayar a LEFT JOIN pmb_akunmaba b ON a.id_akun = b.id_akun WHERE a.soft_del = '0' AND a.skip = '0' ) as new_tb";
+        $table = "( SELECT a.id_buktibayar, b.id_akun, b.nama_akun, a.tgl_upload, a.tgl_upload as tgl, a.verifikasi, a.skip FROM pmb_buktibayar a LEFT JOIN pmb_akunmaba b ON a.id_akun = b.id_akun WHERE a.soft_del = '0' AND a.skip = '0' ) as new_tb";
         $column_order = array(null, 'tgl_upload', 'nama_akun', 'verifikasi');
         $column_search = array('nama_akun');
         $orders = array('tgl_upload' => 'DESC');

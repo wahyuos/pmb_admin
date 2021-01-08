@@ -77,7 +77,7 @@ class Bukti_bayar extends CI_Controller
                 $row = array();
                 $row[] = '<a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger" title="HAPUS"><i class="fas fa-times"></i></a>' . modal_danger($field->id_akun, $field->nama_akun);
                 $row[] = '<a role="button" onclick="lihat(`' . $field->id_akun . '`)">' . $field->nama_akun . '</a>';
-                $row[] = $this->date->tanggal($field->tgl, 'p');
+                $row[] = $this->date->tanggal($field->tgl, 's');
                 $row[] = '<div class="custom-control custom-switch" title="STATUS">
                             <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
                             <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
