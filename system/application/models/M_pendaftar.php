@@ -724,7 +724,7 @@ class M_pendaftar extends CI_Model
         $table = "( SELECT * FROM v_data_pendaftar WHERE tahun_akademik = '$ta' " . $by_mitra . " ) as new_tb";
         $column_order = $column;
         $column_search = array('nm_pd', 'no_daftar', 'hp_akun', 'sekolah', 'nama_prodi', 'jalur');
-        $orders = array('tgl_akun' => 'DESC');
+        $orders = array('tgl_daftar' => 'DESC');
 
         $this->db->from($table);
 
