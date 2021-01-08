@@ -15,6 +15,11 @@ class M_persyaratan extends CI_Model
         return ($cek_data == 0) ? true : false;
     }
 
+    public function cek_kelengkapan_persyaratan($id_akun)
+    {
+        return $this->db->get_where('pmb_persyaratan', ['id_akun' => $id_akun])->num_rows();
+    }
+
     public function jnsPersyaratan()
     {
         return $this->db->order_by('id_jns_persyaratan', 'asc')->get('pmb_jns_persyaratan')->result();
