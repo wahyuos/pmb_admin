@@ -13,6 +13,7 @@ class Pendaftar extends CI_Controller
         parent::__construct();
         if ($this->session->is_login == false) redirect(base_url('login'));
         $this->load->model('M_pendaftar', 'daftar');
+        $this->load->model('M_persyaratan', 'persyaratan');
         $this->load->model('M_ref', 'ref');
         $this->load->library('urutan');
     }
@@ -86,13 +87,15 @@ class Pendaftar extends CI_Controller
             }
             // persyaratan
             $persyaratan = $this->ref->jnsPersyaratan();
+            $kelengkapan_persyaratan = $this->persyaratan->cek_kelengkapan_persyaratan($detail->id_pd);
             $data = [
                 'title'       => 'Detail Pendaftar',
                 'detail_pd'   => $detail,
                 'gelombang'   => $gelombang,
-                'persyaratan'    => $persyaratan,
-                'm_pendaftaran'  => 'active',
-                'dt_pendaftaran' => 'active',
+                'persyaratan'     => $persyaratan,
+                'cek_persyaratan' => $kelengkapan_persyaratan,
+                'm_pendaftaran'   => 'active',
+                'dt_pendaftaran'  => 'active',
             ];
             template('pendaftar/detail', $data);
         } else {
@@ -485,6 +488,18 @@ class Pendaftar extends CI_Controller
             $data = array();
             $no   = $post['start'];
             foreach ($list as $field) {
+                // pemeriksaan kelengkapan persyaratan
+                $kelengkapan_persyaratan = $this->persyaratan->cek_kelengkapan_persyaratan($field->id_akun);
+                if (!$kelengkapan_persyaratan || $kelengkapan_persyaratan == 0) {
+                    $btn_terima = false;
+                    $persyaratan = '<span class="badge badge-danger">Belum upload</span>';
+                } elseif ($kelengkapan_persyaratan == 3) {
+                    $btn_terima = true;
+                    $persyaratan = '<span class="badge badge-success">Lengkap</span>';
+                } else {
+                    $btn_terima = false;
+                    $persyaratan = '<span class="badge badge-warning">' . $kelengkapan_persyaratan . ' dari 3</span>';
+                }
                 $switch_checked = ($field->status_diterima == '1') ? 'checked' : '';
                 $status_diterima = ($field->status_diterima == '1') ? '<span class="badge badge-success">Diterima</span>' : '<span class="badge badge-secondary">Pending</span>';
                 $no++;
@@ -512,20 +527,27 @@ class Pendaftar extends CI_Controller
                     /**6*/ $row[] = $nm_user;
                 }
 
+                /**7*/ $row[] = $persyaratan;
+
                 // jika sudah ada nomor daftar, tampilkan kolom status
                 if (empty($field->no_daftar)) {
-                    /**7*/ $row[] = '';
+                    /**8*/ $row[] = '';
                 } else {
                     // cek level pengguna
                     if ($this->session->level == 'mitra') {
                         // jika level mitra, hanya melihat status diterima
-                        /**7*/ $row[] = $status_diterima;
+                        /**8*/ $row[] = $status_diterima;
                     } else {
                         // jika level admin, maka tampilkan tombol switch
-                        /**7*/ $row[] = '<div class="custom-control custom-switch" title="STATUS">
+                        // jika persyaratan lengkap, tampilkan switch
+                        if ($btn_terima) {
+                            /**8*/ $row[] = '<div class="custom-control custom-switch" title="STATUS">
                             <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
                             <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
                         </div>';
+                        } else {
+                            $row[] = '<small>Lengkapi persyaratan</small>';
+                        }
                     }
                 }
 

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             orderable: false,
         },
         {
-            targets: [0, 6],
+            targets: [0, 7],
             className: "text-center",
         },
         ],

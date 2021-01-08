@@ -25,12 +25,14 @@
                     <?php
                     if ($gelombang) {
                         echo $gelombang->jalur . ' - ' . $gelombang->nama_gelombang;
-                    } ?>
+                    }
+                    echo '<br>' . $this->date->tanggal($detail_pd->tgl_daftar, 'p');
+                    ?>
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
                     <h5 class="h6 card-title">Persyaratan</h5>
-                    <ul class="list-unstyled mb-0">
+                    <ul class="list-unstyled mb-3">
                         <?php if ($persyaratan) :
                             foreach ($persyaratan as $list) :
                                 $cek_data = $this->db->get_where('pmb_persyaratan', ['id_akun' => $detail_pd->id_pd, 'id_jns_persyaratan' => $list->id_jns_persyaratan])->num_rows();
@@ -45,14 +47,26 @@
                         <?php endforeach;
                         endif; ?>
                     </ul>
+
+                    <!-- <a href="#" class="text-primary"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kwitansi Pendaftaran</a><br> -->
+                    <?php if (!$cek_persyaratan || $cek_persyaratan == 0) : ?>
+                        <div class="alert alert-warning mb-0" role="alert">
+                            <div class="alert-message">
+                                Silahkan upload dokumen persyaratan agar pendaftaran segera diproses dan dapat mencetak Kartu Pendaftaran.
+                            </div>
+                        </div>
+                    <?php elseif ($cek_persyaratan == 3) : ?>
+                        <a href="<?= site_url('kartu_pendaftaran/detail/' . $detail_pd->id_pd) ?>" class="text-primary" target="_kartu"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kartu Pendaftaran</a>
+                    <?php else : ?>
+                        <div class="alert alert-danger mb-0" role="alert">
+                            <div class="alert-message">
+                                Silahkan lengkapi dokumen persyaratan agar pendaftaran segera diproses dan dapat mencetak Kartu Pendaftaran.
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-
-                    <!-- <a href="#" class="text-primary"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kwitansi Pendaftaran</a><br> -->
-
-                    <a href="<?= site_url('kartu_pendaftaran/detail/' . $detail_pd->id_pd) ?>" class="text-primary" target="_kartu"><span data-feather="printer" class="feather-sm mr-2"></span> Cetak Kartu Pendaftaran</a><br>
-
                     <a href="#" id="btn_hapus" class="text-danger" data-toggle="modal" data-target="#modal_<?= $detail_pd->id_pd ?>"><span data-feather="x" class="feather-sm mr-2"></span> Hapus Pendaftar</a>
                 </div>
             </div>

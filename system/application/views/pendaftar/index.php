@@ -29,6 +29,7 @@
                                 <th>Sekolah Asal</th>
                                 <th>Oleh</th>
                             <?php endif; ?>
+                            <th>Persyaratan</th>
                             <th>Status Diterima</th>
                         </tr>
                     </thead>
