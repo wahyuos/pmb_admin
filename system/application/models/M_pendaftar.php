@@ -361,17 +361,33 @@ class M_pendaftar extends CI_Model
             'jk'         => $data['jk'],
             'updated_at' => date("Y-m-d H:i:s")
         ];
+        // set data untuk ganti ke akun jika ada perubahan nama
+        $val_akun = [
+            'nama_akun'  => strtoupper($data['nm_pd']),
+        ];
         // update tabel biodata
         $update = $this->db->update('pmb_biodata', $value, ['id_akun' => $data['id_akun']]);
         // cek status simpan
         if ($update) {
-            // buat respon berhasil
-            $response = [
-                'status'  => true,
-                'message' => 'Biodata berhasil diubah',
-                'title'   => 'Berhasil!',
-                'type'    => 'success'
-            ];
+            // update nama pada akun maba
+            $updateakun = $this->db->update('pmb_akunmaba', $val_akun, ['id_akun' => $data['id_akun']]);
+            if ($updateakun) {
+                // buat respon berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Biodata berhasil diubah',
+                    'title'   => 'Berhasil!',
+                    'type'    => 'success'
+                ];
+            } else {
+                // buat respon gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Gagal merubah nama akun',
+                    'title'   => 'Gagal!',
+                    'type'    => 'danger'
+                ];
+            }
         } else {
             // buat respon gagal
             $response = [
