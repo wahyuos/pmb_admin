@@ -193,3 +193,34 @@ if (!function_exists('modal_danger')) {
         return $modal;
     }
 }
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('modal_reset')) {
+    /**
+     * Modal
+     *
+     * Menampilkan modal
+     * @param id ID data
+     * @param name Nama data
+     * @return	string  tampilkan modal
+     */
+    function modal_reset($id = null, $name = null)
+    {
+        $modal = '<!-- BEGIN modal -->
+        <div class="modal fade" data-backdrop="static" id="reset_' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body m-3 text-center">
+                        <h4 class="mb-5">Anda yakin data <span class="text-danger">' . $name . '</span> akan direset?</h4>
+                        <button type="button" onclick="reset(`' . $id . '`)" class="btn btn-danger" data-dismiss="modal">Ya, reset</button>
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END modal -->';
+
+        return $modal;
+    }
+}
