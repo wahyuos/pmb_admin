@@ -541,10 +541,11 @@ class Pendaftar extends CI_Controller
                         // jika level admin, maka tampilkan tombol switch
                         // jika persyaratan lengkap, tampilkan switch
                         if ($btn_terima) {
-                            /**8*/ $row[] = '<div class="custom-control custom-switch" title="STATUS">
-                            <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
-                            <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
-                        </div>';
+                            /**8*/ $row[] = $status_diterima;
+                            //     $row[] = '<div class="custom-control custom-switch" title="STATUS">
+                            //     <input type="checkbox" onchange="status_diterima(`' . $field->id_akun . '`)" class="custom-control-input" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
+                            //     <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
+                            // </div>';
                         } else {
                             $row[] = '<small>Lengkapi persyaratan</small>';
                         }
