@@ -80,13 +80,18 @@
                 <?php if ($this->session->level == 'super') : ?>
                     <li class="sidebar-item <?= (isset($m_user)) ? $m_user : '' ?>">
                         <a class="sidebar-link" href="<?= base_url('pengguna') ?>">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Pengguna</span>
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Akun Pengguna</span>
                         </a>
                     </li>
                 <?php endif; ?>
                 <li class="sidebar-item <?= (isset($m_mitra)) ? $m_mitra : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('mitra') ?>">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Mitra</span>
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Akun Mitra</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_akun_pendaftar)) ? $m_akun_pendaftar : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('akun_pendaftar') ?>">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Akun Pendaftar</span>
                     </a>
                 </li>
             <?php endif; ?>
