@@ -69,7 +69,7 @@
 
             <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <p class="text-muted"><a href="<?= base_url(); ?>" class="text-muted">&copy; <?= aplikasi()->singkatan ?> - 2020</a></p>
+                    <p class="text-muted"><a href="<?= base_url(); ?>" class="text-muted">&copy; 2020 - <?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a></p>
                 </div> <!-- end col -->
             </div>
 
