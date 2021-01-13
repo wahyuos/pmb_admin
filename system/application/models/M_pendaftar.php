@@ -730,16 +730,18 @@ class M_pendaftar extends CI_Model
         if ($level_user == 'mitra') {
             $by_mitra = ' AND id_user = "' .  $this->session->id_user . '"';
             $column = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'nama_gelombang', 'tgl_daftar', 'status_diterima');
+            $col_search = array('nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'jalur');
         } else {
             $by_mitra = '';
             $column = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'sekolah', 'nama_user', 'status_diterima');
+            $col_search = array('nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'sekolah', 'jalur');
         }
 
         // filter by tahun akademik
         $ta = tahun_akademik();
         $table = "( SELECT * FROM v_data_pendaftar WHERE tahun_akademik = '$ta' " . $by_mitra . " ) as new_tb";
         $column_order = $column;
-        $column_search = array('nm_pd', 'no_daftar', 'hp_akun', 'sekolah', 'nama_prodi', 'jalur');
+        $column_search = $col_search;
         $orders = array('tgl_daftar' => 'DESC');
 
         $this->db->from($table);
