@@ -39,15 +39,15 @@
                             <div class="text-center">
                                 <img src="<?= base_url("assets/img/logo.png") ?>" alt="<?= aplikasi()->singkatan ?>" class="img-fluid rounded-circle" width="132" height="132">
                             </div>
-                            <p class="lead">
-                                Sign in to your account to continue
-                            </p>
+                            <H3>
+                                HALAMAN LOGIN ADMIN
+                            </H3>
                         </div>
 
                         <form class="authentication-form" id="f_login" autocomplete="off">
                             <div class="form-group">
-                                <label class="form-control-label" for="username">Username</label>
-                                <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Masukkan Username" autofocus required>
+                                <label class="form-control-label" for="username">Username / Nomor HP</label>
+                                <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Masukkan Username atau Nomor HP" autofocus required>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="password">Password</label>
