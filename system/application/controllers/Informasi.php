@@ -34,7 +34,7 @@ class Informasi extends CI_Controller
             $value = [
                 'id_informasi'    => htmlspecialchars($post['id_informasi']),
                 'judul_informasi' => htmlspecialchars($post['judul_informasi']),
-                'isi_informasi'   => htmlspecialchars($post['isi_informasi'])
+                'isi_informasi'   => $post['isi_informasi']
             ];
             // cek id
             if (empty($value['id_informasi'])) {

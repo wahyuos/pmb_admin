@@ -29,7 +29,8 @@
                                 <button class="ql-list" value="bullet"></button>
                             </span>
                         </div>
-                        <textarea type="text" name="isi_informasi" id="isi_informasi" class="form-control" rows="10" required></textarea>
+                        <div id="isi_informasi"></div>
+                        <input type="hidden" id="text_isi_informasi" name="isi_informasi">
                     </div>
 
                     <hr>
