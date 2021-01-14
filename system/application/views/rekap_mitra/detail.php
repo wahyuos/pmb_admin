@@ -7,33 +7,35 @@
             </div>
             <div class="card-body">
                 <?php if ($pendaftar) : ?>
-                    <table class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Pendaftar</th>
-                                <th>Nomor Pendaftaran</th>
-                                <th>Asal Sekolah</th>
-                                <th>Nomor HP</th>
-                                <th>Program Studi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 0;
-                            foreach ($pendaftar as $field) :
-                            ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td><?= ++$no ?></td>
-                                    <td><?= $field->nm_pd ?></td>
-                                    <td><?= $field->no_daftar ?></td>
-                                    <td><?= $field->sekolah ?></td>
-                                    <td><?= $field->hp_akun ?></td>
-                                    <td><?= $field->nama_prodi ?></td>
+                                    <th>No</th>
+                                    <th>Nama Pendaftar</th>
+                                    <th>Nomor Pendaftaran</th>
+                                    <th>Asal Sekolah</th>
+                                    <th>Nomor HP</th>
+                                    <th>Program Studi</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 0;
+                                foreach ($pendaftar as $field) :
+                                ?>
+                                    <tr>
+                                        <td><?= ++$no ?></td>
+                                        <td><?= $field->nm_pd ?></td>
+                                        <td><?= $field->no_daftar ?></td>
+                                        <td><?= $field->sekolah ?></td>
+                                        <td><?= $field->hp_akun ?></td>
+                                        <td><?= $field->nama_prodi ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

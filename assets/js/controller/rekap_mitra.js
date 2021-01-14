@@ -20,7 +20,7 @@ $('#dt-rekap_mitra').DataTable({
         type: "POST",
     },
     columnDefs: [{
-        targets: [0],
+        targets: [0, 4],
         orderable: false,
     },
     {

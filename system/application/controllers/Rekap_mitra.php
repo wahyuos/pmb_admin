@@ -52,7 +52,7 @@ class Rekap_mitra extends CI_Controller
                 $row = array();
                 $row[] = $no++;
                 $row[] = strtoupper($field->nama_user);
-                $row[] = $field->level;
+                $row[] = $field->instansi;
                 $row[] = $field->jml . ' orang';
                 $row[] = '<a href="' . site_url('rekap_mitra/detail/' . $field->id_user) . '" class="btn btn-sm btn-primary">Detail</a>';
 

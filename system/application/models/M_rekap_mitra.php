@@ -14,7 +14,7 @@ class M_rekap_mitra extends CI_Model
 {
     public function getDataPendaftar($id_user)
     {
-        return $this->db->get_where('v_data_pendaftar', ['id_user' => $id_user])->result();
+        return $this->db->order_by('nm_pd', 'ASC')->get_where('v_data_pendaftar', ['id_user' => $id_user])->result();
     }
 
     public function totalByMitra($ta)
@@ -28,10 +28,10 @@ class M_rekap_mitra extends CI_Model
      */
     private function _get_datatables_query()
     {
-        $table = "( SELECT id_user, nama_user, level, COUNT(id_akun) as jml FROM v_data_pendaftar WHERE level = 'mitra' GROUP BY id_user ) as new_tb";
-        $column_order = array(null, 'nama_user', 'level', 'jml', null);
-        $column_search = array('nama_user');
-        $orders = array('jml' => 'DESC');
+        $table = "( SELECT id_user, nama_user, instansi, COUNT(id_akun) as jml FROM v_data_pendaftar WHERE level = 'mitra' GROUP BY id_user ) as new_tb";
+        $column_order = array(null, 'nama_user', 'instansi', 'jml', null);
+        $column_search = array('nama_user', 'instansi');
+        $orders = array('jml' => 'DESC', 'nama_user' => 'ASC');
 
         $this->db->from($table);
 

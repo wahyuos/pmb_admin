@@ -12,7 +12,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Mitra</th>
-                            <th>Level</th>
+                            <th>Instansi</th>
                             <th>Jumlah</th>
                             <th>#</th>
                         </tr>
