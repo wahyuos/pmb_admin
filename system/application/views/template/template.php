@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=5, width=device-width, shrink-to-fit=no">
-    <meta name="description" content="PMB STIKes Muhammadiyah Ciamis.">
+    <meta name="description" content="<?= aplikasi()->nm_app . ' ' . aplikasi()->kampus ?>">
     <meta name="author" content="Wahyu Kamaludin">
     <meta name="google" value="notranslate">
 
