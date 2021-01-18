@@ -36,7 +36,7 @@
                             Pastikan foto terlihat jelas dan mudah dikenali
                         </div>
                         <div class="list-group-item text-center p-3">
-                            <img id="preview" class="rounded-md" src="data:<?= $doc_foto->type_doc ?>;base64,<?= $doc_foto->blob_doc ?>" width="100%" height="auto">
+                            <img id="preview" class="rounded-md" src="data:<?= $doc_foto->type_doc ?>;base64,<?= $doc_foto->blob_doc ?>" width="50%" height="auto">
                         </div>
                     <?php else : ?>
                         <div class="list-group-item text-center p-3">
