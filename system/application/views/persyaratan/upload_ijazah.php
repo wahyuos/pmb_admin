@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header mb-0">
                 <h5 class="card-title mb-2">Upload Ijazah / Surat Keterangan Lulus</h5>
-                <p class="mb-0">File gambar (.jpg / .jpeg / .png) maksimal 200KB</p>
+                <p class="mb-0">File gambar (.jpg / .jpeg / .png) maksimal 300KB</p>
             </div>
             <div class="card-body">
                 <form id="f_doc_ijazah" enctype="multipart/form-data" autocomplete="off">
@@ -60,14 +60,14 @@
         // cek type gambar
         if (gmb.type.match('image.png') || gmb.type.match('image.jpg') || gmb.type.match('image.jpeg')) {
             // cek ukuran gambar
-            if (gmb.size < 204800) { // 200KB
+            if (gmb.size < 307200) { // 300KB
                 // tampilkan gambar
                 preview.src = URL.createObjectURL(event.target.files[0]);
                 document.getElementById('title').textContent = 'Preview';
                 btnSimpan.disabled = false;
                 alert.innerHTML = "";
             } else {
-                alert.innerHTML = "Ukuran file terlalu besar. Maksimal 200KB";
+                alert.innerHTML = "Ukuran file terlalu besar. Maksimal 300KB";
                 preview.src = "";
                 myForm.reset();
             }

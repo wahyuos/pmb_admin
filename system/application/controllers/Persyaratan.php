@@ -93,7 +93,7 @@ class Persyaratan extends CI_Controller
         if ($post) {
             $config['upload_path']   = './assets/temp';
             $config['allowed_types'] = 'jpeg|jpg|png';
-            $config['max_size']      = 200;
+            $config['max_size']      = 307;
             // $config['max_width']            = 512;
             // $config['max_height']           = 512;
             $this->load->library('upload', $config);
