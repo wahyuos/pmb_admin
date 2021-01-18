@@ -10,7 +10,12 @@
                     <input id="id_akun" name="id_akun" type="hidden" value="<?= $this->uri->segment(3) ?>">
                     <input id="id_jns_persyaratan" name="id_jns_persyaratan" type="hidden" value="<?= $this->uri->segment(4) ?>">
                     <div class="form-group overflow-hidden">
-                        <label class="form-label w-100">Gunakan foto resmi, jangan foto selfie.</label>
+                        <h5>Ketentuan Foto yang diupload</h5>
+                        <ul class="form-label w-100">
+                            <li>Foto merupakan foto resmi, tidak boleh foto selfie.</li>
+                            <li>Gunakan file foto asli, bukan foto dari lembar foto yang sudah dicetak. Jika file foto tidak ada, crop foto terlebih dahulu sebelum diupload.</li>
+                        </ul>
+                        <label for="file_foto" class="form-label w-100">Silahkan pilih file foto</label>
                         <input type="file" onchange="loadFile(event)" name="file_persyaratan" accept="image/x-png,image/jpg,image/jpeg" id="file_foto">
                         <div id="alert" class="text-danger mt-3"></div>
                     </div>
@@ -39,7 +44,7 @@
                             Pastikan foto terlihat jelas dan mudah dikenali
                         </div>
                         <div class="list-group-item text-center p-3">
-                            <img id="preview" class="rounded-md" width="100%" height="auto">
+                            <img id="preview" class="rounded-md" src="<?= base_url('assets/img/contoh-foto.jpg') ?>" width="50%" height="auto">
                         </div>
                     <?php endif; ?>
                 </div>

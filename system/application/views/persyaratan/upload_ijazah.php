@@ -39,7 +39,7 @@
                             Pastikan tulisan pada dokumen terlihat jelas dan mudah dibaca
                         </div>
                         <div class="list-group-item text-center p-3">
-                            <img id="preview" class="rounded-md" width="100%" height="auto">
+                            <img id="preview" class="rounded-md" src="<?= base_url('assets/img/contoh-ijazah.jpg') ?>" width="100%" height="auto">
                         </div>
                     <?php endif; ?>
                 </div>
