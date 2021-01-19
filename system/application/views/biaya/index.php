@@ -18,12 +18,14 @@
                         <div id="alert" class="text-danger mt-3"></div>
                     </div>
                     <?php if ($doc_biaya) : ?>
-                        <div class="list-group-item text-center p-3">
-                            <h6 id="title" class="mb-2">Rincian Biaya telah diupload</h6>
-                            Pastikan tulisan terlihat jelas dan mudah dibaca
-                        </div>
-                        <div class="list-group-item text-center p-3">
-                            <iframe id="preview" src="<?= base_url($doc_biaya->file_path . $doc_biaya->file_name) ?>" class="rounded-md" width="100%" height="600px"></iframe>
+                        <div id="col_preview">
+                            <div class="list-group-item text-center p-3">
+                                <h6 id="title" class="mb-2">Rincian Biaya telah diupload</h6>
+                                Pastikan tulisan terlihat jelas dan mudah dibaca
+                            </div>
+                            <div class="list-group-item text-center p-3">
+                                <iframe id="preview" src="<?= base_url($doc_biaya->file_path . $doc_biaya->file_name) ?>" class="rounded-md" width="100%" height="600px"></iframe>
+                            </div>
                         </div>
                     <?php else : ?>
                         <div id="col_preview" style="display: none;">
