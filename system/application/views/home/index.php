@@ -180,7 +180,7 @@
                                 foreach ($list_peminat_prodi as $prodi) :
                                 ?>
                                     <tr>
-                                        <td><i class="fas fa-square-full" style="color: <?= $prodi->warna ?>"></i> <?= $prodi->nama_prodi ?></td>
+                                        <td><i class="fas fa-square-full" style="color: <?= $prodi->warna ?>"></i> <?= $prodi->nama_prodi . ' (' . substr($prodi->jenis_prodi, 0, 3) . ')' ?></td>
                                         <td class="text-right"><?= $prodi->jml ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -209,6 +209,60 @@
                             <tr>
                                 <td> <?= $referensi->jenis_masuk ?></td>
                                 <td class="text-right"><?= $referensi->jml ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-6 col-xxl d-flex">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Jenis Pendataran</h5>
+                </div>
+                <table class="table table-striped my-0">
+                    <thead>
+                        <tr>
+                            <th>Jenis Daftar</th>
+                            <th class="text-right">Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($rekap_pendaftar as $rekap) :
+                            $level = ($rekap->level) ? $rekap->level : 'Mandiri';
+                        ?>
+                            <tr>
+                                <td> <?= strtoupper($level) ?></td>
+                                <td class="text-right"><?= $rekap->jml ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xxl d-flex">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Jenjang Sekolah </h5>
+                </div>
+                <table class="table table-striped my-0">
+                    <thead>
+                        <tr>
+                            <th>Jenjang</th>
+                            <th class="text-right">Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($rekap_jenjang_sekolah as $rekap) :
+                        ?>
+                            <tr>
+                                <td> <?= $rekap->jenjang ?></td>
+                                <td class="text-right"><?= $rekap->jml ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

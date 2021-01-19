@@ -120,7 +120,7 @@ class M_grafik extends CI_Model
     // daftar prodi serta jumlah peminat
     public function list_peminat_prodi()
     {
-        $prodi = $this->db->select('nama_prodi, warna, count(id_prodi) as jml')
+        $prodi = $this->db->select('nama_prodi, jenis_prodi, warna, count(id_prodi) as jml')
             ->from('v_data_pendaftar a')
             ->group_by('id_prodi')
             ->order_by('id_prodi', 'ASC')
@@ -132,7 +132,7 @@ class M_grafik extends CI_Model
     // list program studi
     public function list_program_studi()
     {
-        $prodi = $this->db->select('nama_prodi')
+        $prodi = $this->db->select('nama_prodi, jenis_prodi')
             ->from('v_data_pendaftar a')
             ->group_by('id_prodi')
             ->order_by('id_prodi', 'ASC')
@@ -141,7 +141,7 @@ class M_grafik extends CI_Model
         // ambil value nya, simpan dalam json
         $list = [];
         foreach ($prodi as $field) {
-            $list[] = $field->nama_prodi;
+            $list[] = $field->nama_prodi . ' (' . substr($field->jenis_prodi, 0, 3) . ')';
         }
         // hasil ["D3 Analis (Reguler)", "S1 Keperawatan (Karyawan)", ....]
         return json_encode($list);
@@ -190,5 +190,29 @@ class M_grafik extends CI_Model
             ->get()->result();
 
         return $referensi;
+    }
+
+    // rekp pendaftar sesuai jenis daftar (mandiri, admin, mitra)
+    public function rekap_pendaftar()
+    {
+        $level = $this->db->select('level, count(id_akun) as jml')
+            ->from('v_data_pendaftar a')
+            ->group_by('level')
+            ->order_by('jml', 'DESC')
+            ->get()->result();
+
+        return $level;
+    }
+
+    // rekp pendaftar sesuai jenjang sekolah
+    public function rekap_jenjang_sekolah()
+    {
+        $jenjang = $this->db->select('jenjang, count(id_akun) as jml')
+            ->from('v_data_pendaftar a')
+            ->group_by('jenjang')
+            ->order_by('jml', 'DESC')
+            ->get()->result();
+
+        return $jenjang;
     }
 }

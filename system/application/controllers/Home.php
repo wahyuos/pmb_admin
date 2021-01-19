@@ -44,6 +44,8 @@ class Home extends CI_Controller
         $total_peminat_program_studi = $this->grafik->total_peminat_program_studi();
         $warna_program_studi = $this->grafik->warna_program_studi();
         $list_referensi_masuk = $this->grafik->list_referensi_masuk();
+        $rekap_pendaftar = $this->grafik->rekap_pendaftar();
+        $rekap_jenjang_sekolah = $this->grafik->rekap_jenjang_sekolah();
 
         $data = [
             'title' => 'Halaman Utama',
@@ -64,6 +66,8 @@ class Home extends CI_Controller
             'total_peminat_program_studi' => $total_peminat_program_studi,
             'warna_program_studi' => $warna_program_studi,
             'list_referensi_masuk' => $list_referensi_masuk,
+            'rekap_pendaftar' => $rekap_pendaftar,
+            'rekap_jenjang_sekolah' => $rekap_jenjang_sekolah,
         ];
         template('home/index', $data);
     }
