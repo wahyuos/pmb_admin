@@ -19,9 +19,15 @@ class Akun_pendaftar extends CI_Controller
 
     public function index()
     {
+        $total_akun = $this->akun_pendaftar->jmlAkun(tahun_akademik());
+        $total_yang_nonaktif = $this->akun_pendaftar->jmlAkunNonaktif(tahun_akademik());
+        $total_yang_daftar = $this->akun_pendaftar->jmlDaftar(tahun_akademik());
         $data = [
             'title' => 'Manajemen Akun Pendaftar',
             'm_akun_pendaftar' => 'active',
+            'total_akun' => $total_akun,
+            'total_yang_nonaktif' => $total_yang_nonaktif,
+            'total_yang_daftar' => $total_yang_daftar
         ];
         template('akun_pendaftar/index', $data);
     }
@@ -74,6 +80,7 @@ class Akun_pendaftar extends CI_Controller
             $data = array();
             foreach ($list as $field) {
                 $status = ($field->status == '1') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-secondary">Belum Aktif</span>';
+                $no_daftar = ($field->no_daftar) ? '<span class="badge badge-success">Sudah Daftar</span>' : '<span class="badge badge-danger">Belum Daftar</span>';
                 $row = array();
                 $row[] = '<div class="btn-group btn-group-sm m-0" role="group" aria-label="Small button group">
                         <a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger mr-3" title="HAPUS"><i class="fas fa-times"></i></a>
@@ -83,6 +90,7 @@ class Akun_pendaftar extends CI_Controller
                 $row[] = $field->hp_akun;
                 $row[] = $this->date->tanggal($field->tgl, 'p');
                 $row[] = $status;
+                $row[] = $no_daftar;
 
                 $data[] = $row;
             }

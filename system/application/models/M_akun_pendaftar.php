@@ -12,6 +12,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_akun_pendaftar extends CI_Model
 {
+    // menghitung akun
+    public function jmlAkun($tahun_akademik)
+    {
+        $jml = $this->db->get_where('pmb_akunmaba', ['tahun_akademik' => $tahun_akademik, 'soft_del' => '0'])->num_rows();
+
+        return $jml;
+    }
+
+    // menghitung akun yang belum aktif
+    public function jmlAkunNonaktif($tahun_akademik)
+    {
+        $jml = $this->db->select('b.id_akun')
+            ->from('pmb_akunmaba a')
+            ->join('pmb_verifikasi_akun b', 'a.id_akun = b.id_akun', 'LEFT')
+            ->where(['a.tahun_akademik' => $tahun_akademik, 'b.status' => '0', 'a.soft_del' => '0'])
+            ->get()->num_rows();
+
+        return $jml;
+    }
+
+    // menghitung akun yang sudah daftar
+    public function jmlDaftar($tahun_akademik)
+    {
+        $jml = $this->db->select('c.id_akun')
+            ->from('pmb_akunmaba a')
+            ->join('pmb_verifikasi_akun b', 'a.id_akun = b.id_akun', 'LEFT')
+            ->join('v_data_pendaftar c', 'a.id_akun = c.id_akun', 'INNER')
+            ->where(['a.tahun_akademik' => $tahun_akademik, 'a.soft_del' => '0'])
+            ->get()->num_rows();
+
+        return $jml;
+    }
+
+    // reset akun
     public function resetAkun($id)
     {
         // jika ada id nya
@@ -57,7 +91,7 @@ class M_akun_pendaftar extends CI_Model
         return $response;
     }
 
-
+    // hapus akun
     public function hapusAkun($id)
     {
         // jika ada id nya
@@ -102,8 +136,8 @@ class M_akun_pendaftar extends CI_Model
      */
     private function _get_datatables_query()
     {
-        $table = "( SELECT a.id_akun, a.nama_akun, a.hp_akun, a.tgl_akun, DATE(a.tgl_akun) as tgl, b.status FROM pmb_akunmaba a LEFT JOIN pmb_verifikasi_akun b ON a.id_akun = b.id_akun WHERE a.soft_del = '0' ) as new_tb";
-        $column_order = array(null, 'nama_akun', 'hp_akun', 'tgl', 'status');
+        $table = "( SELECT a.id_akun, a.nama_akun, a.hp_akun, a.tgl_akun, DATE(a.tgl_akun) as tgl, b.status, c.no_daftar FROM pmb_akunmaba a LEFT JOIN pmb_verifikasi_akun b ON a.id_akun = b.id_akun LEFT JOIN v_data_pendaftar c ON a.id_akun = c.id_akun WHERE a.soft_del = '0' ) as new_tb";
+        $column_order = array(null, 'nama_akun', 'hp_akun', 'tgl', 'status', 'no_daftar');
         $column_search = array('nama_akun', 'hp_akun');
         $orders = array('tgl_akun' => 'DESC');
 

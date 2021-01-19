@@ -24,7 +24,7 @@ $('#dt-akun_pendaftar').DataTable({
         orderable: false,
     },
     {
-        targets: [0, 4],
+        targets: [0, 4, 5],
         className: "text-center",
     },
     ],
