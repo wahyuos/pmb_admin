@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-6 text-right">
                             <p class="mb-0">
-                                &copy; 2020 - <a href="index.html" class="text-muted"><?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a>
+                                &copy; <?= aplikasi()->tahun ?> - <a href="index.html" class="text-muted"><?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a>
                             </p>
                         </div>
                     </div>

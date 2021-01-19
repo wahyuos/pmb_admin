@@ -70,7 +70,7 @@
 
             <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <p class="text-muted"><a href="<?= base_url(); ?>" class="text-muted">&copy; 2020 - <?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a></p>
+                    <p class="text-muted"><a href="<?= base_url(); ?>" class="text-muted">&copy; <?= aplikasi()->tahun ?> - <?= aplikasi()->singkatan . ' ' . aplikasi()->versi ?></a></p>
                 </div> <!-- end col -->
             </div>
 
