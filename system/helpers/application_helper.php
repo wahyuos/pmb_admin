@@ -212,7 +212,7 @@ if (!function_exists('modal_reset')) {
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body m-3 text-center">
-                        <h4 class="mb-5">Anda yakin data <span class="text-danger">' . $name . '</span> akan direset?</h4>
+                        <h4 class="mb-5">Anda yakin akun <span class="text-danger">' . $name . '</span> akan direset?</h4>
                         <button type="button" onclick="reset(`' . $id . '`)" class="btn btn-danger" data-dismiss="modal">Ya, reset</button>
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
                     </div>
