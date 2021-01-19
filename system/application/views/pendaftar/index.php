@@ -20,13 +20,12 @@
                             <th>Nama Pendaftar</th>
                             <th>Prodi Pilihan</th>
                             <th>Nomor HP</th>
+                            <th>Sekolah Asal</th>
                             <?php // cek level user
                             $level_user = $this->session->level;
                             if ($level_user == 'mitra') : ?>
-                                <th>Gelombang</th>
                                 <th>Tgl Daftar</th>
                             <?php else : ?>
-                                <th>Sekolah Asal</th>
                                 <th>Oleh</th>
                             <?php endif; ?>
                             <th>Persyaratan</th>
