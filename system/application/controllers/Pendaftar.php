@@ -508,12 +508,12 @@ class Pendaftar extends CI_Controller
                 /**2*/ $row[] = '<a href="' . site_url('pendaftar/detail/' . $field->id_akun) . '">' . $field->nm_pd . '</a><br>' . $field->jalur . ' : ' . $field->no_daftar;
                 /**3*/ $row[] = $field->nama_prodi;
                 /**4*/ $row[] = $field->hp_akun;
+                /**5*/ $row[] = $field->sekolah;
 
                 // cek level user
                 $level_user = $this->session->level;
                 if ($level_user == 'mitra') {
-                    /**5*/ $row[] = $field->nama_gelombang;
-                    /**6*/ $row[] = $this->date->tanggal($field->tgl_akun, 's');
+                    /**6*/ $row[] = $this->date->tanggal($field->tgl_daftar, 's');
                 } else {
                     // cek level dari id_user
                     if ($field->level == 'admin' || $field->level == 'super') {
@@ -523,7 +523,6 @@ class Pendaftar extends CI_Controller
                     } else {
                         $nm_user = 'Mandiri';
                     }
-                    /**5*/ $row[] = $field->sekolah;
                     /**6*/ $row[] = $nm_user;
                 }
 
