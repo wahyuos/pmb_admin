@@ -118,10 +118,11 @@ class M_grafik extends CI_Model
     }
 
     // daftar prodi serta jumlah peminat
-    public function list_peminat_prodi()
+    public function list_peminat_prodi($tahun_akademik)
     {
         $prodi = $this->db->select('nama_prodi, jenis_prodi, warna, count(id_prodi) as jml')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->group_by('id_prodi')
             ->order_by('id_prodi', 'ASC')
             ->get()->result();
@@ -130,10 +131,11 @@ class M_grafik extends CI_Model
     }
 
     // list program studi
-    public function list_program_studi()
+    public function list_program_studi($tahun_akademik)
     {
         $prodi = $this->db->select('nama_prodi, jenis_prodi')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->group_by('id_prodi')
             ->order_by('id_prodi', 'ASC')
             ->get()->result();
@@ -148,9 +150,9 @@ class M_grafik extends CI_Model
     }
 
     // total peminat setiap prodi
-    public function total_peminat_program_studi()
+    public function total_peminat_program_studi($tahun_akademik)
     {
-        $prodi = $this->list_peminat_prodi();
+        $prodi = $this->list_peminat_prodi($tahun_akademik);
 
         // ambil value nya, simpan dalam json
         $list = [];
@@ -162,10 +164,11 @@ class M_grafik extends CI_Model
     }
 
     // warna setiap prodi
-    public function warna_program_studi()
+    public function warna_program_studi($tahun_akademik)
     {
         $prodi = $this->db->select('warna')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->group_by('id_prodi')
             ->order_by('id_prodi', 'ASC')
             ->get()->result();
@@ -180,10 +183,11 @@ class M_grafik extends CI_Model
     }
 
     // daftar referensi masuk 
-    public function list_referensi_masuk()
+    public function list_referensi_masuk($tahun_akademik)
     {
         $referensi = $this->db->select('c.jenis_masuk, count(b.id_ref_masuk) as jml')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->join('pmb_sekolah_asal b', 'a.id_akun = b.id_akun', 'LEFT')
             ->join('pmb_ref_masuk c', 'b.id_ref_masuk = c.id_ref_masuk', 'LEFT')
             ->group_by('c.id_ref_masuk')
@@ -193,10 +197,11 @@ class M_grafik extends CI_Model
     }
 
     // rekp pendaftar sesuai jenis daftar (mandiri, admin, mitra)
-    public function rekap_pendaftar()
+    public function rekap_pendaftar($tahun_akademik)
     {
         $level = $this->db->select('level, count(id_akun) as jml')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->group_by('level')
             ->order_by('jml', 'DESC')
             ->get()->result();
@@ -205,10 +210,11 @@ class M_grafik extends CI_Model
     }
 
     // rekp pendaftar sesuai jenjang sekolah
-    public function rekap_jenjang_sekolah()
+    public function rekap_jenjang_sekolah($tahun_akademik)
     {
         $jenjang = $this->db->select('jenjang, count(id_akun) as jml')
             ->from('v_data_pendaftar a')
+            ->where(['tahun_akademik' => $tahun_akademik])
             ->group_by('jenjang')
             ->order_by('jml', 'DESC')
             ->get()->result();

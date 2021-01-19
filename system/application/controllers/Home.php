@@ -39,13 +39,13 @@ class Home extends CI_Controller
         $total_pendaftar_pmdk_by_gelombang = $this->grafik->total_pendaftar_pmdk_by_gelombang(tahun_akademik());
         $list_gelombang_umum = $this->grafik->list_gelombang_umum(tahun_akademik());
         $total_pendaftar_umum_by_gelombang = $this->grafik->total_pendaftar_umum_by_gelombang(tahun_akademik());
-        $list_peminat_prodi = $this->grafik->list_peminat_prodi();
-        $list_program_studi = $this->grafik->list_program_studi();
-        $total_peminat_program_studi = $this->grafik->total_peminat_program_studi();
-        $warna_program_studi = $this->grafik->warna_program_studi();
-        $list_referensi_masuk = $this->grafik->list_referensi_masuk();
-        $rekap_pendaftar = $this->grafik->rekap_pendaftar();
-        $rekap_jenjang_sekolah = $this->grafik->rekap_jenjang_sekolah();
+        $list_peminat_prodi = $this->grafik->list_peminat_prodi(tahun_akademik());
+        $list_program_studi = $this->grafik->list_program_studi(tahun_akademik());
+        $total_peminat_program_studi = $this->grafik->total_peminat_program_studi(tahun_akademik());
+        $warna_program_studi = $this->grafik->warna_program_studi(tahun_akademik());
+        $list_referensi_masuk = $this->grafik->list_referensi_masuk(tahun_akademik());
+        $rekap_pendaftar = $this->grafik->rekap_pendaftar(tahun_akademik());
+        $rekap_jenjang_sekolah = $this->grafik->rekap_jenjang_sekolah(tahun_akademik());
 
         $data = [
             'title' => 'Halaman Utama',
