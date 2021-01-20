@@ -91,7 +91,7 @@ class M_biaya extends CI_Model
                 'updated_at' => date("Y-m-d H:i:s")
             ];
             // update tabel biaya
-            $update = $this->db->update('pmb_biaya', $value, ['tahun_akademik' => $data['tahun_akademik']]);
+            $update = $this->db->update('pmb_biaya_prodi', $value, ['id_prodi'  => $data['id_prodi'], 'tahun_akademik' => $data['tahun_akademik']]);
             // cek status simpan
             if ($update) {
                 // buat respon berhasil
