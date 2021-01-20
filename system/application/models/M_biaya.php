@@ -15,6 +15,7 @@ class M_biaya extends CI_Model
             ->join('ref_jns_prodi b', 'a.id_prodi = b.id_prodi', 'LEFT')
             ->join('ref_prodi c', 'b.kode_prodi = c.kode_prodi', 'LEFT')
             ->where(['tahun_akademik' => $tahun_akademik])
+            ->order_by('a.created_at', 'DESC')
             ->get()->result();
     }
 
