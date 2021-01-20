@@ -50,7 +50,7 @@
                         <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
                     </a>
                 </li>
-                <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
+                <!-- <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
                     <a href="#pendaftar" data-toggle="collapse" class="sidebar-link collapsed">
                         <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
                     </a>
@@ -58,12 +58,12 @@
                         <li class="sidebar-item <?= (isset($dt_semua)) ? $dt_semua : '' ?>"><a class="sidebar-link" href="<?= base_url('biaya') ?>">Biaya Keseluruhan</a></li>
                         <li class="sidebar-item <?= (isset($dt_prodi)) ? $dt_prodi : '' ?>"><a class="sidebar-link" href="<?= base_url('biaya/prodi') ?>">Biaya Tiap Prodi</a></li>
                     </ul>
-                </li>
-                <!-- <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
+                </li> -->
+                <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('biaya') ?>">
                         <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
                     </a>
-                </li> -->
+                </li>
 
                 <li class="sidebar-header">
                     Konfigurasi
