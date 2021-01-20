@@ -17,31 +17,31 @@ class Biaya extends CI_Controller
         $this->load->model('M_ref', 'ref');
     }
 
-    public function index()
-    {
-        // ambil biaya untuk tahun akademik yang aktif
-        $doc = $this->biaya->get_biaya(tahun_akademik());
-        $data = [
-            'title' => 'Rincian Biaya',
-            'doc_biaya' => $doc,
-            'm_biaya' => 'active',
-            'dt_semua' => 'active'
-        ];
-        template('biaya/index', $data);
-    }
+    // public function index()
+    // {
+    //     // ambil biaya untuk tahun akademik yang aktif
+    //     $doc = $this->biaya->get_biaya(tahun_akademik());
+    //     $data = [
+    //         'title' => 'Rincian Biaya',
+    //         'doc_biaya' => $doc,
+    //         'm_biaya' => 'active',
+    //         'dt_semua' => 'active'
+    //     ];
+    //     template('biaya/index', $data);
+    // }
 
-    public function prodi()
+    public function index()
     {
         // list prodi
         $prodi = $this->ref->get_prodi('Reguler');
         // ambil biaya prodi untuk tahun akademik yang aktif
         $list = $this->biaya->get_biaya_prodi(tahun_akademik());
         $data = [
-            'title' => 'Rincian Biaya Prodi',
+            'title' => 'Rincian Biaya',
             'list' => $list,
             'prodi' => $prodi,
             'm_biaya' => 'active',
-            'dt_prodi' => 'active'
+            // 'dt_prodi' => 'active'
         ];
         template('biaya/prodi', $data);
     }
