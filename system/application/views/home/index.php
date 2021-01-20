@@ -181,7 +181,7 @@
                                 ?>
                                     <tr>
                                         <td><i class="fas fa-square-full" style="color: <?= $prodi->warna ?>"></i> <?= $prodi->nama_prodi . ' (' . substr($prodi->jenis_prodi, 0, 3) . ')' ?></td>
-                                        <td class="text-right"><?= $prodi->jml ?></td>
+                                        <td class="text-right"><strong><?= $prodi->jml ?></strong> pendaftar</td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -199,7 +199,7 @@
                     <thead>
                         <tr>
                             <th>Referensi Masuk</th>
-                            <th class="text-right">Jumlah</th>
+                            <th class="text-right">Jumlah Pendaftar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,7 +208,7 @@
                         ?>
                             <tr>
                                 <td> <?= $referensi->jenis_masuk ?></td>
-                                <td class="text-right"><?= $referensi->jml ?></td>
+                                <td class="text-right"><strong><?= $referensi->jml ?></strong> pendaftar</td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -227,7 +227,7 @@
                     <thead>
                         <tr>
                             <th>Jenis Daftar</th>
-                            <th class="text-right">Jumlah</th>
+                            <th class="text-right">Jumlah Pendaftar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -237,7 +237,7 @@
                         ?>
                             <tr>
                                 <td> <?= strtoupper($level) ?></td>
-                                <td class="text-right"><?= $rekap->jml ?></td>
+                                <td class="text-right"><strong><?= $rekap->jml ?></strong> pendaftar</td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -253,7 +253,7 @@
                     <thead>
                         <tr>
                             <th>Jenjang</th>
-                            <th class="text-right">Jumlah</th>
+                            <th class="text-right">Jumlah Pendaftar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -262,7 +262,7 @@
                         ?>
                             <tr>
                                 <td> <?= $rekap->jenjang ?></td>
-                                <td class="text-right"><?= $rekap->jml ?></td>
+                                <td class="text-right"><strong><?= $rekap->jml ?></strong> pendaftar</td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
