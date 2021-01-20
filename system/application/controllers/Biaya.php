@@ -14,6 +14,7 @@ class Biaya extends CI_Controller
         if ($this->session->is_login == false) redirect(base_url('login'));
         if ($this->session->level == 'mitra') redirect(base_url('home'));
         $this->load->model('M_biaya', 'biaya');
+        $this->load->model('M_ref', 'ref');
     }
 
     public function index()
@@ -24,13 +25,45 @@ class Biaya extends CI_Controller
             'title' => 'Rincian Biaya',
             'doc_biaya' => $doc,
             'm_biaya' => 'active',
+            'dt_semua' => 'active'
         ];
         template('biaya/index', $data);
     }
 
-    public function tes()
+    public function prodi()
     {
-        $this->load->view('biaya/tes');
+        // list prodi
+        $prodi = $this->ref->get_prodi('Reguler');
+        // ambil biaya prodi untuk tahun akademik yang aktif
+        $list = $this->biaya->get_biaya_prodi(tahun_akademik());
+        $data = [
+            'title' => 'Rincian Biaya Prodi',
+            'list' => $list,
+            'prodi' => $prodi,
+            'm_biaya' => 'active',
+            'dt_prodi' => 'active'
+        ];
+        template('biaya/prodi', $data);
+    }
+
+    public function hapus()
+    {
+        // raw data
+        $data   = file_get_contents('php://input');
+        // jika ada raw data
+        // lakukan proses pengecekan
+        if ($data) {
+            // encode data
+            $post  = json_decode($data);
+            $value = [
+                'id_biaya_prodi' => htmlspecialchars($post->id_biaya_prodi)
+            ];
+            // kirim ke model simpan
+            $response = $this->biaya->hapus($value);
+            echo json_encode($response);
+        } else {
+            $this->index();
+        }
     }
 
     /**
@@ -60,6 +93,7 @@ class Biaya extends CI_Controller
 
                 // set value untuk disimpan
                 $value = [
+                    'id_prodi'  => $post['id_prodi'],
                     'file_path' => 'assets/docs/',
                     'file_name' => $image_data['file_name'],
                     'file_type' => $image_data['file_type'],

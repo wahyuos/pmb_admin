@@ -36,6 +36,8 @@
                             </tbody>
                         </table>
                     </div>
+                <?php else : ?>
+                    Tidak ada data pendaftar.
                 <?php endif; ?>
             </div>
         </div>
