@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label class="form-label" for="periode_awal">Pilih Prodi <span class="text-danger">*</span></label>
                                 <select class="form-control" name="id_prodi" id="id_prodi" required>
-                                    <option selected disabled>Silahkan pilih</option>
+                                    <option selected disabled value="">Silahkan pilih</option>
                                     <?php if ($prodi) :
                                         foreach ($prodi as $list) : ?>
                                             <option value="<?= $list->id_prodi ?>"><?= $list->jenjang . ' ' . $list->nm_prodi ?></option>
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label class="form-label" for="file">File dokumen PDF maksimal 1MB <span class="text-danger">*</span></label>
                                 <div class="overflow-hidden mr-5">
-                                    <input type="file" onchange="loadFile(event)" name="file" accept="application/pdf" id="file">
+                                    <input type="file" onchange="loadFile(event)" name="file" accept="application/pdf" id="file" required>
                                 </div>
                             </div>
                             <button type="submit" id="simpan" class="btn btn-primary">UPLOAD</button>
