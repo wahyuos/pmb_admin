@@ -292,18 +292,18 @@
             },
             options: {
                 maintainAspectRatio: false,
-                cornerRadius: 15,
+                cornerRadius: 10,
                 legend: {
                     display: false
                 },
                 scales: {
                     yAxes: [{
                         gridLines: {
-                            display: false
+                            display: true
                         },
                         stacked: false,
                         ticks: {
-                            stepSize: 20
+                            stepSize: 10
                         },
                         stacked: true,
                     }],
@@ -336,7 +336,7 @@
             },
             options: {
                 maintainAspectRatio: false,
-                cornerRadius: 15,
+                cornerRadius: 10,
                 legend: {
                     display: false
                 },
@@ -347,7 +347,7 @@
                         },
                         stacked: false,
                         ticks: {
-                            stepSize: 20
+                            stepSize: 10
                         },
                         stacked: true,
                     }],
