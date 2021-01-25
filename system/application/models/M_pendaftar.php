@@ -422,17 +422,37 @@ class M_pendaftar extends CI_Model
             'email'      => strtolower($data['email']),
             'updated_at' => date("Y-m-d H:i:s")
         ];
+
+        // set akun untuk diupdate
+        $value_akun = [
+            'hp_akun'    => $data['no_hp'],
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+
         // update tabel biodata
         $update = $this->db->update('pmb_kontak', $value, ['id_akun' => $data['id_akun']]);
         // cek status simpan
         if ($update) {
-            // buat respon berhasil
-            $response = [
-                'status'  => true,
-                'message' => 'Kontak berhasil diubah',
-                'title'   => 'Berhasil!',
-                'type'    => 'success'
-            ];
+            // ubah nomor pada tabel akun
+            $update_akun = $this->db->update('pmb_akunmaba', $value_akun, ['id_akun' => $data['id_akun']]);
+            // cek status simpan
+            if ($update_akun) {
+                // buat respon berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Kontak berhasil diubah',
+                    'title'   => 'Berhasil!',
+                    'type'    => 'success'
+                ];
+            } else {
+                // buat respon gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Kontak pada akun gagal diubah',
+                    'title'   => 'Gagal!',
+                    'type'    => 'danger'
+                ];
+            }
         } else {
             // buat respon gagal
             $response = [
