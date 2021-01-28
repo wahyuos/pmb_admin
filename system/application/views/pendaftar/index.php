@@ -9,6 +9,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-12 text-right">
                         <a href="<?= site_url('pendaftar/tambah') ?>" class="btn btn-success"><i class="align-middle" data-feather="plus"></i> Daftar Baru</a>
+                        <?php // cek level user
+                        $level_user = $this->session->level;
+                        if ($level_user != 'mitra') : ?>
+                            <a href="<?= site_url('pendaftar/to_excel') ?>" class="btn btn-primary"><i class="align-middle" data-feather="file-text"></i> Export Data</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

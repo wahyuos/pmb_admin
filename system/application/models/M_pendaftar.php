@@ -26,6 +26,12 @@ class M_pendaftar extends CI_Model
         return $this->db->get_where('v_data_pd', ['id_pd' => $id])->row();
     }
 
+    // ambil data pendaftar dari view untuk export ke excel
+    public function pendaftar_all($tahun_akademik)
+    {
+        return $this->db->order_by('id_prodi', 'ASC')->order_by('no_daftar', 'ASC')->get_where('v_data_pendaftar', ['tahun_akademik' => $tahun_akademik])->result();
+    }
+
     // proses menyimpan data pendaftar
     public function create($data)
     {
@@ -750,11 +756,9 @@ class M_pendaftar extends CI_Model
         if ($level_user == 'mitra') {
             $by_mitra = ' AND id_user = "' .  $this->session->id_user . '"';
             $column = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'sekolah', 'tgl_daftar', 'status_diterima');
-            $col_search = array('nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'jalur');
         } else {
             $by_mitra = '';
             $column = array(null, 'nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'sekolah', 'nama_user', 'status_diterima');
-            $col_search = array('nm_pd', 'no_daftar', 'nama_prodi', 'hp_akun', 'sekolah', 'jalur');
         }
 
         // filter by tahun akademik

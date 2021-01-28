@@ -609,4 +609,14 @@ class Pendaftar extends CI_Controller
         }
         echo $ret;
     }
+
+    // export data pendaftar ke dalam excel
+    public function to_excel()
+    {
+        $data = array(
+            'data' => $this->daftar->pendaftar_all(tahun_akademik()),
+            'title' => 'PMB-' . str_replace('/', '-', tahun_akademik()),
+        );
+        $this->load->view('pendaftar/to_excel', $data);
+    }
 }
