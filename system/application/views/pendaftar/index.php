@@ -33,8 +33,8 @@
                             <?php else : ?>
                                 <th>Oleh</th>
                             <?php endif; ?>
-                            <th>Persyaratan</th>
-                            <th>Status Diterima</th>
+                            <th>Berkas</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>

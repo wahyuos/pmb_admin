@@ -505,7 +505,7 @@ class Pendaftar extends CI_Controller
                 $no++;
                 $row = array();
                 /**1*/ $row[] = '<a role="button" data-toggle="modal" data-target="#modal_' . $field->id_akun . '" class="text-danger" title="HAPUS"><i class="fas fa-times"></i></a>' . modal_danger($field->id_akun, $field->nm_pd);
-                /**2*/ $row[] = '<a href="' . site_url('pendaftar/detail/' . $field->id_akun) . '">' . $field->nm_pd . '</a><br>' . $field->jalur . ' : ' . $field->no_daftar;
+                /**2*/ $row[] = '<a href="' . site_url('pendaftar/detail/' . $field->id_akun) . '">' . $field->nm_pd . '</a><br>' . $field->jalur . ' ' . substr($field->nama_gelombang, -1) . ' : ' . $field->no_daftar;
                 /**3*/ $row[] = $field->nama_prodi;
                 /**4*/ $row[] = $field->hp_akun;
                 /**5*/ $row[] = $field->sekolah;
@@ -546,7 +546,10 @@ class Pendaftar extends CI_Controller
                                 <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
                             </div>';
                         } else {
-                            /**8*/ $row[] = '<small>Lengkapi persyaratan</small>';
+                            /**8*/ $row[] = '<div class="custom-control custom-switch" title="Persyaratan Belum Lengkap">
+                                <input type="checkbox" disabled readonly class="custom-control-input disabled" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
+                                <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
+                            </div>';
                         }
                     }
                 }
