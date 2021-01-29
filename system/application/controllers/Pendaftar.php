@@ -547,8 +547,8 @@ class Pendaftar extends CI_Controller
                             </div>';
                         } else {
                             /**8*/ $row[] = '<div class="custom-control custom-switch" title="Persyaratan Belum Lengkap">
-                                <input type="checkbox" disabled readonly class="custom-control-input disabled" id="customSwitch' . $field->id_akun . '" ' . $switch_checked . '>
-                                <label class="custom-control-label" for="customSwitch' . $field->id_akun . '"></label>
+                                <input type="checkbox" disabled readonly class="custom-control-input disabled">
+                                <label class="custom-control-label"></label>
                             </div>';
                         }
                     }
