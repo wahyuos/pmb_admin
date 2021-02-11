@@ -690,12 +690,14 @@ class M_pendaftar extends CI_Model
                     // lakukan update ke 1
                     $diterima = $this->db->update('pmb_akunmaba', ['status_diterima' => '1'], ['id_akun' => $id]);
                     if ($diterima) {
-                        $response = [
-                            'status'  => true,
-                            'message' => 'Peserta berhasil diterima',
-                            'title'   => 'Sukses!',
-                            'type'    => 'success'
-                        ];
+                        // $response = [
+                        //     'status'  => true,
+                        //     'message' => 'Peserta berhasil diterima',
+                        //     'title'   => 'Sukses!',
+                        //     'type'    => 'success'
+                        // ];
+                        // lakukan pengiriman SMS
+                        $response = $this->kirim_sms($id);
                     } else {
                         $response = [
                             'status'  => false,
@@ -737,6 +739,66 @@ class M_pendaftar extends CI_Model
                 'status'  => false,
                 'message' => 'Tidak ada ID yang diterima',
                 'title'   => 'Gagal!',
+                'type'    => 'danger'
+            ];
+        }
+
+        return $response;
+    }
+
+    // proses mengirim SMS bahwa status pendaftaran sudah diterima
+    // sekaligus info jadwal registrasi ulang
+    public function kirim_sms($id_akun)
+    {
+        // ambil nomor hp berdasarkan id_akun
+        $get_data = $this->db->get_where('v_data_pendaftar', ['id_akun' => $id_akun])->row();
+        // jika ada
+        if ($get_data) {
+            $userkey = '151b0f676f41';
+            $passkey = '3df98d91c9debd05963099e7';
+            $telepon = $get_data->hp_akun;
+            $message = 'Hai, ' . $get_data->nm_pd . '. Selamat, kamu diterima di STIKes Muhammadiyah Ciamis. Segera registrasi ulang paling lambat ' . $this->date->tanggal($get_data->batas_reg_ulang, 'l') . '.';
+            $url = 'https://console.zenziva.net/masking/api/sendsms/';
+            $curlHandle = curl_init();
+            curl_setopt($curlHandle, CURLOPT_URL, $url);
+            curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+            curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($curlHandle, CURLOPT_POST, 1);
+            curl_setopt($curlHandle, CURLOPT_POSTFIELDS, array(
+                'userkey' => $userkey,
+                'passkey' => $passkey,
+                'to' => $telepon,
+                'message' => $message
+            ));
+            $results = json_decode(curl_exec($curlHandle), true);
+            curl_close($curlHandle);
+
+            if ($results['status'] == '1') {
+                // info pendaftaran berhasil
+                $response = [
+                    'status'  => true,
+                    'message' => 'Berhasil diterima. Pesan berhasil dikirim',
+                    'title'   => 'Berhasil',
+                    'type'    => 'success'
+                ];
+            } else {
+                // info pendaftaran akun gagal
+                $response = [
+                    'status'  => false,
+                    'message' => 'Berhasil diterima. Pesan gagal dikirim!',
+                    'title'   => 'Gagal',
+                    'type'    => 'danger'
+                ];
+            }
+        } else {
+            // jika nomor hp tidak ada
+            $response = [
+                'status'  => false,
+                'message' => 'Nomor HP tidak ditemukan!',
+                'title'   => 'Gagal',
                 'type'    => 'danger'
             ];
         }
