@@ -134,4 +134,14 @@
 
 <hr>
 
+<?php
+// ditampilkan link untuk tes cbt bagi pendaftar jalur umum
+if ($gelombang) :
+    if ($gelombang->jalur == 'Umum') : ?>
+        <p>Tes tulis CBT secara online dapat diakses melalui link : cbt.stikesmucis.ac.id</p>
+        <p>Username : <?= $detail_pd->no_daftar ?><br>Password : <?= $detail_pd->no_daftar ?></p>
+<?php endif;
+endif; ?>
+
+<hr>
 <p style="text-align: center;"><strong>Penting!</strong> Kartu ini <strong>wajib</strong> dibawa saat mengikuti tes.</p>
