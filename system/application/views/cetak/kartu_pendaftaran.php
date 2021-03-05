@@ -138,8 +138,30 @@
 // ditampilkan link untuk tes cbt bagi pendaftar jalur umum
 if ($gelombang) :
     if ($gelombang->jalur == 'Umum') : ?>
-        <p>Tes tulis CBT secara online dapat diakses melalui link : cbt.stikesmucis.ac.id</p>
-        <p>Username : <?= $detail_pd->no_daftar ?><br>Password : <?= $detail_pd->no_daftar ?><br>Kode Ujian : 4151</p>
+        <p>Berikut link dan akun untuk mengerjakan Tes Tulis (CBT) :</p>
+        <!-- <p>Username : <?= $detail_pd->no_daftar ?><br>Password : <?= $detail_pd->no_daftar ?><br>Kode Ujian : 4151</p> -->
+        <table style="border: 1px solid #000;border-collapse:collapse;width:50%">
+            <tr>
+                <td>Link</td>
+                <td>:</td>
+                <td>cbt.stikesmucis.ac.id</td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>:</td>
+                <td><?= $detail_pd->no_daftar ?></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>:</td>
+                <td><?= $detail_pd->no_daftar ?></td>
+            </tr>
+            <tr>
+                <td>Kode Ujian</td>
+                <td>:</td>
+                <td>4151</td>
+            </tr>
+        </table>
 <?php endif;
 endif; ?>
 
