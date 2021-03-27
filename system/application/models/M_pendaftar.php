@@ -32,6 +32,13 @@ class M_pendaftar extends CI_Model
         return $this->db->order_by('id_prodi', 'ASC')->order_by('no_daftar', 'ASC')->get_where('v_data_pendaftar', ['tahun_akademik' => $tahun_akademik])->result();
     }
 
+    // cek sudah ikut tes tulis atau belum
+    // periksa apakah sudah mengerjakan atau belum
+    public function cek_ikut_tes_tulis($id_akun)
+    {
+        return $this->db->get_where('pmb_hasil_tes', ['id_akun' => $id_akun, 'status' => 'Y'])->row();
+    }
+
     // proses menyimpan data pendaftar
     public function create($data)
     {
