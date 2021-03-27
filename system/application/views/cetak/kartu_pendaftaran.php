@@ -123,7 +123,7 @@
     <tr>
         <th style="width:25%;padding:.7rem;text-align: left;"><?= $jadwaltes->nama_tes1 ?></th>
         <td style="width: 3%;text-align:center"> : </td>
-        <td><?= $this->date->tanggal($jadwaltes->tanggal_tes1, 'l') ?></td>
+        <td><?= ($cek_tes) ? 'Sudah Mengerjakan' : $this->date->tanggal($jadwaltes->tanggal_tes1, 'l') ?></td>
     </tr>
     <tr>
         <th style="width:25%;padding:.7rem;text-align: left;"><?= $jadwaltes->nama_tes2 ?></th>
@@ -131,39 +131,6 @@
         <td><?= $this->date->tanggal($jadwaltes->tanggal_tes2, 'l') ?></td>
     </tr>
 </table>
-
-<hr>
-
-<?php
-// ditampilkan link untuk tes cbt bagi pendaftar jalur umum
-if ($gelombang) :
-    if ($gelombang->jalur == 'Umum') : ?>
-        <p>Berikut link dan akun untuk mengerjakan Tes Tulis (CBT) :</p>
-        <!-- <p>Username : <?= $detail_pd->no_daftar ?><br>Password : <?= $detail_pd->no_daftar ?><br>Kode Ujian : 4151</p> -->
-        <table style="border: 1px solid #000;border-collapse:collapse;width:50%">
-            <tr>
-                <td>Link</td>
-                <td>:</td>
-                <td>cbt.stikesmucis.ac.id</td>
-            </tr>
-            <tr>
-                <td>Username</td>
-                <td>:</td>
-                <td><?= $detail_pd->no_daftar ?></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>:</td>
-                <td><?= $detail_pd->no_daftar ?></td>
-            </tr>
-            <tr>
-                <td>Kode Ujian</td>
-                <td>:</td>
-                <td>4151</td>
-            </tr>
-        </table>
-<?php endif;
-endif; ?>
 
 <hr>
 <p style="text-align: center;"><strong>Penting!</strong> Kartu ini <strong>wajib</strong> dibawa saat mengikuti tes.</p>

@@ -30,6 +30,9 @@ class Kartu_pendaftaran extends CI_Controller
         if ($id) {
             // get data pendaftar
             $detail = $this->daftar->read($id);
+            // cek sudah tes tulis atau belum
+            $cek_tes = $this->daftar->cek_ikut_tes_tulis($id);
+
             // cek apakah data pendaftar ditemukan
             if ($detail) {
                 // get jalur dan gelombang pendaftaran
@@ -46,7 +49,8 @@ class Kartu_pendaftaran extends CI_Controller
                 'detail_pd'   => $detail,
                 'gelombang'   => $gelombang,
                 'jadwaltes'   => $jadwaltes,
-                'persyaratan'    => $persyaratan,
+                'persyaratan' => $persyaratan,
+                'cek_tes'     => $cek_tes,
                 'm_pendaftaran'  => 'active',
                 'dt_pendaftaran' => 'active',
             ];
