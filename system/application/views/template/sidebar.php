@@ -50,18 +50,23 @@
                         <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Informasi</span>
                     </a>
                 </li>
-                <!-- <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
-                    <a href="#pendaftar" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
-                    </a>
-                    <ul id="pendaftar" class="sidebar-dropdown list-unstyled collapse <?= (isset($m_biaya)) ? 'show' : '' ?>" data-parent="#sidebar">
-                        <li class="sidebar-item <?= (isset($dt_semua)) ? $dt_semua : '' ?>"><a class="sidebar-link" href="<?= base_url('biaya') ?>">Biaya Keseluruhan</a></li>
-                        <li class="sidebar-item <?= (isset($dt_prodi)) ? $dt_prodi : '' ?>"><a class="sidebar-link" href="<?= base_url('biaya/prodi') ?>">Biaya Tiap Prodi</a></li>
-                    </ul>
-                </li> -->
                 <li class="sidebar-item <?= (isset($m_biaya)) ? $m_biaya : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('biaya') ?>">
                         <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-header">
+                    Tes Tulis
+                </li>
+                <li class="sidebar-item <?= (isset($m_soal)) ? $m_soal : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('soal_tes') ?>">
+                        <i class="align-middle" data-feather="type"></i> <span class="align-middle">Soal Tes Tulis</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_hasil)) ? $m_hasil : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('hasil_tes') ?>">
+                        <i class="align-middle" data-feather="zap"></i> <span class="align-middle">Hasil Tes Tulis</span>
                     </a>
                 </li>
 
