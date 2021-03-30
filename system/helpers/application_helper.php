@@ -224,3 +224,15 @@ if (!function_exists('modal_reset')) {
         return $modal;
     }
 }
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('arr_briva')) {
+    function arr_briva($default = false)
+    {
+        $get_briva = get_instance()->db->get('ref_pmbva')->row();
+        return ($get_briva) ? $get_briva : $default;
+    }
+}
+
+// ------------------------------------------------------------------------
