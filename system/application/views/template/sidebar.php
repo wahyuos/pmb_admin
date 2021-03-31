@@ -40,9 +40,9 @@
                         <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Rekapitulasi Mitra</span>
                     </a>
                 </li>
-                <li class="sidebar-item <?= (isset($m_bukti)) ? $m_bukti : '' ?>">
-                    <a class="sidebar-link" href="<?= base_url('bukti_bayar') ?>">
-                        <i class="align-middle" data-feather="pocket"></i> <span class="align-middle">Bukti Bayar</span>
+                <li class="sidebar-item <?= (isset($m_bayar)) ? $m_bayar : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('cek_bayar') ?>">
+                        <i class="align-middle" data-feather="pocket"></i> <span class="align-middle">Cek Pembayaran</span>
                     </a>
                 </li>
                 <li class="sidebar-item <?= (isset($m_info)) ? $m_info : '' ?>">
@@ -81,6 +81,11 @@
                 <li class="sidebar-item <?= (isset($m_ta)) ? $m_ta : '' ?>">
                     <a class="sidebar-link" href="<?= base_url('ref_tahun_akademik') ?>">
                         <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Tahun Akademik</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= (isset($m_briva)) ? $m_briva : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('atur_briva') ?>">
+                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Atur BRIVA</span>
                     </a>
                 </li>
             <?php
