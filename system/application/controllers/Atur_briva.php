@@ -52,6 +52,8 @@ class Atur_briva extends CI_Controller
                 'kodebriva'   => $post['kodebriva'],
                 'biayaDaftar'   => $post['biayaDaftar'],
                 'ketBayar'   => $post['ketBayar'],
+                'client_id'   => $post['client_id'],
+                'secret_id'   => $post['secret_id'],
             ];
             $response = $this->atur_briva->updateInfoBriva($value);
             echo json_encode($response);

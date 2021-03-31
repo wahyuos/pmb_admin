@@ -67,6 +67,8 @@ function edit(id) {
             document.getElementById("kodebriva").value = data.kodebriva;
             document.getElementById("biayaDaftar").value = data.biayaDaftar;
             document.getElementById("ketBayar").value = data.ketBayar;
+            document.getElementById("client_id").value = data.client_id;
+            document.getElementById("secret_id").value = data.secret_id;
             document.getElementById("urlApi").focus();
             document.getElementById("batal").style.display = 'inline';
         });

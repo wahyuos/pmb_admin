@@ -21,6 +21,8 @@ class M_atur_briva extends CI_Model
             'kodebriva' => $data['kodebriva'],
             'biayaDaftar' => $data['biayaDaftar'],
             'ketBayar' => $data['ketBayar'],
+            'client_id' => $data['client_id'],
+            'secret_id' => $data['secret_id'],
         ];
 
         $update = $this->db->update('ref_pmbva', $value);

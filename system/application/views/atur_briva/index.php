@@ -2,7 +2,7 @@
     <div class="col-12 col-xl-6">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Info BRIVA</h5>
+                <h5 class="card-title mb-0">Info BRIVA</h5>
             </div>
             <div class="card-body">
                 <?php if ($info_briva) : ?>
@@ -30,12 +30,26 @@
                             <p class="text-dark m-0">Rp <?= number_format($info_briva->biayaDaftar, 0, ',', '.') ?></p>
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <div class="form-group row mb-0">
                         <label class="col-form-label col-sm-4">Keterangan <span class="float-right"> : </span></label>
                         <div class="col-sm-8 col-form-label">
                             <p class="text-dark m-0"><?= $info_briva->ketBayar ?></p>
                         </div>
                     </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <label class="col-form-label col-sm-4">Client ID <span class="float-right"> : </span></label>
+                        <div class="col-sm-8 col-form-label">
+                            <input class="text-dark m-0 border-0" type="password" value="<?= substr($info_briva->client_id, 0, 10) ?>">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0">
+                        <label class="col-form-label col-sm-4">Secret ID <span class="float-right"> : </span></label>
+                        <div class="col-sm-8 col-form-label">
+                            <input class="text-dark m-0 border-0" type="password" value="<?= substr($info_briva->secret_id, 0, 10) ?>">
+                        </div>
+                    </div>
+                    <hr>
                     <button class="btn btn-block btn-primary" onclick="edit(`<?= $info_briva->kodebriva ?>`)">EDIT</button>
                 <?php else : ?>
                     Belum ada info BRIVA
@@ -46,7 +60,7 @@
     <div class="col-12 col-xl-6">
         <div class="card" id="card_form" style="display: none;">
             <div class="card-header">
-                <h5 class="card-title">Atur Briva</h5>
+                <h5 class="card-title mb-0">Atur Briva</h5>
             </div>
             <div class="card-body">
                 <form id="f_briva" autocomplete="off">
@@ -69,6 +83,15 @@
                     <div class="form-group">
                         <label class="form-label" for="ketBayar">Keterangan <span class="text-danger">*</span></label>
                         <input type="text" name="ketBayar" id="ketBayar" class="form-control" required>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="form-label" for="client_id">Client ID <span class="text-danger">*</span></label>
+                        <input type="text" name="client_id" id="client_id" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="secret_id">Secret ID <span class="text-danger">*</span></label>
+                        <input type="text" name="secret_id" id="secret_id" class="form-control" required>
                     </div>
 
                     <hr>
