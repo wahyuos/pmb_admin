@@ -39,6 +39,11 @@ class Ref_jadwal extends CI_Controller
                 'periode_akhir'  => htmlspecialchars($post['periode_akhir']),
                 'nama_gelombang' => htmlspecialchars($post['nama_gelombang']),
                 'tahun_akademik' => htmlspecialchars($post['tahun_akademik']),
+                'nama_tes1'      => htmlspecialchars($post['nama_tes1']),
+                'tanggal_tes1'   => htmlspecialchars($post['tanggal_tes1']),
+                'nama_tes2'      => htmlspecialchars($post['nama_tes2']),
+                'tanggal_tes2'   => htmlspecialchars($post['tanggal_tes2']),
+                'batas_reg_ulang' => htmlspecialchars($post['batas_reg_ulang']),
             ];
             // cek id
             if (empty($value['id_jadwal'])) {
@@ -102,7 +107,9 @@ class Ref_jadwal extends CI_Controller
                 $row[] = $field->jalur;
                 $row[] = $this->date->tanggal($field->periode_awal, 's');
                 $row[] = $this->date->tanggal($field->periode_akhir, 's');
-                $row[] = $field->tahun_akademik;
+                $row[] = ($field->tanggal_tes1) ? $this->date->tanggal($field->tanggal_tes1, 's') : "One Day Service";
+                $row[] = ($field->tanggal_tes2) ? $this->date->tanggal($field->tanggal_tes2, 's') : "One Day Service";
+                $row[] = ($field->batas_reg_ulang) ? $this->date->tanggal($field->batas_reg_ulang, 's') : "Belum Ditentukan";
 
                 $data[] = $row;
             }

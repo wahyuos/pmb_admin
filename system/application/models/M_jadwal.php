@@ -13,14 +13,14 @@ class M_jadwal extends CI_Model
     // ambil data dari database
     public function getJadwal($id)
     {
-        return $this->db->get_where('ref_jadwal', ['id_jadwal' => $id])->row();
+        return $this->db->select('a.*, b.nama_tes1, b.nama_tes2, b.tanggal_tes1, b.tanggal_tes2, b.batas_reg_ulang')->order_by('a.periode_awal', 'ASC')->join('ref_jadwal_tes b', 'a.id_jadwal = b.id_jadwal', 'LEFT')->get_where('ref_jadwal a', ['a.id_jadwal' => $id, 'a.soft_del' => '0'])->row();
     }
 
     // simpan ke database
     public function simpanJadwal($data)
     {
-        // set data untuk disimpan
-        $value = [
+        // set data untuk disimpan ke jadwal
+        $value_jadwal = [
             'id_jadwal'      => uuid_v4(),
             'jalur'          => $data['jalur'],
             'periode_awal'   => $data['periode_awal'],
@@ -28,10 +28,23 @@ class M_jadwal extends CI_Model
             'nama_gelombang' => $data['nama_gelombang'],
             'tahun_akademik' => $data['tahun_akademik'],
         ];
+
+        // set data untuk disimpan ke tes
+        $value_tes = [
+            'id_tes'         => uuid_v4(),
+            'id_jadwal'      => $value_jadwal['id_jadwal'],
+            'nama_tes1'      => $data['nama_tes1'],
+            'tanggal_tes1'   => $data['tanggal_tes1'],
+            'nama_tes2'      => $data['nama_tes2'],
+            'tanggal_tes2'   => $data['tanggal_tes2'],
+            'batas_reg_ulang' => $data['batas_reg_ulang'],
+        ];
         // simpan ke tabel
-        $simpan = $this->db->insert('ref_jadwal', $value);
+        $simpan = $this->db->insert('ref_jadwal', $value_jadwal);
         // cek status simpan
         if ($simpan) {
+            // simpan jadwal tes
+            $this->db->insert('ref_jadwal_tes', $value_tes);
             // buat respon berhasil
             $response = [
                 'status'  => true,
@@ -55,18 +68,29 @@ class M_jadwal extends CI_Model
     // update ke database
     public function updateJadwal($data)
     {
-        // set data untuk diupdate
-        $value = [
+        // set data untuk update jadwal
+        $value_jadwal = [
             'jalur'          => $data['jalur'],
             'periode_awal'   => $data['periode_awal'],
             'periode_akhir'  => $data['periode_akhir'],
             'nama_gelombang' => $data['nama_gelombang'],
             'tahun_akademik' => $data['tahun_akademik'],
         ];
+
+        // set data untuk update tes
+        $value_tes = [
+            'nama_tes1'      => $data['nama_tes1'],
+            'tanggal_tes1'   => $data['tanggal_tes1'],
+            'nama_tes2'      => $data['nama_tes2'],
+            'tanggal_tes2'   => $data['tanggal_tes2'],
+            'batas_reg_ulang' => $data['batas_reg_ulang'],
+        ];
         // update tabel
-        $update = $this->db->update('ref_jadwal', $value, ['id_jadwal' => $data['id_jadwal']]);
+        $update = $this->db->update('ref_jadwal', $value_jadwal, ['id_jadwal' => $data['id_jadwal']]);
         // cek status update
         if ($update) {
+            // update jadwal tes
+            $this->db->update('ref_jadwal_tes', $value_tes, ['id_jadwal' => $data['id_jadwal']]);
             // buat respon berhasil
             $response = [
                 'status'  => true,
@@ -133,9 +157,9 @@ class M_jadwal extends CI_Model
     {
         // filter by tahun akademik
         $ta = tahun_akademik();
-        $table = "( SELECT * FROM ref_jadwal WHERE tahun_akademik = '$ta' AND soft_del = '0' ) as new_tb";
-        $column_order = array(null, 'nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', null);
-        $column_search = array('nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tahun_akademik');
+        $table = "( SELECT b.*, a.id_tes, a.nama_tes1, a.tanggal_tes1, a.nama_tes2, a.tanggal_tes2, a.batas_reg_ulang FROM ref_jadwal_tes a INNER JOIN ref_jadwal b ON a.id_jadwal = b.id_jadwal WHERE b.tahun_akademik = '$ta' AND b.soft_del = '0' ) as new_tb";
+        $column_order = array(null, 'nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tanggal_tes1', 'tanggal_tes2', null);
+        $column_search = array('nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tanggal_tes1', 'tanggal_tes2');
         $orders = array('periode_awal' => 'ASC');
 
         $this->db->from($table);

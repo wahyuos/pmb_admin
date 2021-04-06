@@ -20,7 +20,7 @@ $('#dt-jadwal').DataTable({
         type: "POST",
     },
     columnDefs: [{
-        targets: [0, 5],
+        targets: [0, 7],
         orderable: false,
     },
     {
@@ -112,6 +112,11 @@ function edit(id) {
             document.getElementById("periode_awal").value = data.periode_awal;
             document.getElementById("periode_akhir").value = data.periode_akhir;
             document.getElementById("tahun_akademik").value = data.tahun_akademik;
+            document.getElementById("nama_tes1").value = data.nama_tes1;
+            document.getElementById("tanggal_tes1").value = data.tanggal_tes1;
+            document.getElementById("nama_tes2").value = data.nama_tes2;
+            document.getElementById("tanggal_tes2").value = data.tanggal_tes2;
+            document.getElementById("batas_reg_ulang").value = data.batas_reg_ulang;
             document.getElementById("nama_gelombang").focus();
             document.getElementById("batal").style.display = 'inline';
         });
