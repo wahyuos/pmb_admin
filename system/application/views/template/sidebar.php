@@ -83,15 +83,15 @@
                         <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Tahun Akademik</span>
                     </a>
                 </li>
-                <li class="sidebar-item <?= (isset($m_briva)) ? $m_briva : '' ?>">
-                    <a class="sidebar-link" href="<?= base_url('atur_briva') ?>">
-                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Atur BRIVA</span>
-                    </a>
-                </li>
-            <?php
-            endif;
-            // hanya untuk user dengan level super
-            if ($this->session->level == 'super' || $this->session->level == 'admin') : ?>
+
+                <?php if ($this->session->level == 'super') : ?>
+                    <li class="sidebar-item <?= (isset($m_briva)) ? $m_briva : '' ?>">
+                        <a class="sidebar-link" href="<?= base_url('atur_briva') ?>">
+                            <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Atur BRIVA</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
                 <li class="sidebar-header">
                     Manajemen User
                 </li>
