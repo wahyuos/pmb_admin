@@ -26,6 +26,12 @@ class M_pendaftar extends CI_Model
         return $this->db->get_where('v_data_pd', ['id_pd' => $id])->row();
     }
 
+    // ambil data lengkap si pendaftar dari view pada database berdasarkan ID untuk kartu pendaftaran
+    public function data_kartu($id = null)
+    {
+        return $this->db->get_where('v_data_pendaftar', ['id_akun' => $id])->row();
+    }
+
     // ambil data pendaftar dari view untuk export ke excel
     public function pendaftar_all($tahun_akademik)
     {

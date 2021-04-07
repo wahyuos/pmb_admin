@@ -29,27 +29,13 @@ class Kartu_pendaftaran extends CI_Controller
         // cek id
         if ($id) {
             // get data pendaftar
-            $detail = $this->daftar->read($id);
+            $detail = $this->daftar->data_kartu($id);
             // cek sudah tes tulis atau belum
             $cek_tes = $this->daftar->cek_ikut_tes_tulis($id);
 
-            // cek apakah data pendaftar ditemukan
-            if ($detail) {
-                // get jalur dan gelombang pendaftaran
-                $gelombang = $this->daftar->getGelombang($detail->tgl_daftar);
-                // get jadwal tes sesuai gelombang
-                $jadwaltes = $this->daftar->getJadwalTes($gelombang->id_jadwal);
-            } else {
-                $gelombang = null;
-            }
-            // persyaratan
-            $persyaratan = $this->ref->jnsPersyaratan();
             $data = [
                 'title'       => 'Kartu Pendaftaran',
                 'detail_pd'   => $detail,
-                'gelombang'   => $gelombang,
-                'jadwaltes'   => $jadwaltes,
-                'persyaratan' => $persyaratan,
                 'cek_tes'     => $cek_tes,
                 'm_pendaftaran'  => 'active',
                 'dt_pendaftaran' => 'active',
