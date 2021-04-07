@@ -13,7 +13,7 @@ class M_jadwal extends CI_Model
     // ambil data dari database
     public function getJadwal($id)
     {
-        return $this->db->select('a.*, b.nama_tes1, b.nama_tes2, b.tanggal_tes1, b.tanggal_tes2, b.batas_reg_ulang')->order_by('a.periode_awal', 'ASC')->join('ref_jadwal_tes b', 'a.id_jadwal = b.id_jadwal', 'LEFT')->get_where('ref_jadwal a', ['a.id_jadwal' => $id, 'a.soft_del' => '0'])->row();
+        return $this->db->select('a.*, b.nama_tes1, b.nama_tes2, b.tanggal_tes1, b.tanggal_tes2, b.batas_reg_ulang')->order_by('a.periode_awal', 'ASC')->join('pmb_jadwal_tes b', 'a.id_jadwal = b.id_jadwal', 'LEFT')->get_where('pmb_jadwal a', ['a.id_jadwal' => $id, 'a.soft_del' => '0'])->row();
     }
 
     // simpan ke database
@@ -40,11 +40,11 @@ class M_jadwal extends CI_Model
             'batas_reg_ulang' => $data['batas_reg_ulang'],
         ];
         // simpan ke tabel
-        $simpan = $this->db->insert('ref_jadwal', $value_jadwal);
+        $simpan = $this->db->insert('pmb_jadwal', $value_jadwal);
         // cek status simpan
         if ($simpan) {
             // simpan jadwal tes
-            $this->db->insert('ref_jadwal_tes', $value_tes);
+            $this->db->insert('pmb_jadwal_tes', $value_tes);
             // buat respon berhasil
             $response = [
                 'status'  => true,
@@ -86,11 +86,11 @@ class M_jadwal extends CI_Model
             'batas_reg_ulang' => $data['batas_reg_ulang'],
         ];
         // update tabel
-        $update = $this->db->update('ref_jadwal', $value_jadwal, ['id_jadwal' => $data['id_jadwal']]);
+        $update = $this->db->update('pmb_jadwal', $value_jadwal, ['id_jadwal' => $data['id_jadwal']]);
         // cek status update
         if ($update) {
             // update jadwal tes
-            $this->db->update('ref_jadwal_tes', $value_tes, ['id_jadwal' => $data['id_jadwal']]);
+            $this->db->update('pmb_jadwal_tes', $value_tes, ['id_jadwal' => $data['id_jadwal']]);
             // buat respon berhasil
             $response = [
                 'status'  => true,
@@ -116,7 +116,7 @@ class M_jadwal extends CI_Model
         // jika ada id nya
         if ($id) {
             // hapus data dengan cara soft delete ubah ke 1
-            $hapus = $this->db->update('ref_jadwal', ['soft_del' => '1'], ['id_jadwal' => $id['id_jadwal']]);
+            $hapus = $this->db->update('pmb_jadwal', ['soft_del' => '1'], ['id_jadwal' => $id['id_jadwal']]);
             if ($hapus) {
                 // buat respon berhasil
                 $response = [
@@ -157,7 +157,7 @@ class M_jadwal extends CI_Model
     {
         // filter by tahun akademik
         $ta = tahun_akademik();
-        $table = "( SELECT b.*, a.id_tes, a.nama_tes1, a.tanggal_tes1, a.nama_tes2, a.tanggal_tes2, a.batas_reg_ulang FROM ref_jadwal_tes a INNER JOIN ref_jadwal b ON a.id_jadwal = b.id_jadwal WHERE b.tahun_akademik = '$ta' AND b.soft_del = '0' ) as new_tb";
+        $table = "( SELECT b.*, a.id_tes, a.nama_tes1, a.tanggal_tes1, a.nama_tes2, a.tanggal_tes2, a.batas_reg_ulang FROM pmb_jadwal_tes a INNER JOIN pmb_jadwal b ON a.id_jadwal = b.id_jadwal WHERE b.tahun_akademik = '$ta' AND b.soft_del = '0' ) as new_tb";
         $column_order = array(null, 'nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tanggal_tes1', 'tanggal_tes2', null);
         $column_search = array('nama_gelombang', 'jalur', 'periode_awal', 'periode_akhir', 'tanggal_tes1', 'tanggal_tes2');
         $orders = array('periode_awal' => 'ASC');

@@ -1,5 +1,5 @@
 /**
- * JS Referensi Jadwal Pendaftaran
+ * JS Jadwal Pendaftaran
  * 
  * Untuk mengelola (CRUD) data jadwal pendaftaran
  * 
@@ -16,7 +16,7 @@ $('#dt-jadwal').DataTable({
     serverSide: true,
     order: [],
     ajax: {
-        url: site_url + "ref_jadwal/get_data",
+        url: site_url + "jadwal/get_data",
         type: "POST",
     },
     columnDefs: [{
@@ -65,7 +65,7 @@ async function sendData(value) {
     try {
         btnSubmit.disabled = true;
         btnSubmit.textContent = "menyimpan...";
-        const response = await fetch(site_url + 'ref_jadwal/simpan', options);
+        const response = await fetch(site_url + 'jadwal/simpan', options);
         const json = await response.json();
         // console.log(json);
         // jika status true
@@ -101,7 +101,7 @@ async function sendData(value) {
 
 // tombol edit
 function edit(id) {
-    const url = site_url + "ref_jadwal/getDataById/" + id;
+    const url = site_url + "jadwal/getDataById/" + id;
     return fetch(url)
         .then((result) => result.json())
         .then((response) => {
@@ -139,7 +139,7 @@ async function hapus(id, name) {
     };
 
     try {
-        const response = await fetch(site_url + "ref_jadwal/hapus/", options);
+        const response = await fetch(site_url + "jadwal/hapus/", options);
         const json = await response.json();
         // console.log(json);
         // jika status true

@@ -79,7 +79,7 @@
                     Konfigurasi
                 </li>
                 <li class="sidebar-item <?= (isset($m_jadwal)) ? $m_jadwal : '' ?>">
-                    <a class="sidebar-link" href="<?= base_url('ref_jadwal') ?>">
+                    <a class="sidebar-link" href="<?= base_url('jadwal') ?>">
                         <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Jadwal Pendaftaran</span>
                     </a>
                 </li>

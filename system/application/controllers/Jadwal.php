@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author      Wahyu Kamaludin
  */
 
-class Ref_jadwal extends CI_Controller
+class Jadwal extends CI_Controller
 {
     public function __construct()
     {
