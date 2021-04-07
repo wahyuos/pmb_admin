@@ -11,13 +11,13 @@ class M_pendaftar extends CI_Model
     // mengetahui jalur dan gelombang daftar sesuai tanggal daftar
     public function getGelombang($tgl_daftar)
     {
-        return $this->db->get_where('ref_jadwal', ['periode_awal <= ' => $tgl_daftar, 'periode_akhir >= ' => $tgl_daftar])->row();
+        return $this->db->get_where('pmb_jadwal', ['periode_awal <= ' => $tgl_daftar, 'periode_akhir >= ' => $tgl_daftar])->row();
     }
 
     // mengetahui jadwal tes 
     public function getJadwalTes($id_jadwal)
     {
-        return $this->db->get_where('ref_jadwal_tes', ['id_jadwal' => $id_jadwal])->row();
+        return $this->db->get_where('pmb_jadwal_tes', ['id_jadwal' => $id_jadwal])->row();
     }
 
     // ambil data lengkap si pendaftar dari view pada database berdasarkan ID
