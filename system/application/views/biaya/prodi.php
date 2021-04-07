@@ -1,4 +1,51 @@
 <div class="row">
+
+
+    <div class="col-12 col-sm-6 col-xxl">
+        <div class="card">
+            <div class="card-header mb-0">
+                <h5 class="card-title mb-0">Upload Rincian Biaya</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group mb-3 rounded-lg">
+                    <div class="list-group-item p-3">
+                        <form id="f_biaya" enctype="multipart/form-data" autocomplete="off">
+                            <input type="hidden" name="id" value="0">
+                            <div class="form-group">
+                                <label class="form-label" for="periode_awal">Pilih Prodi <span class="text-danger">*</span></label>
+                                <select class="form-control" name="id_prodi" id="id_prodi" required>
+                                    <option selected disabled value="">Silahkan pilih</option>
+                                    <?php if ($prodi) :
+                                        foreach ($prodi as $prod) : ?>
+                                            <option value="<?= $prod->id_prodi ?>"><?= $prod->jenjang . ' ' . $prod->nm_prodi ?></option>
+                                    <?php endforeach;
+                                    endif; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="file">File dokumen PDF maksimal 1MB <span class="text-danger">*</span></label>
+                                <div class="overflow-hidden mr-5">
+                                    <input type="file" onchange="loadFile(event)" name="file" accept="application/pdf" id="file" required>
+                                </div>
+                            </div>
+                            <button type="submit" id="simpan" class="btn btn-primary">UPLOAD</button>
+                        </form>
+                        <div id="alert" class="text-danger mt-3"></div>
+                    </div>
+                    <div class="list-group-item text-center p-3">
+                        <h6 id="title" class="mb-2">Preview</h6>
+                        Pastikan tulisan terlihat jelas dan mudah dibaca
+                    </div>
+                    <div id="col_preview" style="display: none;">
+                        <div class="list-group-item text-center p-3">
+                            <iframe id="preview" class="rounded-md" width="100%" height="600px"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-12 col-sm-6 col-xxl">
         <div class="card">
             <div class="card-header mb-0">
@@ -36,51 +83,6 @@
                 <?php else : ?>
                     Belum ada biaya yang diupload.
                 <?php endif; ?>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-sm-6 col-xxl">
-        <div class="card">
-            <div class="card-header mb-0">
-                <h5 class="card-title mb-0">Upload Rincian Biaya</h5>
-            </div>
-            <div class="card-body">
-                <div class="list-group mb-3 rounded-lg">
-                    <div class="list-group-item p-3">
-                        <form id="f_biaya" enctype="multipart/form-data" autocomplete="off">
-                            <input type="hidden" name="id" value="0">
-                            <div class="form-group">
-                                <label class="form-label" for="periode_awal">Pilih Prodi <span class="text-danger">*</span></label>
-                                <select class="form-control" name="id_prodi" id="id_prodi" required>
-                                    <option selected disabled value="">Silahkan pilih</option>
-                                    <?php if ($prodi) :
-                                        foreach ($prodi as $list) : ?>
-                                            <option value="<?= $list->id_prodi ?>"><?= $list->jenjang . ' ' . $list->nm_prodi ?></option>
-                                    <?php endforeach;
-                                    endif; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="file">File dokumen PDF maksimal 1MB <span class="text-danger">*</span></label>
-                                <div class="overflow-hidden mr-5">
-                                    <input type="file" onchange="loadFile(event)" name="file" accept="application/pdf" id="file" required>
-                                </div>
-                            </div>
-                            <button type="submit" id="simpan" class="btn btn-primary">UPLOAD</button>
-                        </form>
-                        <div id="alert" class="text-danger mt-3"></div>
-                    </div>
-                    <div class="list-group-item text-center p-3">
-                        <h6 id="title" class="mb-2">Preview</h6>
-                        Pastikan tulisan terlihat jelas dan mudah dibaca
-                    </div>
-                    <div id="col_preview" style="display: none;">
-                        <div class="list-group-item text-center p-3">
-                            <iframe id="preview" class="rounded-md" width="100%" height="600px"></iframe>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
