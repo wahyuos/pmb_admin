@@ -55,6 +55,11 @@
                         <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Rincian Biaya</span>
                     </a>
                 </li>
+                <li class="sidebar-item <?= (isset($m_dokumen)) ? $m_dokumen : '' ?>">
+                    <a class="sidebar-link" href="<?= base_url('dokumen') ?>">
+                        <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumen</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-header">
                     Tes Tulis
@@ -116,11 +121,6 @@
 
             <li class="sidebar-header">
                 Aksi
-            </li>
-            <li class="sidebar-item <?= (isset($m_panduan)) ? $m_panduan : '' ?>">
-                <a class="sidebar-link" href="<?= base_url('panduan') ?>">
-                    <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Panduan</span>
-                </a>
             </li>
 
             <li class="sidebar-item">
