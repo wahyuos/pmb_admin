@@ -181,9 +181,10 @@ if (!function_exists('modal_danger')) {
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body m-3 text-center">
-                        <h4 class="mb-5">Anda yakin data <span class="text-danger">' . $name . '</span> akan dihapus?</h4>
+                        <h4>Anda yakin data <span class="text-danger">' . $name . '</span> akan dihapus?</h4>
+                        <p class="mb-5">Data yang dihapus tidak dapat dikembalikan lagi.</p>
                         <button type="button" onclick="hapus(`' . $id . '`)" class="btn btn-danger" data-dismiss="modal">Ya, hapus</button>
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                        <a href="#" class="btn text-dark" data-dismiss="modal">Batal</a>
                     </div>
                 </div>
             </div>
